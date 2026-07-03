@@ -31,6 +31,7 @@ public class ProductDto{
 		this.amount = amount;
 		this.location = location;
 		this.ratingCount = ratingCount;
+		this.locationType = locationType;
 	}
 	public ProductDto(int productId, String pTitle) {
 		// TODO Auto-generated constructor stub
@@ -58,6 +59,7 @@ public class ProductDto{
 	private int ticket;
 	private double ratingCount;
 	private int comment;//(112)
+	private String locationType;
 	}
 	
 	

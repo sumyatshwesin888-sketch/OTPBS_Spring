@@ -22,25 +22,55 @@ public class PackageDaoImpl implements PackageDao {
 	public List<ProductDto> getPackage(String locationType) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> objList = session.createNativeQuery("SELECT \r\n"
-				+ "tt.productId,\r\n"
-				+ "tt.locationType,tt.photo,tt.title,tt.`day`,tt.night,\r\n"
-				+ "tt.groupSize,tt.amount,tt.location,SUM(tt.ratingCount)\r\n"
-				+ "FROM\r\n"
-				+ "(SELECT p.productId,\r\n"
-				+ "p.photo,p.title,p.`day`,p.night,\r\n"
-				+ "p.groupSize,p.amount,p.location, 0 AS ratingCount,c.locationType\r\n"
-				+ "FROM product p\r\n"
-				+ " LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
-				+ "LEFT JOIN city c ON c.cityId = h.cityId  \r\n"
-				+ "UNION ALL \r\n"
-				+ "SELECT r.productId,\r\n"
-				+ "'' AS photo,'' AS title,0 AS DAY,0 as night,\r\n"
-				+ "'' as groupSize,0 as amount,'' as location,\r\n"
-				+ "SUM(r.rating)/COUNT(r.ratingId) AS ratingCount,'' as locationType\r\n"
-				+ "FROM rating r\r\n"
-				+ ") AS tt\r\n"
-				+ " GROUP BY tt.productId").getResultList();
+//		List<Object[]> objList = session.createNativeQuery("SELECT \r\n"
+//				+ "tt.productId,\r\n"
+//				+ "tt.locationType,tt.photo,tt.title,tt.`day`,tt.night,\r\n"
+//				+ "tt.groupSize,tt.amount,tt.location,SUM(tt.ratingCount)\r\n"
+//				+ "FROM\r\n"
+//				+ "(SELECT p.productId,\r\n"
+//				+ "p.photo,p.title,p.`day`,p.night,\r\n"
+//				+ "p.groupSize,p.amount,p.location, 0 AS ratingCount,c.locationType\r\n"
+//				+ "FROM product p\r\n"
+//				+ " LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
+//				+ "LEFT JOIN city c ON c.cityId = h.cityId  \r\n"
+//				+ "UNION ALL \r\n"
+//				+ "SELECT r.productId,\r\n"
+//				+ "'' AS photo,'' AS title,0 AS DAY,0 as night,\r\n"
+//				+ "'' as groupSize,0 as amount,'' as location,\r\n"
+//				+ "SUM(r.rating)/COUNT(r.ratingId) AS ratingCount,'' as locationType\r\n"
+//				+ "FROM rating r\r\n"
+//				+ ") AS tt\r\n"
+//				+ " GROUP BY tt.productId").getResultList();
+		
+		
+		String  sql = "";
+		
+		if("ALL".equals(locationType)) {
+			sql = "SELECT p.productId, c.locationType, p.photo, p.title,\r\n"
+					+ "p.`day`, p.night, p.groupSize, p.amount,\r\n"
+					+ "p.location,IFNULL(AVG(r.rating),0) AS ratingCount\r\n"
+					+ "FROM product p\r\n"
+					+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
+					+ "LEFT JOIN city c ON c.cityId = h.cityId\r\n"
+					+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"
+					+ "WHERE 1=1 \r\n"
+					+ "GROUP BY p.productId\r\n"
+					+ "ORDER BY p.productId";
+		}else {
+			sql = "SELECT p.productId, c.locationType, p.photo, p.title,\r\n"
+					+ "p.`day`, p.night, p.groupSize, p.amount,\r\n"
+					+ "p.location,IFNULL(AVG(r.rating),0) AS ratingCount\r\n"
+					+ "FROM product p\r\n"
+					+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
+					+ "LEFT JOIN city c ON c.cityId = h.cityId\r\n"
+					+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"
+					+ "WHERE 1=1 \r\n"
+					+ "AND c.locationType = '" + locationType+"'\r\n"
+					+ "GROUP BY p.productId\r\n"
+					+ "ORDER BY p.productId";
+		}
+		
+		List<Object[]> objList = session.createNativeQuery(sql).getResultList();
 		List<ProductDto> dtoList = new  ArrayList<ProductDto>();
 		for(Object[] obj:objList) {
 			int productId = Integer.parseInt(obj[0].toString());
