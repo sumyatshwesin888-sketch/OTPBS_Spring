@@ -33,7 +33,7 @@ public class PackageDaoImpl implements PackageDao {
 //				+ "FROM product p\r\n"
 //				+ " LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
 //				+ "LEFT JOIN city c ON c.cityId = h.cityId  \r\n"
-//				+ "UNION ALL \r\n"
+//				+ "UNION ALL \r\n"    
 //				+ "SELECT r.productId,\r\n"
 //				+ "'' AS photo,'' AS title,0 AS DAY,0 as night,\r\n"
 //				+ "'' as groupSize,0 as amount,'' as location,\r\n"
