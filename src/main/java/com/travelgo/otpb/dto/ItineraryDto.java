@@ -19,6 +19,13 @@ public class ItineraryDto {
 		this.dayNo = dayNo;
 	}
 
+	public ItineraryDto(int dayNo, String itineraryTitle, String itineraryDetail) {
+		// TODO Auto-generated constructor stub
+		this.dayNo = dayNo;
+		this.title = itineraryTitle;
+		this.detail = itineraryDetail;
+	}
+
 	private int itineraryId;
 
 	private ProductDto productDto;

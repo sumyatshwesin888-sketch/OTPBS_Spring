@@ -8,8 +8,15 @@ import com.travelgo.otpb.dto.ProductDto;
 
 public interface PackageDao {
 
-	List<ProductDto> getPackage(String locationType);
+	List<ProductDto> getPackage();
+
+
+	List<CityTypeDto> getPackageByLocationType(String locationType, int commentCount);
+
 
 	List<CityTypeDto> getPackageByLocationType(String locationType);
+
+
+	List<CityTypeDto> getPackageDetail(int packageId);
 
 }
