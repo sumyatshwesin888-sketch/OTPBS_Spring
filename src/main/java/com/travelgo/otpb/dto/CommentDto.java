@@ -11,25 +11,35 @@ import java.util.*;
 
 @Data 
 @NoArgsConstructor
-@AllArgsConstructor 
+//@AllArgsConstructor 
 public class CommentDto {
 
 	public CommentDto(Comment comment) {
 		// TODO Auto-generated constructor stub
-		this.commentId = comment.getCommentId();
-		this.productId = comment.getProductId();
-		this.message = comment.getMessage();
-		this.date = comment.getDate();
+		
+	}
+
+	public CommentDto(int commentId, String message, String profileName, String email, String title) {
+		// TODO Auto-generated constructor stub
+		this.commentId = commentId;
+		this.message = message;
+		this.profileName=profileName;
+		this.email=email;
+		this.title = title;
+		
 
 	}
 
+
 	private int commentId;
 
-	private int productId;
-	
 	private String message;
+	
+	private String profileName;
 
-	private Date date;
+	private String email;
+
+	private String title;
 
 	
 

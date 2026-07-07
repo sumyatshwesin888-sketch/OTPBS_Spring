@@ -14,15 +14,17 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int commentId;
-	private int productId;
 	private String message;
-	private Date date;
+	private String profileName;
+	private String email;
+	private String title;
 
 	public Comment(CommentDto dto) {
 		this.commentId = dto.getCommentId();
-		this.productId = dto.getProductId();
 		this.message = dto.getMessage();
-		this.date = dto.getDate();
+		this.profileName = dto.getProfileName();
+		this.email = dto.getEmail();
+		this.title = dto.getTitle();
 
 	}
 
@@ -38,14 +40,6 @@ public class Comment {
 		this.commentId = commentId;
 	}
 
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
 	public String getMessage() {
 		return message;
 	}
@@ -54,12 +48,30 @@ public class Comment {
 		this.message = message;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getProfileName() {
+		return profileName;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	
 
 }
