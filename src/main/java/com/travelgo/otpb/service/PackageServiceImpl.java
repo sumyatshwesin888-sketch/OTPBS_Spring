@@ -39,21 +39,18 @@ public class PackageServiceImpl implements PackageService {
 		return packDao.getPackageDetail(packageId);
 	}
 
-	@Transactional(readOnly=false)
 	@Override
 	public int addPackage(ProductDto dto) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Transactional(readOnly=false)
 	@Override
 	public int updatePackage(ProductDto dto) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Transactional(readOnly=false)
 	@Override
 	public int deletePackage(int packageId) {
 		// TODO Auto-generated method stub

@@ -25,7 +25,7 @@ public class PackageController {
 	PackageService packageService;
 	
 	@GetMapping("package")
-	public List<ProductDto> getPackage() {//locationType is 
+	public List<ProductDto> getPackage() {
 		try {
 			return packageService.getPackage();
 		}catch (Exception e) {
@@ -45,8 +45,8 @@ public class PackageController {
 		}
 		return null;
 	}
-	@PostMapping("product")
-	public int addProduct(@RequestBody ProductDto dto) {
+	@PostMapping("package")
+	public int addPackage(@RequestBody ProductDto dto) {
 		
 		return packageService.addPackage(dto);
 	}
