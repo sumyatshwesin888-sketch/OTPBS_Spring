@@ -19,10 +19,10 @@ public class PackageServiceImpl implements PackageService {
 
 	@Transactional(readOnly=true)
 	@Override
-	public List<ProductDto> getPackage(String locationType) {
+	public List<ProductDto> getPackage() {
 		// TODO Auto-generated method stub
 		
-		return packDao.getPackage(locationType);
+		return packDao.getPackage();
 	}
 
 	@Transactional(readOnly=true)
@@ -32,5 +32,34 @@ public class PackageServiceImpl implements PackageService {
 		return packDao.getPackageByLocationType(locationType);
 	}
 
+	@Transactional(readOnly=true)
+	@Override
+	public List<CityTypeDto> getPackageDetail(int packageId) {
+		// TODO Auto-generated method stub
+		return packDao.getPackageDetail(packageId);
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public int addPackage(ProductDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public int updatePackage(ProductDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public int deletePackage(int packageId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 
 }
