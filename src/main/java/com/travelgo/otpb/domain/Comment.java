@@ -17,7 +17,7 @@ public class Comment {
 	private int productId;
 	private String message;
 	private Date date;
-
+	private int customerId;
 	public Comment(CommentDto dto) {
 		this.commentId = dto.getCommentId();
 		this.productId = dto.getProductId();
@@ -60,6 +60,14 @@ public class Comment {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
 }

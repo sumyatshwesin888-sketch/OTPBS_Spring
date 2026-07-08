@@ -93,6 +93,10 @@ public class ProductDto{
 		// TODO Auto-generated method stub
 		
 	}
+	public ProductDto(int amount) {
+		// TODO Auto-generated constructor stub
+		this.amount = amount;
+	}
 	
 	}
 	

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.travelgo.otpb.dto.CityDto;
 import com.travelgo.otpb.dto.CityTypeDto;
 import com.travelgo.otpb.dto.ProductDto;
+import com.travelgo.otpb.dto.RatingDto;
 import com.travelgo.otpb.service.PackageService;
 import com.travelgo.otpb.service.ProductService;
 
@@ -69,6 +71,34 @@ public class PackageController {
 	public List<CityTypeDto> getPackageDetail(@PathVariable("packageId")int packageId ) { 
 		try {
 			return packageService.getPackageDetail(packageId);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
+	@GetMapping("package/city")
+	public PackageCity getPackageByCity() {
+		return packageService.getPackageByCity();
+	}
+	@PostMapping("package/ratingcomment")
+	public int saveRatingComment(@RequestBody RatingDto dto) {
+		
+		try {
+			return packageService.saveRatingComment(dto);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	@GetMapping("package/type/commentcount")
+	public List<CityTypeDto> getPackageByLocationTypeCommCount(@RequestParam(name="locationType",defaultValue = "DOMESTIC")String locationType,
+			@RequestParam(name="commentCount",defaultValue = "0")int commentCount) {//locationType is 
+		try {
+			return packageService.getPackageByLocationTypeCommCount(locationType,commentCount);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

@@ -1,10 +1,15 @@
 package com.travelgo.otpb.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.travelgo.otpb.domain.Rating;
+import com.travelgo.otpb.util.DateTimeFormatDeserializer;
+import com.travelgo.otpb.util.DateTimeFormatSerializer;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -13,7 +18,11 @@ public class RatingDto {
     private int ratingId;
     private int productId;
     private int rating;
-    private LocalDateTime date;
+	@JsonSerialize(using = DateTimeFormatSerializer.class)
+	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
+    private Date date;
+    private String  comment;
+    private UserAccountDto userAccountDto;
 
     public RatingDto(Rating rating) {
         this.ratingId = rating.getRatingId();
