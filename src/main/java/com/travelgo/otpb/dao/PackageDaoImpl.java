@@ -27,25 +27,6 @@ public class PackageDaoImpl implements PackageDao {
 	public List<ProductDto> getPackage() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-//		List<Object[]> objList = session.createNativeQuery("SELECT \r\n"
-//				+ "tt.productId,\r\n"
-//				+ "tt.locationType,tt.photo,tt.title,tt.`day`,tt.night,\r\n"
-//				+ "tt.groupSize,tt.amount,tt.location,SUM(tt.ratingCount)\r\n"
-//				+ "FROM\r\n"
-//				+ "(SELECT p.productId,\r\n"
-//				+ "p.photo,p.title,p.`day`,p.night,\r\n"
-//				+ "p.groupSize,p.amount,p.location, 0 AS ratingCount,c.locationType\r\n"
-//				+ "FROM product p\r\n"
-//				+ " LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
-//				+ "LEFT JOIN city c ON c.cityId = h.cityId  \r\n"
-//				+ "UNION ALL \r\n"    
-//				+ "SELECT r.productId,\r\n"
-//				+ "'' AS photo,'' AS title,0 AS DAY,0 as night,\r\n"
-//				+ "'' as groupSize,0 as amount,'' as location,\r\n"
-//				+ "SUM(r.rating)/COUNT(r.ratingId) AS ratingCount,'' as locationType\r\n"
-//				+ "FROM rating r\r\n"
-//				+ ") AS tt\r\n"
-//				+ " GROUP BY tt.productId").getResultList();
 		
 		
 		String  sql = "";
@@ -53,7 +34,7 @@ public class PackageDaoImpl implements PackageDao {
 		//if("ALL".equals(locationType)) {
 			sql = "SELECT p.productId, c.locationType, p.photo, p.title,\r\n"
 					+ "p.`day`, p.night, p.groupSize, p.amount,\r\n"
-					+ "p.location,IFNULL(AVG(r.rating),0) AS ratingCount, COUNT( DISTINCT  cm.commentId) AS commmentCount\r\n"
+					+ "p.location,IFNULL(AVG(r.rating),0) AS ratingCount, COUNT( DISTINCT  cm.commentId) AS commmentCount, p.type\r\n"
 					+ "FROM product p\r\n"
 					+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
 					+ "LEFT JOIN city c ON c.cityId = h.cityId\r\n"
@@ -62,19 +43,6 @@ public class PackageDaoImpl implements PackageDao {
 					+ "WHERE 1=1 \r\n"
 					+ "GROUP BY p.productId\r\n"
 					+ "ORDER BY p.productId";
-//		}else {
-//			sql = "SELECT p.productId, c.locationType, p.photo, p.title,\r\n"
-//					+ "p.`day`, p.night, p.groupSize, p.amount,\r\n"
-//					+ "p.location,IFNULL(AVG(r.rating),0) AS ratingCount, COUNT(cm.commentId) AS commentCount\r\n"
-//					+ "FROM product p\r\n"
-//					+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
-//					+ "LEFT JOIN city c ON c.cityId = h.cityId\r\n"
-//					+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"
-//					+ "LEFT JOIN comment cm ON cm.productId = p.productId\r\n"
-//					+ "WHERE 1=1 \r\n"
-//					+ "GROUP BY p.productId\r\n"
-//					+ "ORDER BY p.productId";
-//		}
 		
 		List<Object[]> objList = session.createNativeQuery(sql).getResultList();
 		List<ProductDto> dtoList = new  ArrayList<ProductDto>();
@@ -90,8 +58,10 @@ public class PackageDaoImpl implements PackageDao {
 			String location = (String)obj[8];
 			double ratingCount = Double.parseDouble(obj[9].toString());
 			int commentCount = Integer.parseInt(obj[10].toString());
+			String type = (String)obj[11];
 			ProductDto dto = new ProductDto(productId,locationType,
 					photo,title,day,night,groupSize,amount,location,ratingCount,commentCount);
+			dto.setType(type);
 			dtoList.add(dto);
 		}
 		
@@ -179,33 +149,11 @@ public class PackageDaoImpl implements PackageDao {
 	public List<CityTypeDto> getPackageByLocationType(String locationType) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-//		List<Object[]> objList = session.createNativeQuery("SELECT \r\n"
-//				+ "tt.productId,tt.locationType,\r\n"
-//				+ "tt.photo,tt.title,tt.`day`,tt.night,\r\n"
-//				+ "tt.groupSize,tt.amount,tt.location,SUM(tt.ratingCount),tt.cityName,tt.cityId\r\n"
-//				+ "FROM \r\n"
-//				+ "(SELECT p.productId,\r\n"
-//				+ "p.photo,p.title,p.`day`,p.night,\r\n"
-//				+ "p.groupSize,p.amount,p.location, 0 AS ratingCount, c.locationType,c.cityName,c.cityId\r\n"
-//				+ "FROM product p\r\n"
-//				+ " LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
-//				+ "LEFT JOIN city c ON c.cityId = h.cityId UNION ALL \r\n"
-//				+ "SELECT r.productId\r\n"
-//				+ ",\r\n"
-//				+ "'' AS photo,\"\" AS title,0 AS DAY,0 as night,\r\n"
-//				+ "'' as groupSize,0 as amount,'' as location,\r\n"
-//				+ "SUM(r.rating)/COUNT(r.ratingId) AS ratingCount,'' as locationType,'' AS cityName,'' AS cityId\r\n"
-//				+ "FROM rating r\r\n"
-//				+ ") AS tt\r\n"
-//				+ "  WHERE tt.productId IS NOT NULL AND tt.locationType = :locationType "
-//				+ "  GROUP BY tt.productId\r\n"
-//				+ " ORDER BY tt.cityId ASC \r\n"
-//				+ "").setParameter("locationType", locationType).getResultList();
 		String sql = "SELECT p.productId, c.locationType, p.photo, p.title,\r\n"
 				+ "p.`day`, p.night, p.groupSize, p.amount,\r\n"
 				+ "p.location,IFNULL(AVG(r.rating),0) AS ratingCount"
 				+ " ,c.cityName,c.cityId "
-				+ ", COUNT( DISTINCT  cm.commentId) AS commmentCount\r\n"
+				+ ", COUNT( DISTINCT  cm.commentId) AS commmentCount, p.type\r\n"
 				+ "FROM product p\r\n"
 				+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
 				+ "LEFT JOIN city c ON c.cityId = h.cityId\r\n"
@@ -234,19 +182,20 @@ public class PackageDaoImpl implements PackageDao {
 			String cityName = (String)obj[10];
 			int cityId = Integer.parseInt(obj[11].toString());
 			int commentCount = Integer.parseInt(obj[12].toString());
+			String type = (String)obj[13];
 			if(tempCityId==0) {//1
 				tempCityId = cityId;
 				tempCityName = cityName;
 			}else if(tempCityId==cityId) {//2
 				
 			}else{//3
-				CityTypeDto type = new CityTypeDto();
-				type.setCityName(tempCityName);
-				type.setProductList(dtoList);
+				CityTypeDto ctype = new CityTypeDto();
+				ctype.setCityName(tempCityName);
+				ctype.setProductList(dtoList);
 				tempCityId = cityId;
 				tempCityName = cityName;
 				dtoList = new ArrayList<>();
-				cityDtoList.add(type);
+				cityDtoList.add(ctype);
 				
 			}
 			
@@ -258,15 +207,16 @@ public class PackageDaoImpl implements PackageDao {
 		}
 		
 		if(dtoList.size()>0){//
-			CityTypeDto type = new CityTypeDto();
-			type.setCityName(tempCityName);
-			type.setProductList(dtoList);
-			cityDtoList.add(type);
+			CityTypeDto ctype = new CityTypeDto();
+			ctype.setCityName(tempCityName);
+			ctype.setProductList(dtoList);
+			cityDtoList.add(ctype);
 		}
 		
 		return cityDtoList;
 	}
 
+	//for Package Detail
 	@Override
 	public List<CityTypeDto> getPackageDetail(int packageId) {
 		// TODO Auto-generated method stub
@@ -281,7 +231,7 @@ public class PackageDaoImpl implements PackageDao {
 				+ "LEFT JOIN itinerary it ON it.productId = p.productId\r\n"
 				+ "LEFT JOIN sale s ON s.productId = p.productId\r\n"
 				+ "WHERE p.productId = :packageId\r\n"
-				+ "GROUP BY p.productId\r\n"
+				+ "GROUP BY p.productId,it.itineraryId\r\n"
 				+ "").setParameter("packageId", packageId).getResultList();
 		List<ProductDto> dtoList = new  ArrayList<ProductDto>();
 		List<CityTypeDto> cityDtoList = new ArrayList<>();
@@ -340,6 +290,7 @@ public class PackageDaoImpl implements PackageDao {
 		return cityDtoList;
 	}
 
+//for Destination Page
 	@Override
 	public PackageCity getPackageByCity() {
 		// TODO Auto-generated method stub

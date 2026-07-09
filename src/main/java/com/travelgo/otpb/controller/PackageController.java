@@ -94,6 +94,7 @@ public class PackageController {
 		return 0;
 	}
 	
+	//packages page ကဟာ
 	@GetMapping("package/type/commentcount")
 	public List<CityTypeDto> getPackageByLocationTypeCommCount(@RequestParam(name="locationType",defaultValue = "DOMESTIC")String locationType,
 			@RequestParam(name="commentCount",defaultValue = "0")int commentCount) {//locationType is 

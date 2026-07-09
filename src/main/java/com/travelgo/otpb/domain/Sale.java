@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.travelgo.otpb.dto.SaleDto;
+import com.travelgo.otpb.util.ConvertDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,18 @@ public class Sale {
 
     public Sale(SaleDto dto) {
 		// TODO Auto-generated constructor stub
+    	this.saleId = dto.getSaleId();//
+    	this.userAccountId = dto.getUserAccountId();//
+    	this.customerId = dto.getCustomerId();
+    	this.productId = dto.getProduct().getProductId();
+    	this.voucherCode = ConvertDate.createVoucherCode(date);//
+    	this.qty = dto.getQty();
+    	this.unitPrice = dto.getUnitPrice();
+    	this.amount = this.qty*this.unitPrice;
+    	this.paymentType = dto.getPaymentType();
+    	this.status  = "CONFIRM";
+    	this.date = new Date();
+    	this.modifiedDate = new Date();
 	}
 
 	@Id

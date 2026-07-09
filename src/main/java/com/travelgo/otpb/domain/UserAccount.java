@@ -5,7 +5,7 @@ import javax.persistence.*;
 import org.apache.xmlbeans.UserType;
 
 @Entity
-@Table(name = "user_account")
+@Table(name = "useraccount")
 public class UserAccount {
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class UserAccount {
     
     private String email;
     private String password;
-    private int status;
+    private int status;//1 is active , 0 is inactive
 
     public UserAccount() {
         // Default constructor

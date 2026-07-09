@@ -22,7 +22,7 @@ public class MessageDto {
 	public MessageDto(Message message) {
 		// TODO Auto-generated constructor stub
 		this.messageId = message.getMessageId();
-		this.questionTypeId=message.getQuestionTypeId();
+		this.questionType = new QuestionTypeDto(message.getQuestionTypeId());
 		this.name = message.getName();
 		this.email = message.getEmail();
 		this.messageText = message.getMessageText();
@@ -31,7 +31,7 @@ public class MessageDto {
 	}
 
 	private int messageId;
-	private int questionTypeId;
+	private QuestionTypeDto questionType;
 	private String name;
 	private String email;
 	private String messageText;

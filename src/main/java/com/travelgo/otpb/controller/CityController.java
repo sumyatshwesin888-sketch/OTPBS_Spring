@@ -47,15 +47,15 @@ public class CityController {
 		return cityService.deleteCity(cityId);
 	}
 	
-	@GetMapping("user/login")
-	public UserAccountDto login(@RequestParam("email")String email,@RequestParam("password")String password) {
-
-		try {
-				
-				return cityService.login(email.toLowerCase().toString(),password.toLowerCase().toString());
-		}catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("UserName and Password is wrong!", e);
-		}
-	}
+//	@GetMapping("user/login")
+//	public UserAccountDto login(@RequestParam("email")String email,@RequestParam("password")String password) {
+//
+//		try {
+//				
+//				return cityService.login(email.toLowerCase().toString(),password.toLowerCase().toString());
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			throw new RuntimeException("UserName and Password is wrong!", e);
+//		}
+//	}
 }

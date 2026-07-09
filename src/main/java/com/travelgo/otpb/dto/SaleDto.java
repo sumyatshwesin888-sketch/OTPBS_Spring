@@ -40,11 +40,11 @@ public class SaleDto {
 
     private int saleId;
 
-    private int userAccountId;
+    private Integer userAccountId;
 
     private int customerId;
 
-    private int productId;
+    private ProductDto product;
 
     private String voucherCode;
 
