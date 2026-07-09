@@ -3,7 +3,6 @@ package com.travelgo.otpb.service;
 import java.util.List;
 
 import com.travelgo.otpb.dto.CityTypeDto;
-
 import com.travelgo.otpb.dto.ProductDto;
 
 public interface PackageService {
@@ -19,7 +18,6 @@ public interface PackageService {
 	int updatePackage(ProductDto dto);
 
 	int deletePackage(int packageId);
-
 	
 
 
