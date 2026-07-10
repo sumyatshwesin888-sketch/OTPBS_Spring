@@ -222,7 +222,7 @@ public class PackageDaoImpl implements PackageDao {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> objList = session.createNativeQuery("SELECT p.productId,p.title, p.location, p.amount, p.`day`, p.night, p.travelDate, p.ticket, p.groupSize, p.meals,\r\n"
-				+ " AVG(r.rating) AS ragingCount, (cm.commentId) AS commentCount, p.photoone, p.photoTwo, p.photoThree, p.photoFour,\r\n"
+				+ " AVG(r.rating) AS ratingCount, (cm.commentId) AS commentCount, p.photoone, p.photoTwo, p.photoThree, p.photoFour,\r\n"
 				+ " h.hotelId, h.hotelName, p.detail, it.dayNo,  it.title AS itTitle, it.detail AS itDetail, p.transport, COUNT(s.saleId ) AS saleCount\r\n"
 				+ "FROM product p\r\n"
 				+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"

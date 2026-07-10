@@ -27,7 +27,6 @@ public class CommentDto {
 	}
 
 	private int commentId;
-
 	private int productId;
 	private UserAccountDto userAccountDto;
 	private String message;

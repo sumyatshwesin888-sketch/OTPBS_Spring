@@ -26,7 +26,7 @@ public class SaleDto {
         this.saleId = sale.getSaleId();
         this.userAccountId = sale.getUserAccountId();
         this.customerId = sale.getCustomerId();
-        this.productId = sale.getProductId();
+        this.product = new ProductDto(sale.getProductId());
         this.voucherCode = sale.getVoucherCode();
         this.qty = sale.getQty();
         this.unitPrice = sale.getUnitPrice();

@@ -1,6 +1,9 @@
 package com.travelgo.otpb.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.travelgo.otpb.domain.Itinerary;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +29,14 @@ public class ItineraryDto {
 		this.detail = itineraryDetail;
 	}
 
+	public ItineraryDto(Itinerary i) {
+		// TODO Auto-generated constructor stub
+		this.itineraryId = i.getItineraryId();
+		this.title = i.getTitle();
+		this.detail = i.getDetail();
+		this.dayNo = i.getDayNo();
+	}
+
 	private int itineraryId;
 
 	private ProductDto productDto;
@@ -35,5 +46,6 @@ public class ItineraryDto {
 	private String detail;
 
 	private int dayNo;
+
 
 }

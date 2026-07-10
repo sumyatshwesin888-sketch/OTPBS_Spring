@@ -66,6 +66,22 @@ public class ItineraryDaoImpl implements ItineraryDao{
 	     session.delete(i);
 	}
 
+	@Override
+	public List<ItineraryDto> getItineraryByProductId(int productId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<Itinerary> itList  = session.createQuery("select i from Itinerary i "
+				+ " where i.productId=:productId"
+				+ " order by i.dayNo ASC ")
+				.setParameter("productId", productId).getResultList(); 
+		List<ItineraryDto> dtoList = new ArrayList<ItineraryDto>();
+		for(Itinerary i:itList) {
+			ItineraryDto dto  = new ItineraryDto(i);
+			dtoList.add(dto);
+		}
+		return dtoList;
+	}
+
 	
 
 }

@@ -25,6 +25,12 @@ public class UserAccountDto{
 	}
 
 
+	public UserAccountDto(String profileName2) {
+		// TODO Auto-generated constructor stub
+		this.profileName = profileName2;
+	}
+
+
 	private int userAccountId;
 	private String profileName;
 

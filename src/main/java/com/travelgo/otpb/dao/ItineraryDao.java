@@ -15,6 +15,8 @@ public interface ItineraryDao {
 
 	void deleteItinerary(Itinerary i);
 
+	List<ItineraryDto> getItineraryByProductId(int productId);
+
 	
 
 }
