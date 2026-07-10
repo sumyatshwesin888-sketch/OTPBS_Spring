@@ -1,21 +1,32 @@
 package com.travelgo.otpb.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.travelgo.otpb.controller.PackageCity;
+import com.travelgo.otpb.dao.CommentDao;
 import com.travelgo.otpb.dao.PackageDao;
 import com.travelgo.otpb.dao.ProductDao;
+import com.travelgo.otpb.dao.RatingDao;
+import com.travelgo.otpb.domain.Comment;
+import com.travelgo.otpb.domain.Rating;
 import com.travelgo.otpb.dto.CityTypeDto;
 import com.travelgo.otpb.dto.ProductDto;
+import com.travelgo.otpb.dto.RatingDto;
 
 
 @Service
 public class PackageServiceImpl implements PackageService {
 	@Autowired
 	PackageDao packDao;
+	@Autowired
+	RatingDao ratingDao;
+	@Autowired
+	CommentDao commentDao;
 
 	@Transactional(readOnly=true)
 	@Override
@@ -55,6 +66,39 @@ public class PackageServiceImpl implements PackageService {
 	public int deletePackage(int packageId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Transactional(readOnly=true)
+	@Override
+	public PackageCity getPackageByCity() {
+		// TODO Auto-generated method stub
+		
+		return packDao.getPackageByCity();
+	}
+
+	@Transactional(readOnly=false)
+	@Override
+	public int saveRatingComment(RatingDto dto) {
+		// TODO Auto-generated method stub
+		Rating ra = new Rating(dto);
+		ratingDao.saveRating(ra);
+		
+		Comment c = new Comment();
+		c.setDate(new Date());
+		c.setMessage(dto.getComment());
+		c.setProductId(dto.getProductId());
+		c.setCustomerId(dto.getUserAccountDto().getUserAccountId());
+		commentDao.saveComment(c);
+		
+		
+		return c.getCommentId();
+	}
+
+	@Transactional(readOnly=true)
+	@Override
+	public List<CityTypeDto> getPackageByLocationTypeCommCount(String locationType, int commentCount) {
+		// TODO Auto-generated method stub
+		return packDao.getPackageByLocationType(locationType,commentCount);
 	}
 
 	

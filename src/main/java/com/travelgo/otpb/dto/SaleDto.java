@@ -21,12 +21,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SaleDto {
 
-    public SaleDto(Sale sale) {
+	public SaleDto(Sale sale) {
 
         this.saleId = sale.getSaleId();
         this.userAccountId = sale.getUserAccountId();
         this.customerId = sale.getCustomerId();
-        this.productId = sale.getProductId();
+        this.product = sale.getProductId();
         this.voucherCode = sale.getVoucherCode();
         this.qty = sale.getQty();
         this.unitPrice = sale.getUnitPrice();
@@ -40,11 +40,11 @@ public class SaleDto {
 
     private int saleId;
 
-    private int userAccountId;
+    private Integer userAccountId;
 
     private int customerId;
 
-    private int productId;
+    private ProductDto product;
 
     private String voucherCode;
 

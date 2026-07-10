@@ -130,17 +130,17 @@ public static String convertStringToDateHour(Date date) {
   String strDate = dateFormat.format(date);
   return strDate;
 }
-public static String convertVoucherCode(Date date,int voucherId) {
-	   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMM");
-		//SimpleDateFormat formatDate = new SimpleDateFormat("yyyy");
-	   String strDate = dateFormat.format(date);
-return strDate+voucherId;
-}
-public static String createVoucherCode(Date date,int voucherId) {//voucherId or productId or advertise 0
+//public static String convertVoucherCode(Date date,int voucherId) {
+//	   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMM");
+//		//SimpleDateFormat formatDate = new SimpleDateFormat("yyyy");
+//	   String strDate = dateFormat.format(date);
+//return strDate+voucherId;
+//}
+public static String createVoucherCode(Date date) {//voucherId or productId or advertise 0
 	   SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyHHmmss");
 		//SimpleDateFormat formatDate = new SimpleDateFormat("yyyy");
 	   String strDate = dateFormat.format(date);
-return strDate+voucherId;
+return strDate;
 }
 public static String convertDateToStringDayMonthYear(Date date){//month
     SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");

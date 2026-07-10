@@ -28,20 +28,26 @@ public class QuestionTypeDto {
     // TODO Auto-generated constructor stub
     this.questionTypeId = questionTypeId;
     this.question = question;
-    this.messageId = messageId;
-    this.name = name;
-    this.email = email;
-    this.messageText = messageText;
+//    this.messageId = messageId;
+//    this.name = name;
+//    this.email = email;
+//    this.messageText = messageText;
     
   }
 
 
-  private int questionTypeId;
+  public QuestionTypeDto(int questionTypeId) {
+	// TODO Auto-generated constructor stub
+	  this.questionTypeId = questionTypeId;
+}
+
+
+private int questionTypeId;
   private String question;
-  private int messageId;
-  private String name;
-  private String email;
-  private String messageText;
+//  private int messageId;
+//  private String name;
+//  private String email;
+//  private String messageText;
 
 
   }

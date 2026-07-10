@@ -52,4 +52,11 @@ public class UserAccountServiceImpl implements UserAccountService {
         userAccountDao.deleteUserAccount(userAccount);
         return userAccountId;
     }
+
+    @Transactional(readOnly = true)
+	@Override
+	public UserAccountDto login(String email, String password) {
+		// TODO Auto-generated method stub
+		return userAccountDao.login(email, password);
+	}
 }

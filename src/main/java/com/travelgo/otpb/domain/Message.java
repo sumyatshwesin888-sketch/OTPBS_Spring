@@ -25,11 +25,11 @@ public class Message {
 	public Message(MessageDto dto) {
 		// TODO Auto-generated constructor stub
 		this.messageId = dto.getMessageId();
-		this.questionTypeId = dto.getQuestionTypeId();
+		this.questionTypeId = dto.getQuestionType().getQuestionTypeId();
 		this.name = dto.getName();
 		this.email = dto.getEmail();
 		this.messageText = dto.getMessageText();
-		this.date = dto.getDate();
+		this.date = new Date();
 		
 	}
 

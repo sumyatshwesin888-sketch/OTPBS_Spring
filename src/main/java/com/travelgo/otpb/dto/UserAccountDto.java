@@ -15,11 +15,17 @@ public class UserAccountDto{
 	public UserAccountDto(UserAccount ua) {
 		// TODO Auto-generated constructor stub
 		//this.userAccountId = ua.getUserAccountId();
+		this.userAccountId = ua.getUserAccountId();
+		this.profileName = ua.getProfileName();
+		this.email = ua.getEmail();
+		this.phone = ua.getPhone();
+		this.userType = ua.getUserType();
+		this.status = ua.getStatus();
 		
 	}
 
 
-	private Integer userAccountId;
+	private int userAccountId;
 	private String profileName;
 
 	private String userType;

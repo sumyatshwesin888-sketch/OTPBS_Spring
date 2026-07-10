@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.travelgo.otpb.domain.Itinerary;
+import com.travelgo.otpb.domain.Product;
 import com.travelgo.otpb.dto.ItineraryDto;
 import com.travelgo.otpb.dto.ProductDto;
 
@@ -36,7 +37,8 @@ public class ItineraryDaoImpl implements ItineraryDao{
 			
 			
 			ItineraryDto dto = new ItineraryDto(itineraryId,title,detail,dayNo);
-			dto.setProductDto(new ProductDto(productId,pTitle));
+			//dto.setProductDto(new Product(productId,pTitle));
+			dto.setProductId(productId);
 			dtoList.add(dto);
 		}
 		

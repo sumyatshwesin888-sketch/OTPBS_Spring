@@ -19,6 +19,9 @@ public class Comment {
 	private String email;
 	private String title;
 
+
+	private Date date;
+	private int customerId;
 	public Comment(CommentDto dto) {
 		this.commentId = dto.getCommentId();
 		this.message = dto.getMessage();
@@ -70,6 +73,25 @@ public class Comment {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+	public void setProductId(int productId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setDate(Date date2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor 
 public class ProductDto{
@@ -90,6 +90,22 @@ public class ProductDto{
 	private int leftTicket;
 	private String transport;
 	public void setPackageId(int packageId) {
+		// TODO Auto-generated method stub
+		
+	}
+	public ProductDto(int amount) {
+		// TODO Auto-generated constructor stub
+		this.amount = amount;
+	}
+	public ProductDto getProductId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void setProductId(int productId2) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setType(String type2) {
 		// TODO Auto-generated method stub
 		
 	}

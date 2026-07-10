@@ -1,15 +1,18 @@
 package com.travelgo.otpb.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.travelgo.otpb.domain.Comment;
 import com.travelgo.otpb.dto.CommentDto;
-
+import com.travelgo.otpb.util.DateTimeFormatDeserializer;
+import com.travelgo.otpb.util.DateTimeFormatSerializer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.*;
 
-@Data 
+@Data
 @NoArgsConstructor
 //@AllArgsConstructor 
 public class CommentDto {
@@ -33,6 +36,7 @@ public class CommentDto {
 
 	private int commentId;
 
+
 	private String message;
 	
 	private String profileName;
@@ -40,6 +44,13 @@ public class CommentDto {
 	private String email;
 
 	private String title;
+
+	private int productId;
+	private UserAccountDto userAccountDto;
+	//private String message;
+	@JsonSerialize(using = DateTimeFormatSerializer.class)
+	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
+	private Date date;
 
 	
 
