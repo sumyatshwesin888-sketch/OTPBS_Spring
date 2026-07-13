@@ -45,24 +45,27 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(product);
 	}
-
+	
+	
+//	for product detail Page for real
 	@Override
 	public ProductDto getProductDetail(int productId) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> objList = session.createNativeQuery("SELECT p.productId,p.title, p.location, p.amount, p.`day`, p.night, p.travelDate, p.ticket, p.groupSize, p.meals,\r\n"
-				+ " AVG(r.rating) AS ratingCount, (cm.commentId) AS commentCount, p.photoone, p.photoTwo, p.photoThree,\r\n"
-				+ "  p.photoFour,\r\n"
-				+ " h.hotelId, h.hotelName, p.detail, p.transport,\r\n"
-				+ "  COUNT(distinct s.saleId ) AS saleCount\r\n"
+				+ "AVG(r.rating) AS ratingCount, (cm.commentId) AS commentCount, p.photoone, p.photoTwo, p.photoThree,\r\n"
+				+ "p.photoFour,\r\n"
+				+ "h.hotelId, h.hotelName, p.detail, p.transport,\r\n"
+				+ "COUNT(distinct s.saleId ) AS saleCount,p.photo,c.locationType\r\n"
 				+ "FROM product p\r\n"
 				+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"
 				+ "LEFT JOIN comment cm ON cm.productId = p.productId\r\n"
 				+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
 				+ "LEFT JOIN sale s ON s.productId = p.productId\r\n"
-				+ "WHERE p.productId =:productId\r\n"
+				+ "LEFT JOIN city c ON c.cityId = h.cityId\r\n"
+				+ "WHERE p.productId = :productId\r\n"
 				+ "GROUP BY p.productId").setParameter("productId", productId).getResultList();
-		//data
+		
 		ProductDto dto = new ProductDto();
 		if(objList.size()>0) {
 			Object[] obj = objList.get(0);
@@ -76,21 +79,27 @@ public class ProductDaoImpl implements ProductDao {
 			int ticket = Integer.parseInt(obj[7].toString());
 			String groupSize = (String)obj[8];
 			String meals = (String)obj[9];
-			double ratingCount = Double.parseDouble(obj[10].toString());
-			int commentCount = Integer.parseInt(obj[11].toString());
+	
+			double ratingCount = obj[10] != null ? Double.parseDouble(obj[10].toString()) : 0.0;
+			
+			int commentCount = obj[11] != null ? Integer.parseInt(obj[11].toString()) : 0;
+			
 			String photoOne = (String)obj[12];
 			String photoTwo = (String)obj[13];
 			String photoThree = (String)obj[14];
 			String photoFour = (String)obj[15];
-			int hotelId = Integer.parseInt(obj[16].toString());
+			int hotelId = obj[16] != null ? Integer.parseInt(obj[16].toString()) : 0;
 			String hotelName = (String)obj[17];
 			String detail = (String)obj[18];
 			String transport = (String)obj[19];
 			int saleCount = Integer.parseInt(obj[20].toString());
 			int leftTicket = ticket - saleCount;
+			String photo = (String)obj[21];
+			String locationType = (String)obj[22];
+			
 			dto = new ProductDto(productId,title,location,amount,day,night,travelDate,
 					ticket,groupSize,meals,ratingCount,commentCount,photoOne,photoTwo,
-					photoThree,photoFour,hotelId, hotelName,detail,transport,saleCount);
+					photoThree,photoFour,hotelId, hotelName,detail,transport,saleCount,leftTicket,photo,locationType);
 		}
 		return dto;
 	}

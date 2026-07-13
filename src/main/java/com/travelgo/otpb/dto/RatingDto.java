@@ -29,6 +29,8 @@ public class RatingDto {
         this.productId = rating.getProductId();
         this.rating = rating.getRating();
         this.date = rating.getDate();
+//        this.comment = rating.getComment();
+//        this.userAccountDto =rating.getUserAccountDto();
     }
 
 	public RatingDto(String profileName, int rating, Date date, String message) {

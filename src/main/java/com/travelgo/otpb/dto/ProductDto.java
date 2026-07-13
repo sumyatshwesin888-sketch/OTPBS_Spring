@@ -103,7 +103,7 @@ public class ProductDto{
 	public ProductDto(int productId, String title, String location, int amount, int day, int night,
 			Date travelDate, int ticket, String groupSize, String meals, double ratingCount, int commentCount,
 			String photoOne, String photoTwo, String photoThree, String photoFour, int hotelId, String hotelName,
-			String detail, String transport, int saleCount) {
+			String detail, String transport, int saleCount, int leftTicket,String photo,String locationType) {
 		// TODO Auto-generated constructor stub
 		this.productId = productId;
 		this.title = title;
@@ -126,7 +126,11 @@ public class ProductDto{
 		this.detail =detail;
 		this.transport = transport;
 		this.saleCount = saleCount;
+		this.leftTicket = leftTicket;
+		this.photo = photo;
+		this.locationType = locationType;
 	}
+	
 	
 	}
 	

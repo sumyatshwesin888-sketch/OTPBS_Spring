@@ -23,6 +23,7 @@ public class Comment {
 		this.productId = dto.getProductId();
 		this.message = dto.getMessage();
 		this.date = dto.getDate();
+		this.customerId = dto.getUserAccountDto().getUserAccountId();
 
 	}
 
