@@ -31,10 +31,20 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	}
 
     @Override
-    public List<UserAccount> getUserAccount() {
+    public List<UserAccount> getUserAccount(String userType,String search) {
         Session session = sessionFactory.getCurrentSession();
         // HQL query to retrieve all UserAccount entities
-        List<UserAccount> userAccountList = session.createQuery("select u from UserAccount u").getResultList();
+        String sqlWhere = "WHERE 1=1 ";
+        if(!search.equals("")) {
+        	sqlWhere+= " AND u.profileName like  '%"+search+"%'";
+        }else {
+        	if(!"ALL".equals(userType)) {
+        		sqlWhere += " AND u.userType= '"+userType+"'";
+        	}
+        }
+        List<UserAccount> userAccountList = session.createQuery("select u from UserAccount u "
+        		+sqlWhere+" order by u.profileName ASC ")
+        		.getResultList();
         return userAccountList;
     }
 
@@ -55,6 +65,13 @@ public class UserAccountDaoImpl implements UserAccountDao {
         Session session = sessionFactory.getCurrentSession();
         session.delete(userAccount);
     }
+
+	@Override
+	public UserAccount getUserAccountById(int userAccountId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.find(UserAccount.class, userAccountId);
+	}
 
 //	@Override
 //	public List<UserAccount> getUserAccount() {

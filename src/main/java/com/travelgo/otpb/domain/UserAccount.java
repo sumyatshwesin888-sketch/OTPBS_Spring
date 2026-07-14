@@ -33,7 +33,7 @@ public class UserAccount {
         this.userType = dto.getUserType();
         this.email = dto.getEmail();
         this.password = dto.getPassword();
-        this.status = dto.getStatus();
+        this.status = 1;
     }
 
     // Getters and Setters

@@ -7,7 +7,7 @@ import com.travelgo.otpb.dto.UserAccountDto;
 
 public interface UserAccountDao {
 
-    List<UserAccount> getUserAccount();
+    List<UserAccount> getUserAccount(String userType, String search);
 
     void saveUserAccount(UserAccount userAccount);
 
@@ -16,5 +16,7 @@ public interface UserAccountDao {
     void deleteUserAccount(UserAccount userAccount);
 
     UserAccountDto login(String email, String password);
+
+	UserAccount getUserAccountById(int userAccountId);
 
 }

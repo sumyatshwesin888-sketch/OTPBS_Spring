@@ -21,6 +21,7 @@ public class UserAccountDto{
 		this.phone = ua.getPhone();
 		this.userType = ua.getUserType();
 		this.status = ua.getStatus();
+		this.password = ua.getPassword();
 		
 	}
 

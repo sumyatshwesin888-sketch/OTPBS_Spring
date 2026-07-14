@@ -24,8 +24,9 @@ public class UserAccountController {
     UserAccountService userAccountService;
 
     @GetMapping("userAccount")
-    public List<UserAccountDto> getUserAccount() {
-        return userAccountService.getUserAccount();
+    public List<UserAccountDto> getUserAccount(@RequestParam(name="userType",defaultValue = "ALL")String userType,
+    		@RequestParam(name="search",defaultValue = "")String search) {
+        return userAccountService.getUserAccount(userType,search);
     }
 
     @PostMapping("userAccount")
