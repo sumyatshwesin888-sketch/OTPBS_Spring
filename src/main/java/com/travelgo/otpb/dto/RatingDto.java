@@ -30,4 +30,12 @@ public class RatingDto {
         this.rating = rating.getRating();
         this.date = rating.getDate();
     }
+
+	public RatingDto(String profileName, int rating, Date date, String message) {
+		// TODO Auto-generated constructor stub
+		this.userAccountDto = new UserAccountDto(profileName);
+		this.rating = rating;
+		this.date = date;
+		this.comment = message;
+	}
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.travelgo.otpb.dto.CityDto;
 import com.travelgo.otpb.dto.CityTypeDto;
+import com.travelgo.otpb.dto.ProductDetail;
 import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.RatingDto;
 import com.travelgo.otpb.service.PackageService;
@@ -81,6 +82,8 @@ public class PackageController {
 	public PackageCity getPackageByCity() {
 		return packageService.getPackageByCity();
 	}
+	
+	//package detail page က rating / review ဟာ
 	@PostMapping("package/ratingcomment")
 	public int saveRatingComment(@RequestBody RatingDto dto) {
 		
@@ -100,6 +103,16 @@ public class PackageController {
 			@RequestParam(name="commentCount",defaultValue = "0")int commentCount) {//locationType is 
 		try {
 			return packageService.getPackageByLocationTypeCommCount(locationType,commentCount);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
+	@GetMapping("package/detail/{productId}")
+	public ProductDetail getPackageDetailById(@PathVariable("productId")int productId ) { 
+		try {
+			return packageService.getPackageDetailById(productId);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

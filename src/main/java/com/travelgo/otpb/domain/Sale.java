@@ -28,7 +28,7 @@ public class Sale {
     	this.saleId = dto.getSaleId();//
     	this.userAccountId = dto.getUserAccountId();//
     	this.customerId = dto.getCustomerId();
-    	this.productId = dto.getProduct().getProductId();
+    	this.productId = dto.getProductId();
     	this.voucherCode = ConvertDate.createVoucherCode(date);//
     	this.qty = dto.getQty();
     	this.unitPrice = dto.getUnitPrice();
@@ -47,7 +47,7 @@ public class Sale {
 
     private int customerId;
 
-    private ProductDto productId;
+    private int productId;
 
     private String voucherCode;
 
@@ -89,11 +89,11 @@ public class Sale {
 		this.customerId = customerId;
 	}
 
-	public ProductDto getProductId() {
+	public int getProductId() {
 		return productId;
 	}
 
-	public void setProductId(ProductDto productId) {
+	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 

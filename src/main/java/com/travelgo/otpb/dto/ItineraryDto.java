@@ -1,6 +1,9 @@
 package com.travelgo.otpb.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.travelgo.otpb.domain.Itinerary;
 
 import com.travelgo.otpb.domain.Product;
 
@@ -28,6 +31,14 @@ public class ItineraryDto {
 		this.detail = itineraryDetail;
 	}
 
+	public ItineraryDto(Itinerary i) {
+		// TODO Auto-generated constructor stub
+		this.itineraryId = i.getItineraryId();
+		this.title = i.getTitle();
+		this.detail = i.getDetail();
+		this.dayNo = i.getDayNo();
+	}
+
 	private int itineraryId;
 
 	private int productId;
@@ -38,6 +49,7 @@ public class ItineraryDto {
 
 	private int dayNo;
 
+
 	public int getProductId() {
 		// TODO Auto-generated method stub
 		return productId;
@@ -45,5 +57,7 @@ public class ItineraryDto {
 	public void setProductId(int productId) {
 		this.productId=productId;
 	}
+
+
 
 }

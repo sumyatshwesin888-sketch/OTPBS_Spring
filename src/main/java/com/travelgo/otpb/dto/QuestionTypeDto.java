@@ -23,8 +23,7 @@ public class QuestionTypeDto {
 //    this.name=qT.getName();
     
   }
-  public QuestionTypeDto(int questionTypeId, String question, int messageId, 
-      String name, String email, String messageText) {
+  public QuestionTypeDto(int questionTypeId, String question) {
     // TODO Auto-generated constructor stub
     this.questionTypeId = questionTypeId;
     this.question = question;
@@ -48,6 +47,7 @@ private int questionTypeId;
 //  private String name;
 //  private String email;
 //  private String messageText;
+
 
 
   }

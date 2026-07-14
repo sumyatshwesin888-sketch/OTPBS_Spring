@@ -14,8 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor 
 public class ProductDto{
 	
-	public ProductDto(Product product) {
-		// TODO Auto-generated constructor stub
+	public ProductDto(int travelers, int packages, int cities) {
+		this.traveler = travelers;
+	    this.packages = packages;
+	    this.cities = cities;
 	}
 	public ProductDto(int productId, String locationType, String photo, String title, int day, int night,
 			String groupSize, int amount, String location, double ratingCount, int commentCount) {
@@ -64,7 +66,10 @@ public class ProductDto{
 	}
 
 	private int productId;
-	private int userAccount;
+	private int userAccountId;
+	private int traveler;
+	private int packages;
+	private int cities;
 	private HotelDto hotelDto;
 	private String photo;
 	private String title;
@@ -79,6 +84,8 @@ public class ProductDto{
 	private String photoTwo;
 	private String photoThree;
 	private String photoFour;
+	private int hotelId;
+	private String hotelName;
 	private String detail;
 	private Date travelDate;
 	private int ticket;
@@ -89,14 +96,16 @@ public class ProductDto{
 	private ItineraryDto itineraryDto;
 	private int leftTicket;
 	private String transport;
+	private int saleCount;
 	public void setPackageId(int packageId) {
 		// TODO Auto-generated method stub
 		
 	}
-	public ProductDto(int amount) {
+	public ProductDto(int product) {
 		// TODO Auto-generated constructor stub
-		this.amount = amount;
+		this.amount = product;
 	}
+
 	public ProductDto getProductId() {
 		// TODO Auto-generated method stub
 		return null;
@@ -107,7 +116,38 @@ public class ProductDto{
 	}
 	public void setType(String type2) {
 		// TODO Auto-generated method stub
-		
+	}
+
+	public ProductDto(int productId, String title, String location, int amount, int day, int night,
+			Date travelDate, int ticket, String groupSize, String meals, double ratingCount, int commentCount,
+			String photoOne, String photoTwo, String photoThree, String photoFour, int hotelId, String hotelName,
+			String detail, String transport, int saleCount) {
+		// TODO Auto-generated constructor stub
+		this.productId = productId;
+		this.title = title;
+		this.location = location;
+		this.amount = amount;
+		this.day = day;
+		this.night = night;
+		this.travelDate = travelDate;
+		this.ticket = ticket;
+		this.groupSize = groupSize;
+		this.meals = meals;
+		this.ratingCount = ratingCount;
+		this.commentCount = commentCount;
+		this.photoOne = photoOne;
+		this.photoTwo = photoTwo;
+		this.photoThree = photoThree;
+		this.photoFour = photoFour;
+		this.hotelId = hotelId;
+		this.hotelName = hotelName;
+		this.detail =detail;
+		this.transport = transport;
+		this.saleCount = saleCount;
+
+	}
+	public ProductDto(Product product) {
+		// TODO Auto-generated constructor stub
 	}
 	
 	}

@@ -1,5 +1,7 @@
 package com.travelgo.otpb.dao;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,19 +11,20 @@ import org.springframework.stereotype.Repository;
 
 import com.travelgo.otpb.domain.City;
 import com.travelgo.otpb.domain.Product;
+import com.travelgo.otpb.dto.ProductDto;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
-	@Override
-	public List<Product> getProduct() {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		List<Product> productList =  session.createQuery("select p from Product p ").getResultList();
-		return productList;
-	}
+//	@Override
+//	public List<Product> getProduct() {
+//		// TODO Auto-generated method stub
+//		Session session = sessionFactory.getCurrentSession();
+//		List<Product> productList =  session.createQuery("select p from Product p ").getResultList();
+//		return productList;
+//	}
 
 	@Override
 	public void saveProduct(Product product) {
@@ -44,4 +47,89 @@ public class ProductDaoImpl implements ProductDao {
 		session.delete(product);
 	}
 
+	@Override
+	public ProductDto getProductDetail(int productId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> objList = session.createNativeQuery("SELECT p.productId,p.title, p.location, p.amount, p.`day`, p.night, p.travelDate, p.ticket, p.groupSize, p.meals,\r\n"
+				+ " AVG(r.rating) AS ratingCount, (cm.commentId) AS commentCount, p.photoone, p.photoTwo, p.photoThree,\r\n"
+				+ "  p.photoFour,\r\n"
+				+ " h.hotelId, h.hotelName, p.detail, p.transport,\r\n"
+				+ "  COUNT(distinct s.saleId ) AS saleCount\r\n"
+				+ "FROM product p\r\n"
+				+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"
+				+ "LEFT JOIN comment cm ON cm.productId = p.productId\r\n"
+				+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
+				+ "LEFT JOIN sale s ON s.productId = p.productId\r\n"
+				+ "WHERE p.productId =:productId\r\n"
+				+ "GROUP BY p.productId").setParameter("productId", productId).getResultList();
+		//data
+		ProductDto dto = new ProductDto();
+		if(objList.size()>0) {
+			Object[] obj = objList.get(0);
+			productId = Integer.parseInt(obj[0].toString());
+			String title = (String)obj[1];
+			String location = (String)obj[2];
+			int amount = Integer.parseInt(obj[3].toString());
+			int day = Integer.parseInt(obj[4].toString());
+			int night = Integer.parseInt(obj[5].toString());
+			Date travelDate  = (Date)obj[6];
+			int ticket = Integer.parseInt(obj[7].toString());
+			String groupSize = (String)obj[8];
+			String meals = (String)obj[9];
+			double ratingCount = Double.parseDouble(obj[10].toString());
+			int commentCount = Integer.parseInt(obj[11].toString());
+			String photoOne = (String)obj[12];
+			String photoTwo = (String)obj[13];
+			String photoThree = (String)obj[14];
+			String photoFour = (String)obj[15];
+			int hotelId = Integer.parseInt(obj[16].toString());
+			String hotelName = (String)obj[17];
+			String detail = (String)obj[18];
+			String transport = (String)obj[19];
+			int saleCount = Integer.parseInt(obj[20].toString());
+			int leftTicket = ticket - saleCount;
+			dto = new ProductDto(productId,title,location,amount,day,night,travelDate,
+					ticket,groupSize,meals,ratingCount,commentCount,photoOne,photoTwo,
+					photoThree,photoFour,hotelId, hotelName,detail,transport,saleCount);
+		}
+		return dto;
+	}
+		
+//  for About Page
+	@Override
+	public List<ProductDto> getProduct() {
+	    Session session = sessionFactory.getCurrentSession();
+	    List<Object[]> objList = session.createNativeQuery("SELECT "
+	            + " COUNT(DISTINCT p.useraccountId) AS traveler, "
+	            + " COUNT(p.productId) AS packages, "
+	            + " COUNT(DISTINCT c.cityId) AS cities "
+	            + " FROM product p "
+	            + " LEFT JOIN hotel h ON p.hotelId = h.hotelId "
+	            + " LEFT JOIN city c ON h.cityId = c.cityId").getResultList();
+
+	    List<ProductDto> dtoList = new ArrayList<ProductDto>();
+	    if (objList != null && !objList.isEmpty()) {
+	        Object[] row = objList.get(0);
+	        int traveler = ((Number) row[0]).intValue();
+	        int packages = ((Number) row[1]).intValue();
+	        int cities   = ((Number) row[2]).intValue();
+	        
+	        ProductDto dto = new ProductDto(traveler, packages, cities);
+	        dtoList.add(dto);
+	    }
+	    return dtoList;
+	}
+
+	@Override
+	public List<ProductDto> getProductByProductId(int productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public List<ProductDto> getProductByProductId(int productId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }

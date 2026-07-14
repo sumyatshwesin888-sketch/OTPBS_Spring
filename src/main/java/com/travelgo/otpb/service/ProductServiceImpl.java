@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.travelgo.otpb.dao.ProductDao;
 import com.travelgo.otpb.domain.Product;
+import com.travelgo.otpb.dto.ItineraryDto;
 import com.travelgo.otpb.dto.ProductDto;
 
 
@@ -17,19 +18,25 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao productDao;
 
+//	@Transactional(readOnly=true)
+//	@Override
+//	public List<ProductDto> getProduct() {
+//		// TODO Auto-generated method stub
+//		List<Product> productList = productDao.getProduct();
+//		List<ProductDto> dtoList = new ArrayList<ProductDto>();
+//		for(Product product:productList) {
+//			ProductDto dto = new ProductDto(product);
+//			dtoList.add(dto);
+//		}
+//		return dtoList;
+//	}
+
 	@Transactional(readOnly=true)
 	@Override
 	public List<ProductDto> getProduct() {
 		// TODO Auto-generated method stub
-		List<Product> productList = productDao.getProduct();
-		List<ProductDto> dtoList = new ArrayList<ProductDto>();
-		for(Product product:productList) {
-			ProductDto dto = new ProductDto(product);
-			dtoList.add(dto);
-		}
-		return dtoList;
+		return productDao.getProduct();
 	}
-
 	@Transactional(readOnly=false)
 	@Override
 	public int addProduct(ProductDto dto) {
@@ -57,5 +64,16 @@ public class ProductServiceImpl implements ProductService {
 		productDao.deleteProduct(product);
 		return productId;
 	}
+//	@Transactional(readOnly=true)
+//	@Override
+//	public List<ProductDto> getProduct() {
+//	    return productDao.getProduct(); // productDao ကနေ ဒေတာ လှမ်းယူတာပါ
+//	}
+
+//	@Override
+//	public List<ProductDto> getProduct() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

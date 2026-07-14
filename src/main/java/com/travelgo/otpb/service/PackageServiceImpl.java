@@ -1,5 +1,6 @@
 package com.travelgo.otpb.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,12 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.travelgo.otpb.controller.PackageCity;
 import com.travelgo.otpb.dao.CommentDao;
+import com.travelgo.otpb.dao.ItineraryDao;
 import com.travelgo.otpb.dao.PackageDao;
 import com.travelgo.otpb.dao.ProductDao;
 import com.travelgo.otpb.dao.RatingDao;
 import com.travelgo.otpb.domain.Comment;
 import com.travelgo.otpb.domain.Rating;
 import com.travelgo.otpb.dto.CityTypeDto;
+import com.travelgo.otpb.dto.ItineraryDto;
+import com.travelgo.otpb.dto.ProductDetail;
 import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.RatingDto;
 
@@ -27,7 +31,11 @@ public class PackageServiceImpl implements PackageService {
 	RatingDao ratingDao;
 	@Autowired
 	CommentDao commentDao;
-
+	@Autowired
+	ProductDao proDao;
+	@Autowired
+	ItineraryDao itDao;
+	
 	@Transactional(readOnly=true)
 	@Override
 	public List<ProductDto> getPackage() {
@@ -99,6 +107,21 @@ public class PackageServiceImpl implements PackageService {
 	public List<CityTypeDto> getPackageByLocationTypeCommCount(String locationType, int commentCount) {
 		// TODO Auto-generated method stub
 		return packDao.getPackageByLocationType(locationType,commentCount);
+	}
+
+	@Transactional(readOnly=true)
+	@Override
+	public ProductDetail getPackageDetailById(int productId) {
+		// TODO Auto-generated method stub
+		ProductDto prodto = proDao.getProductDetail(productId);
+		List<ItineraryDto> itList = itDao.getItineraryByProductId(productId);
+		List<RatingDto> ratingList = ratingDao.getRatingCommentByProductId(productId);
+		
+		ProductDetail detail = new ProductDetail();
+		detail.setProductDto(prodto);
+		detail.setItineraryList(itList);
+		detail.setRatingCommentList(ratingList);
+		return detail;
 	}
 
 	
