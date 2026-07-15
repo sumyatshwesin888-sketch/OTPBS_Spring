@@ -31,10 +31,20 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	}
 
     @Override
-    public List<UserAccount> getUserAccount() {
+    public List<UserAccount> getUserAccount(String userType,String search) {
         Session session = sessionFactory.getCurrentSession();
         // HQL query to retrieve all UserAccount entities
-        List<UserAccount> userAccountList = session.createQuery("select u from UserAccount u").getResultList();
+        String sqlWhere = "WHERE 1=1 ";
+        if(!search.equals("")) {
+        	sqlWhere+= " AND u.profileName like  '%"+search+"%'";
+        }else {
+        	if(!"ALL".equals(userType)) {
+        		sqlWhere += " AND u.userType= '"+userType+"'";
+        	}
+        }
+        List<UserAccount> userAccountList = session.createQuery("select u from UserAccount u "
+        		+sqlWhere+" order by u.profileName ASC ")
+        		.getResultList();
         return userAccountList;
     }
 
@@ -47,14 +57,35 @@ public class UserAccountDaoImpl implements UserAccountDao {
     @Override
     public void updateUserAccount(UserAccount userAccount) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(userAccount);
+        Object userAccountId = null;
+		session.createNativeQuery("UPDATE useraccount SET profileName = :profileName, phone = :phone WHERE useraccountId = :id ")
+		.setParameter("profileName", userAccount.getProfileName())
+        .setParameter("phone", userAccount.getPhone())
+        .setParameter("id", userAccount.getUserAccountId())
+        .executeUpdate();
+       // session.update(userAccount);
     }
-
+    @Override
+    public void updatePassword(int userAccountId, String newPassword) {
+        Session session = sessionFactory.getCurrentSession();
+        session.createNativeQuery("UPDATE useraccount SET password = :password WHERE useraccountId = :id")
+               .setParameter("password", newPassword)
+               .setParameter("id", userAccountId)
+               .executeUpdate();
+//        session.update(userAccount);
+    }
     @Override
     public void deleteUserAccount(UserAccount userAccount) {
         Session session = sessionFactory.getCurrentSession();
         session.delete(userAccount);
     }
+
+	@Override
+	public UserAccount getUserAccountById(int userAccountId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.find(UserAccount.class, userAccountId);
+	}
 
 //	@Override
 //	public List<UserAccount> getUserAccount() {

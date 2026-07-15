@@ -18,8 +18,9 @@ public class UserAccountServiceImpl implements UserAccountService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<UserAccountDto> getUserAccount() {
-        List<UserAccount> userAccountList = userAccountDao.getUserAccount();
+    public List<UserAccountDto> getUserAccount(String userType, String search) {
+    	
+        List<UserAccount> userAccountList = userAccountDao.getUserAccount(userType,search);
         List<UserAccountDto> dtoList = new ArrayList<UserAccountDto>();
         for (UserAccount userAccount : userAccountList) {
             UserAccountDto dto = new UserAccountDto(userAccount);
@@ -47,9 +48,16 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Transactional(readOnly = false)
     @Override
     public int deleteUserAccount(int userAccountId) {
-        UserAccount userAccount = new UserAccount();
-        userAccount.setUserAccountId(userAccountId);
-        userAccountDao.deleteUserAccount(userAccount);
+//    	try {
+//        UserAccount userAccount = new UserAccount();
+//        userAccount.setUserAccountId(userAccountId);
+//        userAccountDao.deleteUserAccount(userAccount);
+//    	}catch (Exception e) {
+//			// TODO: handle exception
+    		UserAccount ua = userAccountDao.getUserAccountById(userAccountId);
+        	ua.setStatus(0);
+		//}
+    	
         return userAccountId;
     }
 
@@ -59,4 +67,10 @@ public class UserAccountServiceImpl implements UserAccountService {
 		// TODO Auto-generated method stub
 		return userAccountDao.login(email, password);
 	}
+    @Transactional(readOnly = false)
+    @Override
+    public int updatePassword(UserAccountDto dto) {
+         userAccountDao.updatePassword(dto.getUserAccountId(), dto.getPassword());
+         return dto.getUserAccountId();
+    }
 }

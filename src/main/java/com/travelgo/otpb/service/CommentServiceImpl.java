@@ -27,19 +27,42 @@ public class CommentServiceImpl implements CommentService{
 //		}
 		return commentDao.getComment();
 	}
+//	@Transactional(readOnly=false)
+//	public int addComment(CommentDto dto) {
+//		// TODO Auto-generated method stub
+//		Comment comment = new Comment(dto);
+//		commentDao.saveComment(comment);
+//		return comment.getCommentId();
+//	}
+//	
+//	@Transactional(readOnly=false)
+//	
+//	public int updateComment(CommentDto dto) {
+//		// TODO Auto-generated method stub
+//		Comment comment = new Comment(dto);
+//		commentDao.updateComment(comment);
+//		return comment.getCommentId();
+//	}
+	
 	@Transactional(readOnly=false)
 	public int addComment(CommentDto dto) {
-		// TODO Auto-generated method stub
 		Comment comment = new Comment(dto);
+		if (dto.getUserAccountDto() != null) {
+			comment.setCustomerId(dto.getUserAccountDto().getUserAccountId());
+		}
+		
 		commentDao.saveComment(comment);
 		return comment.getCommentId();
 	}
 	
 	@Transactional(readOnly=false)
-	
 	public int updateComment(CommentDto dto) {
-		// TODO Auto-generated method stub
 		Comment comment = new Comment(dto);
+		
+		if (dto.getUserAccountDto() != null) {
+			comment.setCustomerId(dto.getUserAccountDto().getUserAccountId());
+		}
+		
 		commentDao.updateComment(comment);
 		return comment.getCommentId();
 	}

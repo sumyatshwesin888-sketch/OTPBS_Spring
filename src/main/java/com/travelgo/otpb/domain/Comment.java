@@ -8,6 +8,8 @@ import javax.persistence.Table;
 import java.util.*;
 import com.travelgo.otpb.dto.CommentDto;
 
+import lombok.Data;
+@Data
 @Entity
 @Table(name = "comment")
 public class Comment {
@@ -25,9 +27,13 @@ public class Comment {
 	public Comment(CommentDto dto) {
 		this.commentId = dto.getCommentId();
 		this.message = dto.getMessage();
+
 		this.profileName = dto.getProfileName();
 		this.email = dto.getEmail();
 		this.title = dto.getTitle();
+
+		this.date = dto.getDate();
+		this.customerId = dto.getUserAccountDto().getUserAccountId();
 
 	}
 
@@ -92,6 +98,11 @@ public class Comment {
 	public void setDate(Date date2) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int getProductId() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

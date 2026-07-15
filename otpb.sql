@@ -127,7 +127,7 @@ CREATE TABLE sale
 	qty int,
 	unitPrice int DEFAULT 0 NOT NULL,
 	amount int NOT NULL,
-	paymentType varchar(100),
+	paymentType enum("KBZpay","WAVEpay","AYApay"),
 	status enum('CONFIRM','APPROVED','DELETE') NOT NULL,
 	date datetime NOT NULL,
 	modifiedDate datetime NOT NULL,
@@ -236,7 +236,7 @@ ALTER TABLE Rating
 
 
 ALTER TABLE sale
-	ADD FOREIGN KEY (userAccountId)
+	ADD FOREIGN KEY (customerId)
 	REFERENCES userAccount (userAccountId)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
@@ -244,7 +244,7 @@ ALTER TABLE sale
 
 
 ALTER TABLE sale
-	ADD FOREIGN KEY (customerId)
+	ADD FOREIGN KEY (userAccountId)
 	REFERENCES userAccount (userAccountId)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT

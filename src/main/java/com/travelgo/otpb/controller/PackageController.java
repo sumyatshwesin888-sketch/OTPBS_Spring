@@ -68,16 +68,17 @@ public class PackageController {
 	
 	
 //	for PackageDetail page
-	@GetMapping("packagedetail/{packageId}")
-	public List<CityTypeDto> getPackageDetail(@PathVariable("packageId")int packageId ) { 
-		try {
-			return packageService.getPackageDetail(packageId);
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		return null;
-	}
+//	@GetMapping("packagedetail/{packageId}")
+//	public List<CityTypeDto> getPackageDetail(@PathVariable("packageId")int packageId ) { 
+//		try {
+//			return packageService.getPackageDetail(packageId);
+//		}catch (Exception e) {
+//			// TODO: handle exception
+//			e.printStackTrace();
+//		}
+//		return null;
+//	}
+	
 	@GetMapping("package/city")
 	public PackageCity getPackageByCity() {
 		return packageService.getPackageByCity();

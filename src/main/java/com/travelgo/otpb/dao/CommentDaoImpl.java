@@ -34,8 +34,7 @@ public class CommentDaoImpl implements CommentDao{
 			String profileName = (String)obj[2];
 			String email = (String)obj[3];
 			String title = (String)obj[4];
-			CommentDto cdto = new CommentDto(commentId,message,
-					profileName,email,title);
+			CommentDto cdto = new CommentDto();
 			dtoList.add(cdto);
 		}
 		return dtoList;

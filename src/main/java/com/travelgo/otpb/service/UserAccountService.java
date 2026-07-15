@@ -5,7 +5,7 @@ import com.travelgo.otpb.dto.UserAccountDto;
 
 public interface UserAccountService {
 
-    List<UserAccountDto> getUserAccount();
+    List<UserAccountDto> getUserAccount(String userType, String search);
 
     int addUserAccount(UserAccountDto dto);
 
@@ -14,4 +14,6 @@ public interface UserAccountService {
     int deleteUserAccount(int userAccountId);
 
 	UserAccountDto login(String email, String password);
+
+	int updatePassword(UserAccountDto dto);
 }
