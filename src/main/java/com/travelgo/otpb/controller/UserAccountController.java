@@ -53,4 +53,9 @@ public class UserAccountController {
     		@RequestParam("password")String password) {
         return userAccountService.login(email,password);
     }
+    @GetMapping("userAccount/home")
+    public UserAccountDto  getUserHome() {
+        return userAccountService.getUserHome();
+    }
+    
 }

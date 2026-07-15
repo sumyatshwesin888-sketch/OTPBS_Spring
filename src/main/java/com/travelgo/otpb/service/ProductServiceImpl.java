@@ -19,15 +19,15 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional(readOnly=true)
 	@Override
-	public List<ProductDto> getProduct() {
+	public List<ProductDto> getProduct(String productType, String locationType, String search) {
 		// TODO Auto-generated method stub
-		List<Product> productList = productDao.getProduct();
-		List<ProductDto> dtoList = new ArrayList<ProductDto>();
-		for(Product product:productList) {
-			ProductDto dto = new ProductDto(product);
-			dtoList.add(dto);
-		}
-		return dtoList;
+//		List<Product> productList = productDao.getProduct();
+//		List<ProductDto> dtoList = new ArrayList<ProductDto>();
+//		for(Product product:productList) {
+//			ProductDto dto = new ProductDto(product);
+//			dtoList.add(dto);
+//		}
+		return productDao.getProduct(productType,locationType,search);
 	}
 
 	@Transactional(readOnly=false)

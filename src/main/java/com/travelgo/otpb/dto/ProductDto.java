@@ -8,6 +8,7 @@ import com.travelgo.otpb.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.asm.Advice.This;
 
 @Data 
 @NoArgsConstructor
@@ -92,6 +93,7 @@ public class ProductDto{
 	private int leftTicket;
 	private String transport;
 	private int saleCount;
+	private int photoCount;
 	public void setPackageId(int packageId) {
 		// TODO Auto-generated method stub
 		
@@ -129,6 +131,29 @@ public class ProductDto{
 		this.leftTicket = leftTicket;
 		this.photo = photo;
 		this.locationType = locationType;
+	}
+	public ProductDto(String title, String type, String locationType, String location, int day, int night,
+			String groupSize, String meals, Date travelDate, int ticket, String transport, int amount,
+			String photo, String photoOne, String photoTwo, String photoThree, String photoFour) {
+		// TODO Auto-generated constructor stub
+		//this.productId = productId;
+		this.title = title;
+		this.location = location;
+		this.amount = amount;
+		this.day = day;
+		this.night = night;
+		this.travelDate = travelDate;
+		this.ticket = ticket;
+		this.groupSize = groupSize;
+		this.meals = meals;
+		this.photoOne = photoOne;
+		this.photoTwo = photoTwo;
+		this.photoThree = photoThree;
+		this.photoFour = photoFour;
+		this.transport = transport;
+		this.photo = photo;
+		this.locationType = locationType;
+		this.type = type;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.travelgo.otpb.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,11 +19,65 @@ public class ProductDaoImpl implements ProductDao {
 	SessionFactory sessionFactory;
 
 	@Override
-	public List<Product> getProduct() {
+	public List<ProductDto> getProduct(String productType, String locationType, String search) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Product> productList =  session.createQuery("select p from Product p ").getResultList();
-		return productList;
+		String sqlWhere = " Where 1=1 ";
+		if(!"ALL".equals(productType)) {
+			sqlWhere += " AND p.type= '"+productType+"'";
+		}
+		if(!"ALL".equals(locationType)) {
+			sqlWhere += " AND c.locationType= '"+locationType+"'";
+				}
+		if(!"".equals(search)) {
+			sqlWhere += " AND p.title like '%"+search+"%'"; 
+		}
+		List<Object[]> objList =  session.createNativeQuery(" SELECT p.title,p.type,c.locationType,p.location,p.day,p.night,p.groupSize,"
+				+ "p.meals,p.travelDate,p.ticket,p.transport,p.amount,\r\n"
+				+ "p.photo,p.photoone,p.photoTwo,p.photoThree,p.photoFour\r\n"
+				+ "FROM product p\r\n"
+				+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
+				+ "LEFT JOIN city c ON c.cityId = h.cityId "+sqlWhere).getResultList();
+		List<ProductDto> dtoList = new ArrayList<ProductDto>();
+		for(Object[] obj:objList) {
+			String title = (String)obj[0];
+			String type = (String)obj[1];
+			locationType = (String)obj[2];
+			String location = (String)obj[3];
+			
+			int day = Integer.parseInt(obj[4].toString());
+			int night = Integer.parseInt(obj[5].toString());
+			String groupSize = (String)obj[6];
+			String meals = (String)obj[7];
+			Date travelDate = (Date)obj[8];
+			int ticket = Integer.parseInt(obj[9].toString());
+			String transport = (String)obj[10];
+			int amount = Integer.parseInt(obj[11].toString());
+			String photo = (String)obj[12];
+			String photoOne = (String)obj[13];
+			String photoTwo = (String)obj[14];
+			String photoThree = (String)obj[15];
+			String photoFour = (String)obj[16];
+			int photoCount = 0;
+			if(photoOne!=null) {
+				photoCount+=1;
+			}
+			if(photoTwo!=null) {
+				photoCount+=1;
+			}
+			if(photoThree!=null) {
+				photoCount+=1;
+			}
+			if(photoFour!=null) {
+				photoCount+=1;
+			}
+			ProductDto dto = new ProductDto(title,type,locationType,location,
+					day,night,groupSize,meals,travelDate,ticket,transport,amount,photo,photoOne,
+					photoTwo,photoThree,photoFour);
+			dto.setPhotoCount(photoCount);
+			dtoList.add(dto);
+		}
+		return dtoList;
 	}
 
 	@Override

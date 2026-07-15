@@ -19,4 +19,6 @@ public interface UserAccountDao {
 
 	UserAccount getUserAccountById(int userAccountId);
 
+	UserAccountDto getUserHome();
+
 }

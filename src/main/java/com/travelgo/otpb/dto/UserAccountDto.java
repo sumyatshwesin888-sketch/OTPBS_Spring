@@ -43,5 +43,11 @@ public class UserAccountDto{
 
 
 	private Integer status;
+	
+	private int allCount;
+	private int adminCount;
+	private int customerCount;
+	private int activeCount;
+	private int inactiveCount;
 
 }

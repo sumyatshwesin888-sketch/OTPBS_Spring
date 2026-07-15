@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.travelgo.otpb.dto.ProductDto;
@@ -22,9 +23,11 @@ public class ProductController {
 	ProductService productService;
 	
 	@GetMapping("product")
-	public List<ProductDto> getProduct() {
+	public List<ProductDto> getProduct(@RequestParam(name="type",defaultValue = "ALL")String productType,
+			@RequestParam(name="locationType",defaultValue = "ALL")String locationType,
+    		@RequestParam(name="search",defaultValue = "")String search) {
 		
-		return productService.getProduct();
+		return productService.getProduct(productType,locationType,search);
 	}
 	
 	@PostMapping("product")

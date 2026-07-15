@@ -73,10 +73,39 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		return session.find(UserAccount.class, userAccountId);
 	}
 
+	@Override
+	public UserAccountDto getUserHome() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> objList =session.createNativeQuery("SELECT COUNT(u.userAccountId) AS  allCount,\r\n"
+				+ "SUM(IF(u.userType='ADMIN',1,0)) AS adminCount,\r\n"
+				+ " SUM(IF(u.userType='CUSTOMER',1,0)) AS customerCount,\r\n"
+				+ " SUM(IF(u.status=1,1,0)) AS activeCount,\r\n"
+				+ " SUM(IF(u.status=0,1,0)) AS inactiveCount\r\n"
+				+ "FROM useraccount u").getResultList();
+		UserAccountDto dto = new UserAccountDto();
+		if(objList.size()>0) {
+			Object[] obj = objList.get(0);
+			int allCount = Integer.parseInt(obj[0].toString());
+			int adminCount = Integer.parseInt(obj[1].toString());
+			int custCount = Integer.parseInt(obj[2].toString());
+			int activeCount = Integer.parseInt(obj[3].toString());
+			int inactiveCount = Integer.parseInt(obj[4].toString());
+			dto.setAllCount(allCount);
+			dto.setAdminCount(adminCount);
+			dto.setCustomerCount(custCount);
+			dto.setActiveCount(activeCount);
+			dto.setInactiveCount(inactiveCount);
+		}
+		
+		return dto;
+	}
+
 //	@Override
 //	public List<UserAccount> getUserAccount() {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+	
     
 }

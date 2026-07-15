@@ -50,7 +50,6 @@ public class PackageController {
 	}
 	@PostMapping("package")
 	public int addPackage(@RequestBody ProductDto dto) {
-		
 		return packageService.addPackage(dto);
 	}
 	@PutMapping("package/{packageId}")
@@ -120,4 +119,5 @@ public class PackageController {
 		}
 		return null;
 	}
+	
 }

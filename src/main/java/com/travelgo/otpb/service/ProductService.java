@@ -6,7 +6,7 @@ import com.travelgo.otpb.dto.ProductDto;
 
 public interface ProductService {
 
-	List<ProductDto> getProduct();
+	List<ProductDto> getProduct(String productType, String locationType, String search);
 
 	int addProduct(ProductDto dto);
 

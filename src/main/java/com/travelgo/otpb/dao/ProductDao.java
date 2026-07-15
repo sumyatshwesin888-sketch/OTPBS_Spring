@@ -7,7 +7,7 @@ import com.travelgo.otpb.dto.ProductDto;
 
 public interface ProductDao {
 
-	List<Product> getProduct();
+	List<ProductDto> getProduct(String productType, String locationType, String search);
 
 	void saveProduct(Product product);
 
