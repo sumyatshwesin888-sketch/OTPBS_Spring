@@ -18,6 +18,7 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
+
 	@Override
 	public List<ProductDto> getProduct(String productType, String locationType, String search) {
 		// TODO Auto-generated method stub
@@ -79,6 +80,7 @@ public class ProductDaoImpl implements ProductDao {
 		}
 		return dtoList;
 	}
+
 
 	@Override
 	public void saveProduct(Product product) {
@@ -158,5 +160,41 @@ public class ProductDaoImpl implements ProductDao {
 		}
 		return dto;
 	}
+		
+//  for About Page
+	@Override
+	public List<ProductDto> getProduct() {
+	    Session session = sessionFactory.getCurrentSession();
+	    List<Object[]> objList = session.createNativeQuery("SELECT "
+	            + " COUNT(DISTINCT p.useraccountId) AS traveler, "
+	            + " COUNT(p.productId) AS packages, "
+	            + " COUNT(DISTINCT c.cityId) AS cities "
+	            + " FROM product p "
+	            + " LEFT JOIN hotel h ON p.hotelId = h.hotelId "
+	            + " LEFT JOIN city c ON h.cityId = c.cityId").getResultList();
 
+	    List<ProductDto> dtoList = new ArrayList<ProductDto>();
+	    if (objList != null && !objList.isEmpty()) {
+	        Object[] row = objList.get(0);
+	        int traveler = ((Number) row[0]).intValue();
+	        int packages = ((Number) row[1]).intValue();
+	        int cities   = ((Number) row[2]).intValue();
+	        
+	        ProductDto dto = new ProductDto(traveler, packages, cities);
+	        dtoList.add(dto);
+	    }
+	    return dtoList;
+	}
+
+	@Override
+	public List<ProductDto> getProductByProductId(int productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public List<ProductDto> getProductByProductId(int productId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 }

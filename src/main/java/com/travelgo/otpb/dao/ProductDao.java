@@ -8,6 +8,7 @@ import com.travelgo.otpb.dto.ProductDto;
 public interface ProductDao {
 
 	List<ProductDto> getProduct(String productType, String locationType, String search);
+	List<ProductDto> getProduct();
 
 	void saveProduct(Product product);
 
@@ -16,5 +17,7 @@ public interface ProductDao {
 	void deleteProduct(Product product);
 
 	ProductDto getProductDetail(int productId);
+
+	List<ProductDto> getProductByProductId(int productId);
 
 }

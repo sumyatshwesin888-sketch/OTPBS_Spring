@@ -15,5 +15,9 @@ public interface UserAccountService {
 
 	UserAccountDto login(String email, String password);
 
+
 	UserAccountDto getUserHome();
+
+	int updatePassword(UserAccountDto dto);
+
 }

@@ -38,8 +38,12 @@ public class UserAccountController {
     public int updateUserAccount(
             @PathVariable("userAccountId") int userAccountId,
             @RequestBody UserAccountDto dto) {
-        dto.setUserAccountId(userAccountId);
         return userAccountService.updateUserAccount(dto);
+    }
+    
+    @PutMapping("userAccount/updatePassword")
+    public int updatePassword(@RequestBody UserAccountDto dto) {
+        return userAccountService.updatePassword(dto); 
     }
 
     @DeleteMapping("userAccount/{userAccountId}")

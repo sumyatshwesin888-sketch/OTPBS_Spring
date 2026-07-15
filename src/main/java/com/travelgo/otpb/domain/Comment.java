@@ -8,20 +8,30 @@ import javax.persistence.Table;
 import java.util.*;
 import com.travelgo.otpb.dto.CommentDto;
 
+import lombok.Data;
+@Data
 @Entity
 @Table(name = "comment")
 public class Comment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int commentId;
-	private int productId;
 	private String message;
+	private String profileName;
+	private String email;
+	private String title;
+
+
 	private Date date;
 	private int customerId;
 	public Comment(CommentDto dto) {
 		this.commentId = dto.getCommentId();
-		this.productId = dto.getProductId();
 		this.message = dto.getMessage();
+
+		this.profileName = dto.getProfileName();
+		this.email = dto.getEmail();
+		this.title = dto.getTitle();
+
 		this.date = dto.getDate();
 		this.customerId = dto.getUserAccountDto().getUserAccountId();
 
@@ -39,14 +49,6 @@ public class Comment {
 		this.commentId = commentId;
 	}
 
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
 	public String getMessage() {
 		return message;
 	}
@@ -55,14 +57,31 @@ public class Comment {
 		this.message = message;
 	}
 
-	public Date getDate() {
-		return date;
+	public String getProfileName() {
+		return profileName;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -70,5 +89,22 @@ public class Comment {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
+
+	public void setProductId(int productId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setDate(Date date2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getProductId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 
 }

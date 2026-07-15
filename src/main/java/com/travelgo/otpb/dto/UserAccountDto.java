@@ -26,9 +26,9 @@ public class UserAccountDto{
 	}
 
 
-	public UserAccountDto(String profileName2) {
+	public UserAccountDto(String profileName) {
 		// TODO Auto-generated constructor stub
-		this.profileName = profileName2;
+		this.profileName = profileName;
 	}
 
 

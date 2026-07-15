@@ -57,9 +57,23 @@ public class UserAccountDaoImpl implements UserAccountDao {
     @Override
     public void updateUserAccount(UserAccount userAccount) {
         Session session = sessionFactory.getCurrentSession();
-        session.update(userAccount);
+        Object userAccountId = null;
+		session.createNativeQuery("UPDATE useraccount SET profileName = :profileName, phone = :phone WHERE useraccountId = :id ")
+		.setParameter("profileName", userAccount.getProfileName())
+        .setParameter("phone", userAccount.getPhone())
+        .setParameter("id", userAccount.getUserAccountId())
+        .executeUpdate();
+       // session.update(userAccount);
     }
-
+    @Override
+    public void updatePassword(int userAccountId, String newPassword) {
+        Session session = sessionFactory.getCurrentSession();
+        session.createNativeQuery("UPDATE useraccount SET password = :password WHERE useraccountId = :id")
+               .setParameter("password", newPassword)
+               .setParameter("id", userAccountId)
+               .executeUpdate();
+//        session.update(userAccount);
+    }
     @Override
     public void deleteUserAccount(UserAccount userAccount) {
         Session session = sessionFactory.getCurrentSession();

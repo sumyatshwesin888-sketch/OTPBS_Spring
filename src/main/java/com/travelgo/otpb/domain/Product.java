@@ -23,6 +23,11 @@ public class Product{
 	public Product(ProductDto dto) {
 		// TODO Auto-generated constructor stub
 	}
+	public Product(int productId, String pTitle) {
+		// TODO Auto-generated constructor stub
+		this.productId=productId;
+		this.title=pTitle;
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int productId;

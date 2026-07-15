@@ -30,6 +30,11 @@ public class MessageDto {
 
 	}
 
+	public MessageDto(int questionTypeId, String question, int messageId, String name, String email,
+			String messageText) {
+		// TODO Auto-generated constructor stub
+	}
+
 	private int messageId;
 	private QuestionTypeDto questionType;
 	private String name;

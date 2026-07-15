@@ -19,13 +19,13 @@ public class CommentServiceImpl implements CommentService{
 	
 	@Transactional(readOnly=true)
 	public List<CommentDto> getComment() {
-		List<Comment> commentList = commentDao.getComment();
-		List<CommentDto> dtoList = new ArrayList<CommentDto>();
-		for(Comment comment:commentList) {
-			CommentDto dto = new CommentDto(comment);
-			dtoList.add(dto);
-		}
-		return dtoList;
+//		List<Comment> commentList = commentDao.getComment();
+//		List<CommentDto> dtoList = new ArrayList<CommentDto>();
+//		for(Comment comment:commentList) {
+//			CommentDto dto = new CommentDto(comment);
+//			dtoList.add(dto);
+//		}
+		return commentDao.getComment();
 	}
 //	@Transactional(readOnly=false)
 //	public int addComment(CommentDto dto) {
@@ -81,6 +81,7 @@ public class CommentServiceImpl implements CommentService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 	
 
 }

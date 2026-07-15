@@ -18,9 +18,9 @@ public interface PackageDao {
 	List<CityTypeDto> getPackageByLocationType(String locationType);
 
 
-	List<CityTypeDto> getPackageDetail(int packageId);
-
-
 	PackageCity getPackageByCity();
+
+
+	List<CityTypeDto> getPackageDetail(int packageId);
 
 }
