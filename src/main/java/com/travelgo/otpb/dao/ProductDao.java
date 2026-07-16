@@ -17,4 +17,6 @@ public interface ProductDao {
 
 	ProductDto getProductDetail(int productId);
 
+	ProductDto getProductById(int productId);
+
 }

@@ -57,5 +57,11 @@ public class ProductServiceImpl implements ProductService {
 		productDao.deleteProduct(product);
 		return productId;
 	}
+	@Transactional(readOnly=true)
+	@Override
+	public ProductDto getProductById(int productId) {
+		// TODO Auto-generated method stub
+		return productDao.getProductById(productId);
+	}
 
 }

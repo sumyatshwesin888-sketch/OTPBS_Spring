@@ -26,7 +26,7 @@ public class Product{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int productId;
-	private int userAccount;
+	private int userAccountId;
 	private int hotelId;
 	private String photo;
 	private String title;

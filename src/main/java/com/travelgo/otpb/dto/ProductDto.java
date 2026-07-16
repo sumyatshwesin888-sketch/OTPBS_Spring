@@ -14,8 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor 
 public class ProductDto{
 	
-	public ProductDto(Product product) {
+	public ProductDto(Product p) {
 		// TODO Auto-generated constructor stub
+		this.title  = p.getTitle();
+		this.day = p.getDay();
+		this.night = p.getNight();
+		this.amount = p.getAmount();
+		this.photo = p.getPhoto();
 	}
 	public ProductDto(int productId, String locationType, String photo, String title, int day, int night,
 			String groupSize, int amount, String location, double ratingCount, int commentCount) {

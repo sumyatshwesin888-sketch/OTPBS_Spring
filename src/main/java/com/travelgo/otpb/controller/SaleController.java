@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.SaleDto;
 import com.travelgo.otpb.service.SaleService;
 
@@ -23,11 +24,15 @@ public class SaleController {
     SaleService saleService;
 
     @GetMapping("sale")
-    public List<SaleDto> getSale() {
-
-        return saleService.getSale();
-
-    }
+	public List<SaleDto> getSale() {
+		try {
+			return saleService.getSale();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
 
     @PostMapping("sale")
     public SaleDto addSale(@RequestBody SaleDto dto) {

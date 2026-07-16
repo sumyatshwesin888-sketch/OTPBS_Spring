@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.travelgo.otpb.dao.SaleDao;
 import com.travelgo.otpb.domain.Sale;
@@ -16,7 +17,7 @@ public class SaleServiceImpl implements SaleService {
     @Autowired
     private SaleDao saleDao;
 
-   
+    @Transactional(readOnly=true)
 	@Override
     public List<SaleDto> getSale() {
 
@@ -24,7 +25,7 @@ public class SaleServiceImpl implements SaleService {
 
     }
 
-    
+	@Transactional(readOnly=false)
 	@Override
     public SaleDto addSale(SaleDto dto) {
 
@@ -36,7 +37,8 @@ public class SaleServiceImpl implements SaleService {
 
     }
 
-  
+	@Transactional(readOnly=false)
+
 	@Override
     public SaleDto updateSale(SaleDto dto) {
 
@@ -48,7 +50,8 @@ public class SaleServiceImpl implements SaleService {
 
     }
 
-   
+	@Transactional(readOnly=false)
+
 	@Override
     public int deleteSale(int saleId) {
 

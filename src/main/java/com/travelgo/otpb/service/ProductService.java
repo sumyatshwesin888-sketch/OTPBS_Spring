@@ -14,6 +14,8 @@ public interface ProductService {
 
 	int deleteProduct(int productId);
 
+	ProductDto getProductById(int productId);
+
 	
 
 }

@@ -104,4 +104,13 @@ public class ProductDaoImpl implements ProductDao {
 		return dto;
 	}
 
+	@Override
+	public ProductDto getProductById(int productId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Product p =  session.find(Product.class, productId);
+		ProductDto dto = new ProductDto(p);
+		return dto;
+	}
+
 }

@@ -21,12 +21,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SaleDto {
 
-    public SaleDto(Sale sale) {
+    public SaleDto(int saleId, int userAccountId, int customerId,  String voucherCode, int qty, int unitPrice, int amount, String paymentType ,Sale sale) {
 
         this.saleId = sale.getSaleId();
         this.userAccountId = sale.getUserAccountId();
         this.customerId = sale.getCustomerId();
-        this.product = new ProductDto(sale.getProductId());
+//        this.product = new ProductDto(sale.getProductId());
         this.voucherCode = sale.getVoucherCode();
         this.qty = sale.getQty();
         this.unitPrice = sale.getUnitPrice();
@@ -63,5 +63,26 @@ public class SaleDto {
 	@JsonSerialize(using = DateTimeFormatSerializer.class)
 	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
     private Date modifiedDate;
+	public void setProductDto(ProductDto product) {
+		// TODO Auto-generated method stub
+		this.product = product;
+		
+	}
+	public SaleDto(int saleId, int userAccountId, int customerId, String voucherCode, int qty, int unitPrice,
+			int amount, String paymentType) {
+		// TODO Auto-generated constructor stub
+		this.saleId = saleId;
+		this.userAccountId = userAccountId;
+		this.customerId = customerId;
+		this.voucherCode=voucherCode;
+		this.qty = customerId;
+		this.unitPrice=unitPrice;
+		this.amount = amount;
+		this.paymentType=paymentType;
+		
+	}
+	public SaleDto(Sale sale) {
+		// TODO Auto-generated constructor stub
+	}
 
 }
