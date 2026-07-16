@@ -151,6 +151,12 @@ public class PackageServiceImpl  implements PackageService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	@Transactional(readOnly=true)
+	@Override
+	public List<CityTypeDto> getPackageByCityId(int cityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 

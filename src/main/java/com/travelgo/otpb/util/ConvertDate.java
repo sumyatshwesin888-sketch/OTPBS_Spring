@@ -137,7 +137,7 @@ public static String convertStringToDateHour(Date date) {
 //return strDate+voucherId;
 //}
 public static String createVoucherCode(Date date) {//voucherId or productId or advertise 0
-	   SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyHHmmss");
+	   SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMddHHmmss");
 		//SimpleDateFormat formatDate = new SimpleDateFormat("yyyy");
 	   String strDate = dateFormat.format(date);
 return strDate;

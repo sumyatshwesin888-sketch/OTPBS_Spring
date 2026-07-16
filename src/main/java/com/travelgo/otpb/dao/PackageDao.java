@@ -22,5 +22,7 @@ public interface PackageDao {
 
 
 	List<CityTypeDto> getPackageDetail(int packageId);
+	
+	List<CityTypeDto> getPackageByCityId(int cityId);
 
 }

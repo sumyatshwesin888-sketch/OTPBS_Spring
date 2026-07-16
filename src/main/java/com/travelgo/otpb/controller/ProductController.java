@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.service.ProductService;
@@ -47,11 +48,15 @@ public class ProductController {
 			@PathVariable("productId")int productId) {
 		return productService.deleteProduct(productId);
 	}
-//	
-//	@GetMapping("product/{productId}")
-//	public List<ProductDto> getProduct(
-//			@PathVariable("productId")int productId) {
-//		return productService.getProduct();
-//	}
+	@PutMapping("product/photo/{productId}/{photoIndex}")
+	public int updateProductPhoto(@PathVariable("productId")int productId,@RequestParam(value = "file",required=false) MultipartFile file,
+			@PathVariable(name="photoIndex")int photoIndex) {
+		try {
+			return productService.updateProductPhoto(productId,file,photoIndex);
+			}catch (Exception e) {
+				// TODO: handle exception
+				throw new RuntimeException("Update,Product File Error!", e);
+			}
+	}
 	
 }

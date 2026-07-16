@@ -2,8 +2,12 @@ package com.travelgo.otpb.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.travelgo.otpb.domain.Product;
 import com.travelgo.otpb.dto.ProductDto;
+import com.travelgo.otpb.util.DateTimeFormatDeserializer;
+import com.travelgo.otpb.util.DateTimeFormatSerializer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -88,6 +92,8 @@ public class ProductDto{
 	private int hotelId;
 	private String hotelName;
 	private String detail;
+//	@JsonSerialize(using = DateTimeFormatSerializer.class)
+//	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
 	private Date travelDate;
 	private int ticket;
 	private double ratingCount;
@@ -108,15 +114,8 @@ public class ProductDto{
 		this.amount = product;
 	}
 
-	public ProductDto getProductId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void setProductId(int productId2) {
-		// TODO Auto-generated method stub
-		
-	}
-	public void setType(String type2) {
+	
+	public void setType(String type) {
 		// TODO Auto-generated method stub
 	}
 
@@ -146,6 +145,9 @@ public class ProductDto{
 		this.detail =detail;
 		this.transport = transport;
 		this.saleCount = saleCount;
+		this.leftTicket = leftTicket;
+		this.photo = photo;
+		this.locationType = locationType;
 
 	}
 	public ProductDto(Product product) {
@@ -177,6 +179,46 @@ public class ProductDto{
 		this.photo = photo;
 		this.locationType = locationType;
 		this.type = type;
+	}
+	public ProductDto(int productId , String locationType , String photo , String title , int day , int night ,
+			String groupSize , int amount , String location , double ratingCount , int commentCount , String type ,
+			int ticket , int saleCount ,int leftTicket ) {
+		// TODO Auto-generated constructor stub
+		this.productId = productId;
+		this.locationType = locationType;
+		this.photo = photo;
+		this.title = title;
+		this.day = day;
+		this.night = night;
+		this.groupSize = groupSize;
+		this.amount = amount;
+		this.location = location;
+		this.ratingCount = ratingCount;
+		this.commentCount = commentCount;
+		this.type = type;
+		this.ticket = ticket;
+		this.saleCount = saleCount;
+		this.leftTicket = leftTicket;
+	}
+	public ProductDto(int productId , String locationType , String photo , String title , int day , int night ,
+			String groupSize , int amount , String location , double ratingCount , int commentCount , int ticket ,
+			int saleCount , int leftTicket ) {
+		// TODO Auto-generated constructor stub
+		this.productId = productId;
+		this.locationType = locationType;
+		this.photo = photo;
+		this.title = title;
+		this.day = day;
+		this.night = night;
+		this.groupSize = groupSize;
+		this.amount = amount;
+		this.location = location;
+		this.ratingCount = ratingCount;
+		this.commentCount = commentCount;
+//		this.type = type;
+		this.ticket = ticket;
+		this.saleCount = saleCount;
+		this.leftTicket = leftTicket;
 	}
 
 	

@@ -30,6 +30,8 @@ public interface PackageService {
 
 	ProductDetail getPackageDetailById(int productId);
 	
+	List<CityTypeDto> getPackageByCityId(int cityId);
+	
 
 
 }

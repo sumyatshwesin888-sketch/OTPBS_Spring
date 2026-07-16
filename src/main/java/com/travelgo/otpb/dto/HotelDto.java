@@ -18,9 +18,8 @@ public class HotelDto {
 		// TODO Auto-generated constructor stub
 		this.hotelId = hotelId;
     	this.hotelName = hotelName;
-    
 	}
 	private int hotelId; 
-    private CityDto cityDto;
-    private String hotelName;
+    private CityDto cityDto;//
+    private String hotelName;//
 }

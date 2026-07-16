@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.travelgo.otpb.dao.ProductDao;
 import com.travelgo.otpb.domain.Product;
@@ -75,8 +76,14 @@ public class ProductServiceImpl implements ProductService {
 //	@Transactional(readOnly=true)
 //	@Override
 //	public List<ProductDto> getProduct() {
-//	    return productDao.getProduct(); // productDao ကနေ ဒေတာ လှမ်းယူတာပါ
+//	    return productDao.getProduct(); 
 //	}
+	@Transactional(readOnly=false)
+	@Override
+	public int updateProductPhoto(int productId, MultipartFile file,int photoIndex) {
+		// TODO Auto-generated method stub
+		return productDao.updateProductPhoto(productId,file,photoIndex);
+	}
 
 //	@Override
 //	public List<ProductDto> getProduct() {

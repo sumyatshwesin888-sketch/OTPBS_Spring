@@ -83,7 +83,7 @@ public class PackageController {
 		return packageService.getPackageByCity();
 	}
 	
-	//package detail page က rating / review ဟာ
+	//package detail page
 	@PostMapping("package/ratingcomment")
 	public int saveRatingComment(@RequestBody RatingDto dto) {
 		
@@ -97,7 +97,7 @@ public class PackageController {
 		return 0;
 	}
 	
-	//packages page ကဟာ
+	//packages page 
 	@GetMapping("package/type/commentcount")
 	public List<CityTypeDto> getPackageByLocationTypeCommCount(@RequestParam(name="locationType",defaultValue = "DOMESTIC")String locationType,
 			@RequestParam(name="commentCount",defaultValue = "0")int commentCount) {//locationType is 
@@ -109,6 +109,7 @@ public class PackageController {
 		}
 		return null;
 	}
+	
 	@GetMapping("package/detail/{productId}")
 	public ProductDetail getPackageDetailById(@PathVariable("productId")int productId ) { 
 		try {
@@ -119,5 +120,20 @@ public class PackageController {
 		}
 		return null;
 	}
-	
+	@GetMapping("/package/city/{cityId}")
+	  public List<CityTypeDto> getPackageByCityId(@PathVariable int cityId){
+
+	      try {
+
+	          return packageService.getPackageByCityId(cityId);
+
+	      } catch (Exception e) {
+
+	          e.printStackTrace();
+
+	      }
+
+	      return null;
+
+	  }
 }
