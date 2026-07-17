@@ -46,9 +46,11 @@ public class SaleDto {
     private int saleId;
 
     private Integer userAccountId;
+    private ProductDto  product;
 
     private int customerId;
-
+    private UserAccountDto customer;
+    
     private int productId;
 
     private String voucherCode;
@@ -87,6 +89,22 @@ public class SaleDto {
         this.date = date;
         this.modifiedDate = modifiedDate;
 
+	}
+	public SaleDto(int saleId2, int customerId2, String profileName, int productId2, String title, int qty2,
+			int unitPrice2, int amount2, String paymentType2, String status2, Date date2, Date modifiedDate2,
+			String voucherCode2) {
+		// TODO Auto-generated constructor stub
+		this.saleId = saleId2;
+		this.customer = new UserAccountDto(customerId2,profileName);
+		this.product = new ProductDto(productId2,title);
+		this.qty = qty2;
+		this.unitPrice = unitPrice2;
+		this.amount = amount2;
+		this.paymentType = paymentType2;
+		this.status = status2;
+		this.date = date2;
+		this.modifiedDate = modifiedDate2;
+		this.voucherCode = voucherCode2;
 	}
 	
 

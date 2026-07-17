@@ -152,11 +152,12 @@ public class PackageServiceImpl  implements PackageService {
 		return 0;
 	}
 	@Transactional(readOnly=true)
-	@Override
-	public List<CityTypeDto> getPackageByCityId(int cityId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	  @Override
+	  public List<CityTypeDto> getPackageByCityId(int cityId) {
+
+	      return packDao.getPackageByCityId(cityId);
+
+	  }
 
 	
 

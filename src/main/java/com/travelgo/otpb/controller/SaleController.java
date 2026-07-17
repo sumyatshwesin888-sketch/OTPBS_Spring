@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.travelgo.otpb.dto.SaleDto;
@@ -23,9 +24,10 @@ public class SaleController {
     SaleService saleService;
 
     @GetMapping("sale")
-    public List<SaleDto> getSale() {
+    public List<SaleDto> getSale(
+    		@RequestParam(name="status",defaultValue = "All")String status) {
 
-        return saleService.getSale();
+        return saleService.getSale(status);
 
     }
 

@@ -18,9 +18,9 @@ public class SaleServiceImpl implements SaleService {
 
    
 	@Override
-    public List<SaleDto> getSale() {
+    public List<SaleDto> getSale(String status) {
 
-        return saleDao.getSale();
+        return saleDao.getSale(status);
 
     }
 

@@ -34,7 +34,7 @@ public class Sale {
     	this.unitPrice = dto.getUnitPrice();
     	this.amount = this.qty*this.unitPrice;
     	this.paymentType = dto.getPaymentType();
-    	this.status  = "CONFIRM";
+    	this.status  = dto.getStatus();
     	this.date = new Date();
     	this.modifiedDate = new Date();
 	}

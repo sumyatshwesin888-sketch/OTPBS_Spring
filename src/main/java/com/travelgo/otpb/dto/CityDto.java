@@ -30,21 +30,22 @@ public class CityDto {
 		this.cityName = cityName;
 	}
 
-	public CityDto(String cityName, String lt, String photo, String detail, int amount) {
-		// TODO Auto-generated constructor stub
-		this.cityName = cityName;
-		this.locationType = lt;
-		this.photo = photo;
-		this.detail = detail;
-		this.productDto = new ProductDto(amount);
-	}
-
-	private int cityId;
-	private String cityName;
-	private String locationType;
-	private String photo;
-	private String region;
-	private String website;
-	private String detail;
-	private ProductDto productDto;
-	}
+	public CityDto(int cityId, String region,String cityName, String lt, String photo, String detail, int amount) {
+	    // TODO Auto-generated constructor stub
+	    this.region=region;
+	    this.cityName = cityName;
+	    this.locationType = lt;
+	    this.photo = photo;
+	    this.detail = detail;
+	    this.productDto = new ProductDto(amount);
+	  }
+	  
+	  private int cityId;
+	  private String region;
+	  private String cityName;
+	  private String locationType;
+	  private String photo;
+	  private String website;
+	  private String detail;
+	  private ProductDto productDto;
+	  }

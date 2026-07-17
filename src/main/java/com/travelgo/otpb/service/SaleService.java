@@ -6,7 +6,7 @@ import com.travelgo.otpb.dto.SaleDto;
 
 public interface SaleService {
 
-	List<SaleDto> getSale();
+	List<SaleDto> getSale(String status);
 
 	SaleDto addSale(SaleDto dto);
 
