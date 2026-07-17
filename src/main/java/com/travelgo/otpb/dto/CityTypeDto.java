@@ -7,10 +7,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CityTypeDto {
-	private String cityName;
-	private List<ProductDto> productList;
+
+    private int cityId;
+
+    private String cityName;
+
+    private String region;
+
+    private String website;
+
+    private String detail;
+
+    private List<ProductDto> productList;
+
 }

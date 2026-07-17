@@ -15,16 +15,19 @@ import com.travelgo.otpb.dao.PackageDao;
 import com.travelgo.otpb.dao.ProductDao;
 import com.travelgo.otpb.dao.RatingDao;
 import com.travelgo.otpb.domain.Comment;
+import com.travelgo.otpb.domain.Product;
 import com.travelgo.otpb.domain.Rating;
+import com.travelgo.otpb.domain.UserAccount;
 import com.travelgo.otpb.dto.CityTypeDto;
 import com.travelgo.otpb.dto.ItineraryDto;
 import com.travelgo.otpb.dto.ProductDetail;
 import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.RatingDto;
+import com.travelgo.otpb.dto.UserAccountDto;
 
 
 @Service
-public class PackageServiceImpl implements PackageService {
+public class PackageServiceImpl  implements PackageService {
 	@Autowired
 	PackageDao packDao;
 	@Autowired
@@ -58,11 +61,30 @@ public class PackageServiceImpl implements PackageService {
 		return packDao.getPackageDetail(packageId);
 	}
 
-	@Override
-	public int addPackage(ProductDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+//	@Override
+//	public int addPackage(ProductDto dto) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//	@Transactional(readOnly=false)
+//	@Override
+//	public int addPackage(ProductDto dto) {
+//	    try {
+//	        Product product = new Product(dto);
+//	        return productDao.saveProduct(product);
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	    return 0;
+//	}
+	
+//	@Transactional(readOnly=false)
+//	@Override
+//	public int addPackage(ProductDto dto) { 
+//	    Product product = new Product(dto); 
+//	    proDao.saveProduct(product);
+//	    return product.getProductId(); 
+//	}
 
 	@Override
 	public int updatePackage(ProductDto dto) {
@@ -123,6 +145,20 @@ public class PackageServiceImpl implements PackageService {
 		detail.setRatingCommentList(ratingList);
 		return detail;
 	}
+
+	@Override
+	public int addPackage(ProductDto dto) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Transactional(readOnly=true)
+	@Override
+	public List<CityTypeDto> getPackageByCityId(int cityId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 

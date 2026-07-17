@@ -15,20 +15,20 @@ import com.travelgo.otpb.dto.MessageDto;
 @Service
 public class MessageServiceImpl implements MessageService {
 	@Autowired
-	MessageDaoImpl messageDao;
+	MessageDao messageDao;
 
 	
 	@Transactional(readOnly=true)
 	@Override
 	public List<MessageDto> getMessage() {
 		// TODO Auto-generated method stub
-		List<Message> messageList = messageDao.getMessage();
-		List<MessageDto> dtoList = new ArrayList<MessageDto>();
-		for(Message message:messageList) {
-			MessageDto dto = new MessageDto(message);
-			dtoList.add(dto);
-		}
-		return dtoList;
+//		List<Message> messageList = messageDao.getMessage();
+//		List<MessageDto> dtoList = new ArrayList<MessageDto>();
+//		for(Message message:messageList) {
+//			MessageDto dto = new MessageDto(message);
+//			dtoList.add(dto);
+		
+		return messageDao.getMessage();
 	}
 
 	
@@ -59,7 +59,7 @@ public class MessageServiceImpl implements MessageService {
 		messageDao.deleteMessage(message);
 		return messageId;
 	}
-
-	
-	
 }
+	
+	
+

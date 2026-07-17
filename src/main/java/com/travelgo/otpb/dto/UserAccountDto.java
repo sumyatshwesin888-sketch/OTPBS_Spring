@@ -26,9 +26,9 @@ public class UserAccountDto{
 	}
 
 
-	public UserAccountDto(String profileName2) {
+	public UserAccountDto(String profileName) {
 		// TODO Auto-generated constructor stub
-		this.profileName = profileName2;
+		this.profileName = profileName;
 	}
 
 
@@ -43,5 +43,11 @@ public class UserAccountDto{
 
 
 	private Integer status;
+	
+	private int allCount;
+	private int adminCount;
+	private int customerCount;
+	private int activeCount;
+	private int inactiveCount;
 
 }

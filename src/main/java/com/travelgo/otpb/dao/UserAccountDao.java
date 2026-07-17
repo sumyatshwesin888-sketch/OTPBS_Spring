@@ -19,4 +19,9 @@ public interface UserAccountDao {
 
 	UserAccount getUserAccountById(int userAccountId);
 
+
+	UserAccountDto getUserHome();
+	void updatePassword(int userAccountId, String newPassword);
+
+
 }

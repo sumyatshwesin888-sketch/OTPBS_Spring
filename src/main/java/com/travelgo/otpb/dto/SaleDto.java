@@ -15,28 +15,41 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+
 @JsonInclude(value = Include.USE_DEFAULTS)
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SaleDto {
 
-    public SaleDto(int saleId, int userAccountId, int customerId,  String voucherCode, int qty, int unitPrice, int amount, String paymentType ,Sale sale) {
-
-        this.saleId = sale.getSaleId();
-        this.userAccountId = sale.getUserAccountId();
-        this.customerId = sale.getCustomerId();
-//        this.product = new ProductDto(sale.getProductId());
-        this.voucherCode = sale.getVoucherCode();
-        this.qty = sale.getQty();
-        this.unitPrice = sale.getUnitPrice();
-        this.amount = sale.getAmount();
-        this.paymentType = sale.getPaymentType();
-        this.status = sale.getStatus();
-        this.date = sale.getDate();
-        this.modifiedDate = sale.getModifiedDate();
-
-    }
+//<<<<<<< HEAD
+    //public SaleDto(int saleId, int userAccountId, int customerId,  String voucherCode, int qty, int unitPrice, int amount, String paymentType ,Sale sale) {
+//=======
+//	public SaleDto(Sale sale) {
+////>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
+//
+//        this.saleId = sale.getSaleId();
+//        this.userAccountId = sale.getUserAccountId();
+//        this.customerId = sale.getCustomerId();
+////<<<<<<< HEAD
+////        this.product = new ProductDto(sale.getProductId());
+////=======
+//
+//       // this.product = sale.getProduct();
+//       // this.product = new ProductDto(sale.getProductId());
+//        this.productId= sale.getProductId();
+////>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
+//        this.voucherCode = sale.getVoucherCode();
+//        this.qty = sale.getQty();
+//        this.unitPrice = sale.getUnitPrice();
+//        this.amount = sale.getAmount();
+//        this.paymentType = sale.getPaymentType();
+//        this.status = sale.getStatus();
+//        this.date = sale.getDate();
+//        this.modifiedDate = sale.getModifiedDate();
+//
+//    }
 
     private int saleId;
 
@@ -44,7 +57,7 @@ public class SaleDto {
 
     private int customerId;
 
-    private ProductDto product;
+    private int productId;
 
     private String voucherCode;
 
@@ -57,12 +70,15 @@ public class SaleDto {
     private String paymentType;
 
     private String status;
+    
+    private ProductDto product;
 	@JsonSerialize(using = DateTimeFormatSerializer.class)
 	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
     private Date date;
 	@JsonSerialize(using = DateTimeFormatSerializer.class)
 	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
     private Date modifiedDate;
+//<<<<<<< HEAD
 	public void setProductDto(ProductDto product) {
 		// TODO Auto-generated method stub
 		this.product = product;
@@ -75,7 +91,7 @@ public class SaleDto {
 		this.userAccountId = userAccountId;
 		this.customerId = customerId;
 		this.voucherCode=voucherCode;
-		this.qty = customerId;
+		this.qty = qty;
 		this.unitPrice=unitPrice;
 		this.amount = amount;
 		this.paymentType=paymentType;
@@ -84,5 +100,28 @@ public class SaleDto {
 	public SaleDto(Sale sale) {
 		// TODO Auto-generated constructor stub
 	}
+//=======
+	public SaleDto(int saleId, int userAccountId, int customerId, int productId, String voucherCode, int qty, int unitPrice, int amount,
+			String paymentType, String status) {
+
+        this.saleId = saleId;
+        this.userAccountId = userAccountId;
+        this.customerId = customerId;
+
+       // this.product = sale.getProduct();
+       // this.product = new ProductDto(sale.getProductId());
+        this.productId= productId;
+        this.voucherCode = voucherCode;
+        this.qty = qty;
+        this.unitPrice = unitPrice;
+        this.amount = amount;
+        this.paymentType = paymentType;
+        this.status = status;
+        this.date = date;
+        this.modifiedDate = modifiedDate;
+
+	}
+	
+//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
 
 }

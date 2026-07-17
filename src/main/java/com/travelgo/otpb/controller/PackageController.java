@@ -50,7 +50,6 @@ public class PackageController {
 	}
 	@PostMapping("package")
 	public int addPackage(@RequestBody ProductDto dto) {
-		
 		return packageService.addPackage(dto);
 	}
 	@PutMapping("package/{packageId}")
@@ -84,7 +83,7 @@ public class PackageController {
 		return packageService.getPackageByCity();
 	}
 	
-	//package detail page က rating / review ဟာ
+	//package detail page
 	@PostMapping("package/ratingcomment")
 	public int saveRatingComment(@RequestBody RatingDto dto) {
 		
@@ -98,7 +97,7 @@ public class PackageController {
 		return 0;
 	}
 	
-	//packages page ကဟာ
+	//packages page 
 	@GetMapping("package/type/commentcount")
 	public List<CityTypeDto> getPackageByLocationTypeCommCount(@RequestParam(name="locationType",defaultValue = "DOMESTIC")String locationType,
 			@RequestParam(name="commentCount",defaultValue = "0")int commentCount) {//locationType is 
@@ -110,16 +109,36 @@ public class PackageController {
 		}
 		return null;
 	}
+	
 	@GetMapping("package/detail/{productId}")
 	public ProductDetail getPackageDetailById(@PathVariable("productId")int productId ) { 
 		try {
-			return packageService.getPackageDetailById(productId);
+			return  packageService.getPackageDetailById(productId);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	
+//<<<<<<< HEAD
+//	
+//	
+//=======
+	@GetMapping("/package/city/{cityId}")
+	  public List<CityTypeDto> getPackageByCityId(@PathVariable("cityId") int cityId){
+
+	      try {
+
+	          return packageService.getPackageByCityId(cityId);
+
+	      } catch (Exception e) {
+
+	          e.printStackTrace();
+
+	      }
+
+	      return null;
+
+	  }
+//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
 }

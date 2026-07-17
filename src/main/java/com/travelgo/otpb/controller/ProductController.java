@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.service.ProductService;
@@ -22,9 +24,11 @@ public class ProductController {
 	ProductService productService;
 	
 	@GetMapping("product")
-	public List<ProductDto> getProduct() {
+	public List<ProductDto> getProduct(@RequestParam(name="type",defaultValue = "ALL")String productType,
+			@RequestParam(name="locationType",defaultValue = "ALL")String locationType,
+    		@RequestParam(name="search",defaultValue = "")String search) {
 		
-		return productService.getProduct();
+		return productService.getProduct(productType,locationType,search);
 	}
 	
 	@PostMapping("product")
@@ -44,11 +48,24 @@ public class ProductController {
 			@PathVariable("productId")int productId) {
 		return productService.deleteProduct(productId);
 	}
+//<<<<<<< HEAD
 	
 	@GetMapping("product/{productId}")
 	public ProductDto getProductById(@PathVariable("productId")int productId) {
 		
 		return productService.getProductById(productId);
+	}
+//=======
+	@PutMapping("product/photo/{productId}/{photoIndex}")
+	public int updateProductPhoto(@PathVariable("productId")int productId,@RequestParam(value = "file",required=false) MultipartFile file,
+			@PathVariable(name="photoIndex")int photoIndex) {
+		try {
+			return productService.updateProductPhoto(productId,file,photoIndex);
+			}catch (Exception e) {
+				// TODO: handle exception
+				throw new RuntimeException("Update,Product File Error!", e);
+			}
+//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
 	}
 	
 }

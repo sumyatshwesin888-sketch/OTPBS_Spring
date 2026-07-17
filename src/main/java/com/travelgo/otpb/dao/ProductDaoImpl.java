@@ -1,5 +1,8 @@
 package com.travelgo.otpb.dao;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +10,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.travelgo.otpb.util.ConvertDate;
 import com.travelgo.otpb.domain.City;
 import com.travelgo.otpb.domain.Product;
 import com.travelgo.otpb.dto.ProductDto;
@@ -17,13 +22,71 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory sessionFactory;
 
+
 	@Override
-	public List<Product> getProduct() {
+	public List<ProductDto> getProduct(String productType, String locationType, String search) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Product> productList =  session.createQuery("select p from Product p ").getResultList();
-		return productList;
+		String sqlWhere = " Where 1=1 ";
+		if(!"ALL".equals(productType)) {
+			sqlWhere += " AND p.type= '"+productType+"'";
+		}
+		if(!"ALL".equals(locationType)) {
+			sqlWhere += " AND c.locationType= '"+locationType+"'";
+				}
+		if(!"".equals(search)) {
+			sqlWhere += " AND p.title like '%"+search+"%'"; 
+		}
+		List<Object[]> objList =  session.createNativeQuery(" SELECT p.title,p.type,c.locationType,p.location,p.day,p.night,p.groupSize,"
+				+ "p.meals,p.travelDate,p.ticket,p.transport,p.amount,\r\n"
+				+ "p.photo,p.photoone,p.photoTwo,p.photoThree,p.photoFour,p.productId\r\n"
+				+ "FROM product p\r\n"
+				+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
+				+ "LEFT JOIN city c ON c.cityId = h.cityId "+sqlWhere).getResultList();
+		List<ProductDto> dtoList = new ArrayList<ProductDto>();
+		for(Object[] obj:objList) {
+			String title = (String)obj[0];
+			String type = (String)obj[1];
+			locationType = (String)obj[2];
+			String location = (String)obj[3];
+			
+			int day = Integer.parseInt(obj[4].toString());
+			int night = Integer.parseInt(obj[5].toString());
+			String groupSize = (String)obj[6];
+			String meals = (String)obj[7];
+			Date travelDate = (Date)obj[8];
+			int ticket = Integer.parseInt(obj[9].toString());
+			String transport = (String)obj[10];
+			int amount = Integer.parseInt(obj[11].toString());
+			String photo = (String)obj[12];
+			String photoOne = (String)obj[13];
+			String photoTwo = (String)obj[14];
+			String photoThree = (String)obj[15];
+			String photoFour = (String)obj[16];
+			int productId = Integer.parseInt(obj[17].toString());
+			int photoCount = 0;
+			if(photoOne!=null) {
+				photoCount+=1;
+			}
+			if(photoTwo!=null) {
+				photoCount+=1;
+			}
+			if(photoThree!=null) {
+				photoCount+=1;
+			}
+			if(photoFour!=null) {
+				photoCount+=1;
+			}
+			ProductDto dto = new ProductDto(title,type,locationType,location,
+					day,night,groupSize,meals,travelDate,ticket,transport,amount,photo,photoOne,
+					photoTwo,photoThree,photoFour);
+			dto.setPhotoCount(photoCount);
+			dto.setProductId(productId);
+			dtoList.add(dto);
+		}
+		return dtoList;
 	}
+
 
 	@Override
 	public void saveProduct(Product product) {
@@ -103,7 +166,33 @@ public class ProductDaoImpl implements ProductDao {
 		}
 		return dto;
 	}
+		
+//  for About Page
+	@Override
+	public List<ProductDto> getProduct() {
+	    Session session = sessionFactory.getCurrentSession();
+	    List<Object[]> objList = session.createNativeQuery("SELECT "
+	            + " COUNT(DISTINCT p.useraccountId) AS traveler, "
+	            + " COUNT(p.productId) AS packages, "
+	            + " COUNT(DISTINCT c.cityId) AS cities "
+	            + " FROM product p "
+	            + " LEFT JOIN hotel h ON p.hotelId = h.hotelId "
+	            + " LEFT JOIN city c ON h.cityId = c.cityId").getResultList();
 
+//<<<<<<< HEAD
+	    List<ProductDto> dtoList = new ArrayList<ProductDto>();
+	    if (objList != null && !objList.isEmpty()) {
+	        Object[] row = objList.get(0);
+	        int traveler = ((Number) row[0]).intValue();
+	        int packages = ((Number) row[1]).intValue();
+	        int cities   = ((Number) row[2]).intValue();
+	        
+	        ProductDto dto = new ProductDto(traveler, packages, cities);
+	        dtoList.add(dto);
+	    }
+	    return dtoList;
+	}  
+	    
 	@Override
 	public ProductDto getProductById(int productId) {
 		// TODO Auto-generated method stub
@@ -112,5 +201,60 @@ public class ProductDaoImpl implements ProductDao {
 		ProductDto dto = new ProductDto(p);
 		return dto;
 	}
+
+//=======
+	   
+
+	@Override
+	public List<ProductDto> getProductByProductId(int productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int updateProductPhoto(int productId, MultipartFile file,int photoIndex) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Product p= session.find(Product.class, productId);
+		String pwd=new File("").getAbsolutePath();
+		if(p.getPhoto()!=null) {
+			File deleteFile=new File(pwd+"/productphoto/"+p.getPhoto());//+".png"
+			deleteFile.delete();
+		}
+		String photoCode= ConvertDate.createVoucherCode(new Date());
+		if(photoIndex==0) {
+			p.setPhoto(photoCode+".png");
+		}else if(photoIndex==1) {
+			p.setPhotoOne(photoCode+".png");
+		}else if(photoIndex==2) {
+			p.setPhotoTwo(photoCode+".png");
+		}else if(photoIndex==3) {
+			p.setPhotoThree(photoCode+".png");
+		}else{
+			p.setPhotoFour(photoCode+".png");
+		}
+		//p.setPhoto(photoCode+".png");
+		File dir=new File(pwd+"/productphoto/");
+		String outPath=pwd+"/productphoto/"+photoCode+".png";
+		File dest=new File(outPath);
+		try {
+			if (!dir.exists()) {
+				dir.mkdir();
+			}
+			file.transferTo(dest);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return productId;
+
+	}
+
+//	@Override
+//	public List<ProductDto> getProductByProductId(int productId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

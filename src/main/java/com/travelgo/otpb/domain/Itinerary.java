@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.travelgo.otpb.dto.ItineraryDto;
+import com.travelgo.otpb.dto.ProductDto;
 
 @Entity
 @Table(name = "itinerary")
@@ -35,7 +36,7 @@ public class Itinerary {
 		this.title = dto.getTitle();
 		this.detail = dto.getDetail();
 		this.dayNo = dto.getDayNo();
-		this.productId = dto.getProductDto().getProductId();
+		this.productId = dto.getProductId();
 		
 	}
 

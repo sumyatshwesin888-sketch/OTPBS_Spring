@@ -14,4 +14,10 @@ public interface UserAccountService {
     int deleteUserAccount(int userAccountId);
 
 	UserAccountDto login(String email, String password);
+
+
+	UserAccountDto getUserHome();
+
+	int updatePassword(UserAccountDto dto);
+
 }
