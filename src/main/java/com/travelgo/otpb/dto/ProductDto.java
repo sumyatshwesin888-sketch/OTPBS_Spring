@@ -12,17 +12,29 @@ import com.travelgo.otpb.util.DateTimeFormatSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.asm.Advice.This;
+//import net.bytebuddy.asm.Advice.This;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor 
 public class ProductDto{
 	
+//<<<<<<< HEAD
+	public ProductDto(Product p) {
+		// TODO Auto-generated constructor stub
+		 this.productId = p.getProductId();
+		    this.title = p.getTitle();
+		    this.day = p.getDay();
+		    this.night = p.getNight();
+		    this.amount = p.getAmount();
+		    this.photo = p.getPhoto();
+		    this.location = p.getLocation();}
+//=======
 	public ProductDto(int travelers, int packages, int cities) {
 		this.traveler = travelers;
 	    this.packages = packages;
 	    this.cities = cities;
+//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
 	}
 	public ProductDto(int productId, String locationType, String photo, String title, int day, int night,
 			String groupSize, int amount, String location, double ratingCount, int commentCount) {
@@ -150,13 +162,13 @@ public class ProductDto{
 		this.locationType = locationType;
 
 	}
-	public ProductDto(Product product) {
-		// TODO Auto-generated constructor stub
-
-		this.leftTicket = leftTicket;
-		this.photo = photo;
-		this.locationType = locationType;
-	}
+//	public ProductDto(Product product) {
+//		// TODO Auto-generated constructor stub
+//
+//		this.leftTicket = leftTicket;
+//		this.photo = photo;
+//		this.locationType = locationType;
+//	}
 	public ProductDto(String title, String type, String locationType, String location, int day, int night,
 			String groupSize, String meals, Date travelDate, int ticket, String transport, int amount,
 			String photo, String photoOne, String photoTwo, String photoThree, String photoFour) {

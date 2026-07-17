@@ -73,6 +73,14 @@ public class ProductServiceImpl implements ProductService {
 		productDao.deleteProduct(product);
 		return productId;
 	}
+//<<<<<<< HEAD
+	@Transactional(readOnly=true)
+	@Override
+	public ProductDto getProductById(int productId) {
+		// TODO Auto-generated method stub
+		return productDao.getProductById(productId);
+	}
+//=======
 //	@Transactional(readOnly=true)
 //	@Override
 //	public List<ProductDto> getProduct() {
@@ -90,5 +98,6 @@ public class ProductServiceImpl implements ProductService {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
 
 }

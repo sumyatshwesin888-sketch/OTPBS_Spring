@@ -179,6 +179,7 @@ public class ProductDaoImpl implements ProductDao {
 	            + " LEFT JOIN hotel h ON p.hotelId = h.hotelId "
 	            + " LEFT JOIN city c ON h.cityId = c.cityId").getResultList();
 
+//<<<<<<< HEAD
 	    List<ProductDto> dtoList = new ArrayList<ProductDto>();
 	    if (objList != null && !objList.isEmpty()) {
 	        Object[] row = objList.get(0);
@@ -190,7 +191,19 @@ public class ProductDaoImpl implements ProductDao {
 	        dtoList.add(dto);
 	    }
 	    return dtoList;
+	}  
+	    
+	@Override
+	public ProductDto getProductById(int productId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Product p =  session.find(Product.class, productId);
+		ProductDto dto = new ProductDto(p);
+		return dto;
 	}
+
+//=======
+	   
 
 	@Override
 	public List<ProductDto> getProductByProductId(int productId) {
@@ -243,4 +256,5 @@ public class ProductDaoImpl implements ProductDao {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+
 }

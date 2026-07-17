@@ -113,15 +113,19 @@ public class PackageController {
 	@GetMapping("package/detail/{productId}")
 	public ProductDetail getPackageDetailById(@PathVariable("productId")int productId ) { 
 		try {
-			return packageService.getPackageDetailById(productId);
+			return  packageService.getPackageDetailById(productId);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return null;
 	}
+//<<<<<<< HEAD
+//	
+//	
+//=======
 	@GetMapping("/package/city/{cityId}")
-	  public List<CityTypeDto> getPackageByCityId(@PathVariable int cityId){
+	  public List<CityTypeDto> getPackageByCityId(@PathVariable("cityId") int cityId){
 
 	      try {
 
@@ -136,4 +140,5 @@ public class PackageController {
 	      return null;
 
 	  }
+//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
 }

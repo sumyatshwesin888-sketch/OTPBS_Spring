@@ -22,7 +22,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "sale")
 public class Sale {
+//<<<<<<< HEAD
+//=======
 
+	
     public Sale(SaleDto dto) {
 		// TODO Auto-generated constructor stub
     	this.saleId = dto.getSaleId();//
@@ -39,11 +42,12 @@ public class Sale {
     	this.modifiedDate = new Date();
 	}
 
+//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int saleId;
 
-    private int userAccountId;
+    private Integer userAccountId;
 
     private int customerId;
 
@@ -65,6 +69,28 @@ public class Sale {
 
     private Date modifiedDate;
 
+//<<<<<<< HEAD
+	
+
+//    public Sale(SaleDto dto) {
+//		// TODO Auto-generated constructor stub
+//    	
+//    	this.saleId = dto.getSaleId();//
+//    	this.userAccountId = dto.getUserAccountId();//
+//    	this.customerId = dto.getCustomerId();
+//    	this.productId = dto.getProduct().getProductId();
+//    	this.voucherCode = ConvertDate.createVoucherCode(new Date());//
+//    	this.qty = dto.getQty();
+//    	this.unitPrice = dto.getUnitPrice();
+//    	this.amount = this.qty*this.unitPrice;
+//    	this.paymentType = dto.getPaymentType();
+//    	this.status  = "CONFIRM";
+//    	this.date = new Date();
+//    	this.modifiedDate = new Date();
+//	}
+
+	
+//=======
 	public int getSaleId() {
 		return saleId;
 	}
@@ -164,5 +190,6 @@ public class Sale {
 	
 
 	
+//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
     
 }
