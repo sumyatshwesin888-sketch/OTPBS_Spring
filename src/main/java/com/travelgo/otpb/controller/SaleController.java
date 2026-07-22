@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.travelgo.otpb.dto.PackageDashboardDto;
 import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.SaleDto;
 import com.travelgo.otpb.service.SaleService;
@@ -25,24 +26,26 @@ public class SaleController {
     SaleService saleService;
 
     @GetMapping("sale")
-<<<<<<< HEAD
-    public List<SaleDto> getSale(
-    		@RequestParam(name="status",defaultValue = "All")String status) {
 
-        return saleService.getSale(status);
-
-    }
-=======
-	public List<SaleDto> getSale() {
+	public List<SaleDto> getSale(@RequestParam(name="status",defaultValue = "All")String status) {
 		try {
-			return saleService.getSale();
+			return saleService.getSale(status);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return null;
 	}
->>>>>>> fe62644ab973cd019cfc07ce6cd97243748ac8eb
+    
+    
+    //For AdminDashboard
+    
+    @GetMapping("/dashboard")
+    public PackageDashboardDto getPackageDashboard() {
+    	
+        return saleService.getPackageDashboard();
+    }
+
 
     @PostMapping("sale")
     public SaleDto addSale(@RequestBody SaleDto dto) {
@@ -95,3 +98,8 @@ public class SaleController {
     }
 
 }
+
+
+
+
+

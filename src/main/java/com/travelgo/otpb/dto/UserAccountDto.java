@@ -49,7 +49,7 @@ public class UserAccountDto{
 	private String password;
 
 
-	private Integer status;
+	private String status;
 	
 	private int allCount;
 	private int adminCount;

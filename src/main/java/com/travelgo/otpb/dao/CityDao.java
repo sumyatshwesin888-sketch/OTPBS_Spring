@@ -17,5 +17,7 @@ public interface CityDao {
 
 	UserAccountDto login(String email, String password);
 
+	List<City> getCity(String cityName, String search);
+
 
 }

@@ -31,6 +31,11 @@ public class ProductController {
 		return productService.getProduct(productType,locationType,search);
 	}
 	
+	@GetMapping("product/stats")
+    public List<ProductDto> getAboutStats() {
+        return productService.getProduct(); 
+    }
+	
 	@PostMapping("product")
 	public int addProduct(@RequestBody ProductDto dto) {
 		

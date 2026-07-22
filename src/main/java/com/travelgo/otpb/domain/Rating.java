@@ -18,7 +18,9 @@ public class Rating {
     private int rating;
     private Date date;
 
-    public Rating() {}
+    public Rating() {
+    	super();
+    }
 
     public Rating(RatingDto dto) {
         this.ratingId = dto.getRatingId();

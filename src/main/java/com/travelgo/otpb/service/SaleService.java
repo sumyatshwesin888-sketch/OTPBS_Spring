@@ -2,6 +2,7 @@ package com.travelgo.otpb.service;
 
 import java.util.List;
 
+import com.travelgo.otpb.dto.PackageDashboardDto;
 import com.travelgo.otpb.dto.SaleDto;
 
 public interface SaleService {
@@ -13,5 +14,7 @@ public interface SaleService {
 	SaleDto updateSale(SaleDto dto);
 
 	int deleteSale(int saleId);
+
+	PackageDashboardDto getPackageDashboard();
 
 }

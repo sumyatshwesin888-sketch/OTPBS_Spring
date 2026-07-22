@@ -110,7 +110,11 @@ public class PackageServiceImpl  implements PackageService {
 	@Override
 	public int saveRatingComment(RatingDto dto) {
 		// TODO Auto-generated method stub
-		Rating ra = new Rating(dto);
+		Rating ra = new Rating();
+		ra.setRating(dto.getRating());
+		ra.setCustomerId(dto.getUserAccountDto().getUserAccountId());
+		ra.setProductId(dto.getProductId());
+		ra.setDate(new Date());
 		ratingDao.saveRating(ra);
 		
 		Comment c = new Comment();
@@ -121,7 +125,7 @@ public class PackageServiceImpl  implements PackageService {
 		commentDao.saveComment(c);
 		
 		
-		return c.getCommentId();
+		return 1;
 	}
 
 	@Transactional(readOnly=true)

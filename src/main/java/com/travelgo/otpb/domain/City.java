@@ -1,5 +1,4 @@
 package com.travelgo.otpb.domain;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +25,11 @@ public class City {
 		// TODO Auto-generated constructor stub
 		this.cityId = dto.getCityId();
 		this.cityName = dto.getCityName();
+		this.locationType= dto.getLocationType();
+		this.photo= dto.getPhoto();
+		this.region= dto.getRegion();
+		this.website= dto.getWebsite();
+		this.detail= dto.getDetail();
 	}
 
 	public City() {
