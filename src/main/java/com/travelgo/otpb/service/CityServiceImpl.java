@@ -17,16 +17,20 @@ public class CityServiceImpl implements CityService {
 	@Autowired
 	CityDao cityDao;
 
+	
 	@Transactional(readOnly=true)
 	@Override
-	public List<CityDto> getCity() {
+	public List<CityDto> getCity(String cityName, String search) {
 		// TODO Auto-generated method stub
-		List<City> cityList = cityDao.getCity();
+		List<City> cityList = cityDao.getCity(cityName, search);
 		List<CityDto> dtoList = new ArrayList<CityDto>();
-		for(City city:cityList) {
-			CityDto dto = new CityDto(city);
-			dtoList.add(dto);
+		if(cityList != null) {
+			for(City city:cityList) {
+				CityDto dto = new CityDto(city);
+				dtoList.add(dto);
+			}	
 		}
+		
 		return dtoList;
 	}
 
@@ -63,6 +67,43 @@ public class CityServiceImpl implements CityService {
 		// TODO Auto-generated method stub
 		return cityDao.login(email,password);
 	}
+
+	@Override
+	public List<CityDto> getCity() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+//	@Override
+//	public List<CityDto> getCity() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+//	@Override
+//	public List<CityDto> getCity() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+//	@Transactional(readOnly=true)
+//	@Override
+//	public List<CityDto> getProduct(String cityName, String search) {
+//		// TODO Auto-generated method stub
+//		return null;
+////	}
+//	@Transactional(readOnly=true)
+//	@Override
+//	public List<CityDto> getCity() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
+//	@Override
+//	public List<CityDto> getCity(String cityName, String search) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	
 	

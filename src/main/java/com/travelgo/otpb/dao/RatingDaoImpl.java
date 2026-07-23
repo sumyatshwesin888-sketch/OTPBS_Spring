@@ -49,7 +49,7 @@ public class RatingDaoImpl implements RatingDao {
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> objList = session.createNativeQuery("SELECT  ua.profileName,r.rating,r.date,c.message\r\n"
 				+ "FROM rating r\r\n"
-				+ "LEFT JOIN `comment` c ON c.commentId = r.ratingId\r\n"
+				+ "LEFT JOIN `comment` c ON c.productId = r.productId\r\n"
 				+ "LEFT JOIN useraccount ua ON ua.userAccountId = r.customerId\r\n"
 				+ "WHERE r.productId = :productId order by r.ratingId DESC ").setParameter("productId", productId).getResultList();
 		List<RatingDto>  dtoList = new ArrayList<RatingDto>();

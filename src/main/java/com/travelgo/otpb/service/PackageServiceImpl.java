@@ -110,18 +110,35 @@ public class PackageServiceImpl  implements PackageService {
 	@Override
 	public int saveRatingComment(RatingDto dto) {
 		// TODO Auto-generated method stub
-		Rating ra = new Rating(dto);
-		ratingDao.saveRating(ra);
-		
-		Comment c = new Comment();
-		c.setDate(new Date());
-		c.setMessage(dto.getComment());
-		c.setProductId(dto.getProductId());
-		c.setCustomerId(dto.getUserAccountDto().getUserAccountId());
-		commentDao.saveComment(c);
-		
-		
-		return c.getCommentId();
+		int customerId = dto.getUserAccountDto().getUserAccountId();
+
+
+	    // Save Rating
+	    Rating ra = new Rating();
+
+	    ra.setProductId(dto.getProductId());
+	    ra.setCustomerId(customerId);
+	    ra.setRating(dto.getRating());
+	    ra.setDate(new Date());
+
+	    ratingDao.saveRating(ra);
+
+
+
+	    // Save Comment
+	    Comment c = new Comment();
+
+	   
+	    c.setProductId(dto.getProductId());
+	    c.setCustomerId(customerId);
+
+	    c.setDate(new Date());
+	    c.setMessage(dto.getMessage());
+	    
+	    commentDao.saveComment(c);
+
+
+	    return c.getCommentId();
 	}
 
 	@Transactional(readOnly=true)

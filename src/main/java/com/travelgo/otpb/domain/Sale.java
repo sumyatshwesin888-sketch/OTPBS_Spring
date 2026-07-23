@@ -22,8 +22,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "sale")
 public class Sale {
-//<<<<<<< HEAD
-//=======
+
 
 	
     public Sale(SaleDto dto) {
@@ -32,17 +31,18 @@ public class Sale {
     	this.userAccountId = dto.getUserAccountId();//
     	this.customerId = dto.getCustomerId();
     	this.productId = dto.getProductId();
-    	this.voucherCode = ConvertDate.createVoucherCode(date);//
+    	
     	this.qty = dto.getQty();
     	this.unitPrice = dto.getUnitPrice();
     	this.amount = this.qty*this.unitPrice;
     	this.paymentType = dto.getPaymentType();
-    	this.status  = dto.getStatus();
+    	this.status  = "CONFIRM";
     	this.date = new Date();
     	this.modifiedDate = new Date();
+    	this.voucherCode = ConvertDate.createVoucherCode(this.date);//
 	}
 
-//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int saleId;
@@ -99,11 +99,11 @@ public class Sale {
 		this.saleId = saleId;
 	}
 
-	public int getUserAccountId() {
+	public Integer getUserAccountId() {
 		return userAccountId;
 	}
 
-	public void setUserAccountId(int userAccountId) {
+	public void setUserAccountId(Integer userAccountId) {
 		this.userAccountId = userAccountId;
 	}
 
@@ -190,6 +190,6 @@ public class Sale {
 	
 
 	
-//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
+
     
 }

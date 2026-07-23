@@ -15,4 +15,6 @@ public interface HotelDao {
 	void updateHotel(Hotel hotel);
 	
 	void deleteHotel(Hotel hotel);
+
+	List<HotelDto> getHotel(String hotelName, String cityName, String search);
 }

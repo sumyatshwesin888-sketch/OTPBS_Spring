@@ -24,10 +24,18 @@ public class HotelController {
 	HotelService hotelService;
 	
 	@GetMapping("hotel")
-	public List<HotelDto> getHotel() {
-		
-		return hotelService.getHotel();
+	public List<HotelDto> getHotel(@RequestParam(name="hotelName",defaultValue = "ALL")String hotelName,
+			@RequestParam(name="cityName",defaultValue = "ALL")String cityName,
+    		@RequestParam(name="search",defaultValue = "")String search) {
+	
+		return hotelService.getHotel(hotelName,cityName, search);
 	}
+	
+//	@GetMapping("hotel")
+//	public List<HotelDto> getHotel() {
+//		
+//		return hotelService.getHotel();
+//	}
 	
 	@PostMapping("hotel")
 	public int addHotel(@RequestBody HotelDto dto) {

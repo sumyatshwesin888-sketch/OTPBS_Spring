@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.travelgo.otpb.domain.Hotel;
+import com.travelgo.otpb.domain.UserAccount;
 import com.travelgo.otpb.dto.CityDto;
 import com.travelgo.otpb.dto.HotelDto;
 import com.travelgo.otpb.dto.ItineraryDto;
@@ -18,27 +19,38 @@ public class HotelDaoImpl implements HotelDao {
     SessionFactory sessionFactory;
 
     @Override
-    public List<HotelDto> getHotel() {
+    public List<HotelDto> getHotel(String hotelName,String cityName,String search) {
         Session session = sessionFactory.getCurrentSession();
-        List<Object[]> objList = session.createNativeQuery("SELECT h.hotelId , c.cityId, c.cityName , h.hotelName\r\n"
-        		+ "FROM hotel h\r\n"
-        		+ "LEFT JOIN city c ON c.cityId = h.hotelId\r\n"
-        		+ "ORDER BY h.hotelName").getResultList();
-        List<HotelDto> dtoList = new  ArrayList<HotelDto>();
-		for(Object[] obj:objList) {
-			int hotelId = Integer.parseInt(obj[0].toString());
-			int cityId = Integer.parseInt(obj[1].toString());
-			String cityName = (String)obj[2];
-			String hotelName = (String)obj[3];
-			
-			
-			
-			HotelDto dto = new HotelDto(hotelId,hotelName);
-			dto.setCityDto(new CityDto(cityId,cityName));
-			dtoList.add(dto);
-		}
-		
-		return dtoList;
+        String sqlWhere = "WHERE 1=1 ";
+        if (search != null && !search.trim().equals("")) {
+            sqlWhere += " AND h.hotelName LIKE '%" + search.trim() + "%'";
+        } else {
+            if (cityName != null && !"ALL".equals(cityName)) {
+                sqlWhere += " AND c.cityName = '" + cityName + "'";
+            }
+        }
+        String sql="SELECT c.cityName , h.hotelName FROM hotel h LEFT JOIN city c ON c.cityId = h.cityId " 
+                + sqlWhere 
+                + " ORDER BY h.hotelName";
+        List<Object[]> objList = session.createNativeQuery(sql).getResultList();
+        List<HotelDto> dtoList = new ArrayList<HotelDto>();
+        
+        for(Object[] obj : objList) {
+            String cityName1 = obj[0] != null ? obj[0].toString() : "N/A";
+            String htName = obj[1] != null ? obj[1].toString() : "";
+
+            HotelDto dto = new HotelDto();
+            dto.setHotelName(htName);
+            
+            // 💡 CityDto ဆောက်ပြီး cityDto field ထဲ စနစ်တကျ ထည့်ပေးလိုက်ပါပြီ
+            CityDto city = new CityDto();
+            city.setCityName(cityName1);
+            dto.setCityDto(city);
+            
+            dtoList.add(dto);
+        }
+        
+        return dtoList;
     }
 
     @Override
@@ -58,4 +70,10 @@ public class HotelDaoImpl implements HotelDao {
         Session session = sessionFactory.getCurrentSession();
         session.delete(hotel);
     }
+
+	@Override
+	public List<HotelDto> getHotel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

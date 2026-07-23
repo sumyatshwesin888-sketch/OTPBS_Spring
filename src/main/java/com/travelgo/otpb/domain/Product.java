@@ -2,6 +2,7 @@ package com.travelgo.otpb.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -57,6 +58,7 @@ public class Product{
 	private int productId;
 	private int userAccountId;
 	private int hotelId;
+	@Column(name="photo")
 	private String photo;
 	private String title;
 	private String location;

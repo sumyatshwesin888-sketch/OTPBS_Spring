@@ -17,5 +17,9 @@ public interface CityService {
 
 	UserAccountDto login(String email, String password);
 
+	List<CityDto> getCity(String cityName, String search);
+
+	
+
 
 }

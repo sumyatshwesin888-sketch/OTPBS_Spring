@@ -86,15 +86,11 @@ public class PackageController {
 	//package detail page
 	@PostMapping("package/ratingcomment")
 	public int saveRatingComment(@RequestBody RatingDto dto) {
+		 System.out.println("========== RATING API CALLED ==========");
+		    System.out.println(dto);
 		
-		try {
 			return packageService.saveRatingComment(dto);
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
 		
-		return 0;
 	}
 	
 	//packages page 
@@ -120,10 +116,7 @@ public class PackageController {
 		}
 		return null;
 	}
-//<<<<<<< HEAD
-//	
-//	
-//=======
+
 	@GetMapping("/package/city/{cityId}")
 	  public List<CityTypeDto> getPackageByCityId(@PathVariable("cityId") int cityId){
 
@@ -140,5 +133,5 @@ public class PackageController {
 	      return null;
 
 	  }
-//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
+
 }

@@ -20,60 +20,35 @@ public class CommentDto {
 	public CommentDto(Comment comment) {
 		// TODO Auto-generated constructor stub
 		this.commentId = comment.getCommentId();
+		this.customerId = comment.getCustomerId();
 		this.productId = comment.getProductId();
 		this.message = comment.getMessage();
 		this.date = comment.getDate();
-		this.userAccountDto = getUserAccountDto();
+		this.userAccountDto = null;
 
+		 if(comment.getProduct()!=null){
+	            this.product = new ProductDto(comment.getProduct());
+	        }
 		
 	}
 
-//	public CommentDto(int commentId, String message, String profileName, String email, String title) {
-//		// TODO Auto-generated constructor stub
-//		this.commentId = commentId;
-//		this.message = message;
-//		this.profileName=profileName;
-//		this.email=email;
-//		this.title = title;		
 
-//	}
 
 
 	private int commentId;
+	private int customerId;
 	private int productId;
 	private UserAccountDto userAccountDto;
 
 	private String message;
+	private ProductDto product;
 	
-//	private String profileName;
-//
-//	private String email;
-//
-//	private String title;
-
-	//private String message;
 	@JsonSerialize(using = DateTimeFormatSerializer.class)
 	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
 	private Date date;
 
 
-	public String getProfileName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public String getEmail() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public String getTitle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	
 
 
