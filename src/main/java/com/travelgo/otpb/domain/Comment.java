@@ -19,10 +19,11 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int commentId;
-	private int customerId;
-	private int productId;
 	private String message;
 	private Date date;
+	private int customerId;
+	private int productId;
+
 	 @ManyToOne(fetch = FetchType.EAGER)
 	    @JoinColumn(
 	        name="productId",
@@ -30,24 +31,15 @@ public class Comment {
 	        updatable=false
 	    )
 	    private Product product;
-	
 
-	
-	
-	
 	public Comment(CommentDto dto) {
 		this.commentId = dto.getCommentId();
 		
 		this.productId = dto.getProductId();
 		this.message = dto.getMessage();
-
-		
-
 		this.date = dto.getDate();
 		this.customerId = dto.getUserAccountDto().getUserAccountId();
 
-		
-		
 	}
 
 	public Comment() {
@@ -69,9 +61,6 @@ public class Comment {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-	
-
 	public Product getProduct(){
 		 return product;
 		}

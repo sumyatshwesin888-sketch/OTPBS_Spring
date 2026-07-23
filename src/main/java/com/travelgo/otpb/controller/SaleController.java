@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.travelgo.otpb.dto.PackageDashboardDto;
 import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.SaleDto;
 import com.travelgo.otpb.service.SaleService;
@@ -25,18 +26,41 @@ public class SaleController {
     SaleService saleService;
 
     @GetMapping("sale")
+//<<<<<<< HEAD
+//
+//    public List<SaleDto> getSale(
+//    		@RequestParam(name="status",defaultValue = "All")String status) {
+//
+//    	 try {
+//             return saleService.getSale(status);
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//             throw new RuntimeException("Get Sale Error!", e);
+//         }
+//
+//    }
+//=======
 
-    public List<SaleDto> getSale(
-    		@RequestParam(name="status",defaultValue = "All")String status) {
-
-    	 try {
-             return saleService.getSale(status);
-         } catch (Exception e) {
-             e.printStackTrace();
-             throw new RuntimeException("Get Sale Error!", e);
-         }
-
+	public List<SaleDto> getSale(@RequestParam(name="status",defaultValue = "All")String status) {
+		try {
+			return saleService.getSale(status);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
+    
+    
+    //For AdminDashboard
+    
+    @GetMapping("/dashboard")
+    public PackageDashboardDto getPackageDashboard() {
+    	
+        return saleService.getPackageDashboard();
     }
+
+
 
 	
     @PostMapping("sale")
@@ -83,3 +107,8 @@ public class SaleController {
     }
 
 }
+
+
+
+
+

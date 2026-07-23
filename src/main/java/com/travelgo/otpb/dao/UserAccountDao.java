@@ -24,4 +24,7 @@ public interface UserAccountDao {
 	void updatePassword(int userAccountId, String newPassword);
 
 
+	Integer getUserCountByStatus(String string);
+
+
 }

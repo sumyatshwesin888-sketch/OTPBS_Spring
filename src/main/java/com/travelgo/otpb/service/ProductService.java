@@ -22,6 +22,8 @@ public interface ProductService {
 	int updateProductPhoto(int productId, MultipartFile file,int photoIndex);
 //>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
 
+	List<ProductDto> getProduct();
+
 	
 
 }

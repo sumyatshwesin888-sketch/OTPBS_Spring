@@ -46,6 +46,11 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProduct(productType,locationType,search);
 
 	}
+	@Transactional(readOnly=true)
+	  @Override
+	  public List<ProductDto> getProduct() {
+	      return productDao.getProduct(); 
+	  }
 	@Transactional(readOnly=false)
 	@Override
 	public int addProduct(ProductDto dto) {
