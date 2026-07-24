@@ -80,4 +80,16 @@ public class CommentDaoImpl implements CommentDao{
 		session.delete(comment);
 	}
 
+
+	public Comment findById(int commentId) {
+		 Session session =
+			        sessionFactory.getCurrentSession();
+
+
+			    return session.get(
+			        Comment.class,
+			        commentId
+			    );
+	}
+
 }

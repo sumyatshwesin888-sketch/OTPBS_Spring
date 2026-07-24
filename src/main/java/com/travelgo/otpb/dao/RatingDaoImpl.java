@@ -3,7 +3,7 @@ package com.travelgo.otpb.dao;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import com.travelgo.otpb.dto.ProductDto;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +18,58 @@ public class RatingDaoImpl implements RatingDao {
     SessionFactory sessionFactory;
 
     @Override
-    public List<Rating> getRating() {
-        Session session = sessionFactory.getCurrentSession();
-        // HQL query
-        List<Rating> ratingList = session.createQuery("select r from Rating r").getResultList();
-        return ratingList;
+    public List<RatingDto> getRating() {
+    	Session session = sessionFactory.getCurrentSession();
+
+        List<Object[]> objList =
+            session.createNativeQuery(
+            "SELECT "
+            + "r.ratingId,"
+            + "r.rating,"
+            + "r.date,"
+            + "p.title "
+            + "FROM rating r "
+            + "LEFT JOIN product p "
+            + "ON r.productId = p.productId"
+            ).getResultList();
+        List<RatingDto> list = new ArrayList<>();
+
+
+        for(Object[] obj : objList){
+
+            RatingDto dto = new RatingDto();
+
+
+            dto.setRatingId(
+                Integer.parseInt(obj[0].toString())
+            );
+
+
+            dto.setRating(
+                Integer.parseInt(obj[1].toString())
+            );
+
+
+            dto.setDate(
+                (Date)obj[2]
+            );
+
+
+            ProductDto product = new ProductDto();
+
+            product.setTitle(
+                (String)obj[3]
+            );
+
+
+            dto.setProduct(product);
+
+
+            list.add(dto);
+        }
+
+
+        return list;
     }
 
     @Override

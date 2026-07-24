@@ -6,7 +6,7 @@ import com.travelgo.otpb.dto.RatingDto;
 
 public interface RatingDao {
 
-    List<Rating> getRating();
+    List<RatingDto> getRating();
 
     void saveRating(Rating rating);
 
