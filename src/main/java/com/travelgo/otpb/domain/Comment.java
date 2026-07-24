@@ -1,9 +1,12 @@
 package com.travelgo.otpb.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.*;
 import com.travelgo.otpb.dto.CommentDto;
@@ -17,20 +20,23 @@ public class Comment {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int commentId;
 	private String message;
-	
-
-	private String title;
-
-
 	private Date date;
 	private int customerId;
+	private int productId;
+
+	 @ManyToOne(fetch = FetchType.EAGER)
+	    @JoinColumn(
+	        name="productId",
+	        insertable=false,
+	        updatable=false
+	    )
+	    private Product product;
+
 	public Comment(CommentDto dto) {
 		this.commentId = dto.getCommentId();
+		
+		this.productId = dto.getProductId();
 		this.message = dto.getMessage();
-
-//		this.profileName = dto.getProfileName();
-		this.title = dto.getTitle();
-
 		this.date = dto.getDate();
 		this.customerId = dto.getUserAccountDto().getUserAccountId();
 
@@ -55,20 +61,11 @@ public class Comment {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
-
-
-
-
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
+	public Product getProduct(){
+		 return product;
+		}
+	
+	
 	
 	public int getCustomerId() {
 		return customerId;
@@ -78,21 +75,22 @@ public class Comment {
 		this.customerId = customerId;
 	}
 
-	public void setProductId(int productId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setDate(Date date2) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public int getProductId() {
 		// TODO Auto-generated method stub
-		return 0;
+		return productId;
+	}
+	public void setProductId(int productId) {
+		this.productId = productId;
+		
+	}
+
+	public void setDate(Date date) {
+		// TODO Auto-generated method stub
+		 this.date = date;
+	}
+
+	
 	}
 
 	
 
-}

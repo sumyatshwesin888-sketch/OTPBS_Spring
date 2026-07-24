@@ -17,24 +17,24 @@ public class CityServiceImpl implements CityService {
 	@Autowired
 	CityDao cityDao;
 
-	
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	@Override
 	public List<CityDto> getCity(String cityName, String search) {
 		// TODO Auto-generated method stub
 		List<City> cityList = cityDao.getCity(cityName, search);
 		List<CityDto> dtoList = new ArrayList<CityDto>();
-		if(cityList != null) {
-			for(City city:cityList) {
+
+		if (cityList != null) {
+			for (City city : cityList) {
 				CityDto dto = new CityDto(city);
 				dtoList.add(dto);
-			}	
+			}
 		}
-		
+
 		return dtoList;
 	}
 
-	@Transactional(readOnly=false)
+	@Transactional(readOnly = false)
 	@Override
 	public int addCity(CityDto dto) {
 		// TODO Auto-generated method stub
@@ -43,7 +43,7 @@ public class CityServiceImpl implements CityService {
 		return city.getCityId();
 	}
 
-	@Transactional(readOnly=false)
+	@Transactional(readOnly = false)
 	@Override
 	public int updateCity(CityDto dto) {
 		// TODO Auto-generated method stub
@@ -52,7 +52,7 @@ public class CityServiceImpl implements CityService {
 		return city.getCityId();
 	}
 
-	@Transactional(readOnly=false)
+	@Transactional(readOnly = false)
 	@Override
 	public int deleteCity(int cityId) {
 		// TODO Auto-generated method stub
@@ -61,11 +61,12 @@ public class CityServiceImpl implements CityService {
 		cityDao.deleteCity(city);
 		return cityId;
 	}
-	@Transactional(readOnly=true)
+
+	@Transactional(readOnly = true)
 	@Override
 	public UserAccountDto login(String email, String password) {
 		// TODO Auto-generated method stub
-		return cityDao.login(email,password);
+		return cityDao.login(email, password);
 	}
 
 	@Override
@@ -74,37 +75,4 @@ public class CityServiceImpl implements CityService {
 		return null;
 	}
 
-//	@Override
-//	public List<CityDto> getCity() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	@Override
-//	public List<CityDto> getCity() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	@Transactional(readOnly=true)
-//	@Override
-//	public List<CityDto> getProduct(String cityName, String search) {
-//		// TODO Auto-generated method stub
-//		return null;
-////	}
-//	@Transactional(readOnly=true)
-//	@Override
-//	public List<CityDto> getCity() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	@Override
-//	public List<CityDto> getCity(String cityName, String search) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-	
-	
 }

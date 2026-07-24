@@ -17,6 +17,13 @@ public class Rating {
     private int productId;
     private int rating;
     private Date date;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(
+        name="productId",
+        insertable=false,
+        updatable=false
+    )
+    private Product product;
 
     public Rating() {
     	super();
@@ -63,5 +70,13 @@ public class Rating {
 	public void setRating(int rating) {
 		this.rating = rating;
 	}
+	
+	public Product getProduct(){
+        return product;
+    }
+
+    public void setProduct(Product product){
+        this.product = product;
+    }
 
 }

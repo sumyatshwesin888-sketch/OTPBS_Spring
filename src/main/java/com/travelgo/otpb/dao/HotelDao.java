@@ -8,13 +8,19 @@ import com.travelgo.otpb.dto.HotelDto;
 
 public interface HotelDao {
 
-	List<HotelDto> getHotel();
+	//List<HotelDto> getHotel();
 
 	void saveHotel(Hotel hotel);
 
 	void updateHotel(Hotel hotel);
 	
-	void deleteHotel(Hotel hotel);
+
+	//void deleteHotel(Hotel hotel);
 
 	List<HotelDto> getHotel(String hotelName, String cityName, String search);
+
+	//boolean deleteHotel(Hotel hotel);
+
+	boolean deleteHotel(int hotelId);
+
 }

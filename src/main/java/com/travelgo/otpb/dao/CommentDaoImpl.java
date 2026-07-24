@@ -2,7 +2,8 @@ package com.travelgo.otpb.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Date;
+import com.travelgo.otpb.dto.ProductDto;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,29 +22,51 @@ public class CommentDaoImpl implements CommentDao{
 		List<Object[]> objList = session.createNativeQuery("SELECT \r\n"
 				+ "    c.commentId,\r\n"
 				+ "    c.message,\r\n"
-				+ "    u.profileName AS customerName,\r\n"
-				+ "    u.email AS customerEmail,\r\n"
-				+ "    p.title AS productTitle\r\n"
+				+ "    p.title AS productTitle,\r\n"
+				+ "    c.date\r\n"
 				+ "FROM comment c\r\n"
-				+ "LEFT JOIN userAccount u ON c.customerId = u.userAccountId\r\n"
 				+ "LEFT JOIN product p ON c.productId = p.productId;").getResultList();
+				
+				
+				
 		List<CommentDto> dtoList = new  ArrayList<CommentDto>();
 		for(Object[] obj:objList) {
-			int commentId = Integer.parseInt(obj[0].toString());
-			String message = (String)obj[1];
-			String profileName = (String)obj[2];
-			String email = (String)obj[3];
-			String title = (String)obj[4];
 			CommentDto cdto = new CommentDto();
-			dtoList.add(cdto);
+
+		    cdto.setCommentId(
+		        Integer.parseInt(obj[0].toString())
+		    );
+
+		    cdto.setMessage(
+		        (String)obj[1]
+		    );
+
+
+		    ProductDto product = new ProductDto();
+
+		    product.setTitle(
+		        (String)obj[2]
+		    );
+
+		    cdto.setProduct(product);
+
+
+		    cdto.setDate(
+		        (Date)obj[3]
+		    );
+
+
+		    dtoList.add(cdto);
 		}
 		return dtoList;
 	}
 
 	
 	public void saveComment(Comment comment) {
+		  System.out.println("COMMENT INSERT START");
 		Session session = sessionFactory.getCurrentSession();
 		session.save(comment);
+		System.out.println("COMMENT INSERT END");
 	}
 
 	
@@ -55,6 +78,18 @@ public class CommentDaoImpl implements CommentDao{
 	public void deleteComment(Comment comment) {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(comment);
+	}
+
+
+	public Comment findById(int commentId) {
+		 Session session =
+			        sessionFactory.getCurrentSession();
+
+
+			    return session.get(
+			        Comment.class,
+			        commentId
+			    );
 	}
 
 }

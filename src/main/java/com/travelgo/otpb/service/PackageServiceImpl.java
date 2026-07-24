@@ -109,23 +109,54 @@ public class PackageServiceImpl  implements PackageService {
 	@Transactional(readOnly=false)
 	@Override
 	public int saveRatingComment(RatingDto dto) {
-		// TODO Auto-generated method stub
-		Rating ra = new Rating();
-		ra.setRating(dto.getRating());
-		ra.setCustomerId(dto.getUserAccountDto().getUserAccountId());
-		ra.setProductId(dto.getProductId());
-		ra.setDate(new Date());
-		ratingDao.saveRating(ra);
 		
-		Comment c = new Comment();
-		c.setDate(new Date());
-		c.setMessage(dto.getComment());
-		c.setProductId(dto.getProductId());
-		c.setCustomerId(dto.getUserAccountDto().getUserAccountId());
-		commentDao.saveComment(c);
-		
-		
-		return 1;
+		int customerId = dto.getUserAccountDto().getUserAccountId();
+
+
+	    // Save Rating
+	    Rating ra = new Rating();
+
+	    ra.setProductId(dto.getProductId());
+	    ra.setCustomerId(customerId);
+	    ra.setRating(dto.getRating());
+	    ra.setDate(new Date());
+
+	    ratingDao.saveRating(ra);
+
+
+
+	    // Save Comment
+	    Comment c = new Comment();
+
+	   
+	    c.setProductId(dto.getProductId());
+	    c.setCustomerId(customerId);
+
+	    c.setDate(new Date());
+	    c.setMessage(dto.getMessage());
+	    
+	    commentDao.saveComment(c);
+
+
+	    return c.getCommentId();
+//=======
+//		Rating ra = new Rating();
+//		ra.setRating(dto.getRating());
+//		ra.setCustomerId(dto.getUserAccountDto().getUserAccountId());
+//		ra.setProductId(dto.getProductId());
+//		ra.setDate(new Date());
+//		ratingDao.saveRating(ra);
+//		
+//		Comment c = new Comment();
+//		c.setDate(new Date());
+//		c.setMessage(dto.getComment());
+//		c.setProductId(dto.getProductId());
+//		c.setCustomerId(dto.getUserAccountDto().getUserAccountId());
+//		commentDao.saveComment(c);
+//		
+//		
+//		return 1;
+//>>>>>>> b83586f2049283ea94735086f5800728cfc763bb
 	}
 
 	@Transactional(readOnly=true)

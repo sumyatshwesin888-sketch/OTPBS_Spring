@@ -21,7 +21,9 @@ public class HotelDaoImpl implements HotelDao {
     @Override
     public List<HotelDto> getHotel(String hotelName,String cityName,String search) {
         Session session = sessionFactory.getCurrentSession();
-        String sqlWhere = "WHERE 1=1 ";
+        String sqlWhere = "WHERE h.status = 'ACTIVE' ";
+        //String sqlWhere = "WHERE 1=1 ";
+
         if (search != null && !search.trim().equals("")) {
             sqlWhere += " AND h.hotelName LIKE '%" + search.trim() + "%'";
         } else {
@@ -29,24 +31,29 @@ public class HotelDaoImpl implements HotelDao {
                 sqlWhere += " AND c.cityName = '" + cityName + "'";
             }
         }
-        String sql="SELECT c.cityName , h.hotelName FROM hotel h LEFT JOIN city c ON c.cityId = h.cityId " 
+
+        String sql="SELECT h.hotelId, h.hotelName, c.cityId, c.cityName "+ " FROM hotel h LEFT JOIN city c ON c.cityId = h.cityId " 
+
                 + sqlWhere 
                 + " ORDER BY h.hotelName";
         List<Object[]> objList = session.createNativeQuery(sql).getResultList();
         List<HotelDto> dtoList = new ArrayList<HotelDto>();
         
         for(Object[] obj : objList) {
-            String cityName1 = obj[0] != null ? obj[0].toString() : "N/A";
+        	int hId = obj[0] != null ? Integer.parseInt(obj[0].toString()) : 0;
             String htName = obj[1] != null ? obj[1].toString() : "";
+            int cId = obj[2] != null ? Integer.parseInt(obj[2].toString()) : 0;
+            String cName = obj[3] != null ? obj[3].toString() : "N/A";
 
             HotelDto dto = new HotelDto();
+            dto.setHotelId(hId);
             dto.setHotelName(htName);
             
-            // 💡 CityDto ဆောက်ပြီး cityDto field ထဲ စနစ်တကျ ထည့်ပေးလိုက်ပါပြီ
             CityDto city = new CityDto();
-            city.setCityName(cityName1);
+            city.setCityId(cId);
+            city.setCityName(cName);
             dto.setCityDto(city);
-            
+
             dtoList.add(dto);
         }
         
@@ -65,15 +72,22 @@ public class HotelDaoImpl implements HotelDao {
         session.update(hotel);
     }
 
+ 
     @Override
-    public void deleteHotel(Hotel hotel) {
+    public boolean deleteHotel(int hotelId) {
         Session session = sessionFactory.getCurrentSession();
-        session.delete(hotel);
+        
+        // DELETE Query အစား UPDATE Query ပြောင်းရေး
+        String sql = "UPDATE hotel SET status = 'DELETED' WHERE hotelId = :hId";
+        int result = session.createNativeQuery(sql)
+                            .setParameter("hId", hotelId)
+                            .executeUpdate();
+                            
+        return result > 0; // Update အဆင်ပြေရင် true ပြန်ပေးမည်
     }
 
-	@Override
-	public List<HotelDto> getHotel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
+
+
 }

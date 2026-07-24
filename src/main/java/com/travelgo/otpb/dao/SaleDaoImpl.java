@@ -4,12 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
-//<<<<<<< HEAD
-//=======
 
-
-
-//>>>>>>> fe62644ab973cd019cfc07ce6cd97243748ac8eb
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +25,7 @@ public class SaleDaoImpl implements SaleDao {
 	 private SessionFactory sessionFactory;
 
 
+
     @Override
 
     public List<SaleDto> getSale(String status) {
@@ -48,20 +44,19 @@ public class SaleDaoImpl implements SaleDao {
     	List<SaleDto>  dtoList = new ArrayList<SaleDto>();
     	for(Object[] obj:objList) {
     		int saleId = Integer.parseInt(obj[0].toString());
-    		int userAccountId = Integer.parseInt(obj[1].toString());
-    		int customerId = Integer.parseInt(obj[2].toString());
-    		String profileName = (String)obj[3];
-    		int productId = Integer.parseInt(obj[4].toString());
-    		String title = (String)obj[5];
-    		int qty = Integer.parseInt(obj[6].toString());
-    		int unitPrice = Integer.parseInt(obj[7].toString());
-    		int amount = Integer.parseInt(obj[8].toString());
-    		String paymentType = (String)obj[9];
-    		status = (String)obj[10];
-    		Date date = (Date)obj[11];
-    		Date modifiedDate = (Date)obj[12];
-    		String voucherCode = (String)obj[13];
-    		SaleDto dto =   new SaleDto(saleId,userAccountId,customerId,profileName,productId,title,qty,unitPrice,
+    		int customerId = Integer.parseInt(obj[1].toString());
+    		String profileName = (String)obj[2];
+    		int productId = Integer.parseInt(obj[3].toString());
+    		String title = (String)obj[4];
+    		int qty = Integer.parseInt(obj[5].toString());
+    		int unitPrice = Integer.parseInt(obj[6].toString());
+    		int amount = Integer.parseInt(obj[7].toString());
+    		String paymentType = (String)obj[8];
+    		status = (String)obj[9];
+    		Date date = (Date)obj[10];
+    		Date modifiedDate = (Date)obj[11];
+    		String voucherCode = (String)obj[12];
+    		SaleDto dto =   new SaleDto(saleId,customerId,profileName,productId,title,qty,unitPrice,
     				amount,paymentType,status,date,modifiedDate,voucherCode);
     		dtoList.add(dto);
     	}
@@ -185,7 +180,9 @@ public class SaleDaoImpl implements SaleDao {
             list.add(new MonthlyRevenueDto(month, amount));
         }
         return list;
+
     }
+   
 
     @Override
     public void addSale(Sale sale) {
@@ -198,7 +195,10 @@ public class SaleDaoImpl implements SaleDao {
     public void updateSale(Sale sale) {
 
     	 Session session = sessionFactory.getCurrentSession();
+
+         
     	    session.update(sale);
+
 
     }
 
@@ -211,8 +211,6 @@ public class SaleDaoImpl implements SaleDao {
         if (sale != null) {
             session.delete(sale);
         }
-
-       
 
     }
 

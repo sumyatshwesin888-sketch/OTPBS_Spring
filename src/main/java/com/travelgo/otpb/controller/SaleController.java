@@ -26,6 +26,20 @@ public class SaleController {
     SaleService saleService;
 
     @GetMapping("sale")
+//<<<<<<< HEAD
+//
+//    public List<SaleDto> getSale(
+//    		@RequestParam(name="status",defaultValue = "All")String status) {
+//
+//    	 try {
+//             return saleService.getSale(status);
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//             throw new RuntimeException("Get Sale Error!", e);
+//         }
+//
+//    }
+//=======
 
 	public List<SaleDto> getSale(@RequestParam(name="status",defaultValue = "All")String status) {
 		try {
@@ -47,21 +61,16 @@ public class SaleController {
     }
 
 
+
+	
     @PostMapping("sale")
-    public SaleDto addSale(@RequestBody SaleDto dto) {
-
-        try {
-
-            return saleService.addSale(dto);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException("Add Sale Error!", e);
-
-        }
-
+    public SaleDto addSale(
+            @RequestBody SaleDto saleDto
+    ){
+    	 System.out.println("SALE DATA");
+    	    System.out.println(saleDto);
+        return saleService.addSale(saleDto);
     }
-
     @PutMapping("sale/{saleId}")
     public SaleDto updateSale(
             @PathVariable("saleId") int saleId,
