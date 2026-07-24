@@ -2,7 +2,7 @@ package com.travelgo.otpb.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,9 @@ public class MessageDaoImpl implements MessageDao{
 	public List<MessageDto> getMessage() {
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> objList =  session.createNativeQuery("SELECT q.questionTypeId,\r\n"
-				+ "q.question,m.messageId,m.`name`,m.email,m.messageText\r\n"
-				+ "FROM questiontype q\r\n"
-				+ "LEFT JOIN message m ON m.questionTypeId = q.questionTypeId").getResultList();
+				+ "q.question,m.messageId,m.`name`,m.email,m.messageText,m.date \r\n"
+				+ "FROM message m\r\n"
+				+ "INNER JOIN questiontype q ON m.questionTypeId = q.questionTypeId").getResultList();
 		List<MessageDto> dtoList = new  ArrayList<MessageDto>();
 		
 		for(Object[] obj:objList) {
@@ -34,6 +34,11 @@ public class MessageDaoImpl implements MessageDao{
 			String name = (String)obj[3];
 			String email = (String)obj[4];
 			String messageText = (String)obj[5];
+			Date date = null;
+
+			if(obj[6] != null){
+			    date = (Date)obj[6];
+			}
 			MessageDto qdto = new MessageDto(questionTypeId,question,
 					messageId,name,email,messageText);
 			dtoList.add(qdto);

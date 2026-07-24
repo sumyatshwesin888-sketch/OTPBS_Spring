@@ -33,6 +33,24 @@ public class MessageDto {
 	public MessageDto(int questionTypeId, String question, int messageId, String name, String email,
 			String messageText) {
 		// TODO Auto-generated constructor stub
+		 this.messageId = messageId;
+
+		    this.name = name;
+
+		    this.email = email;
+
+		    this.messageText = messageText;
+
+
+		    QuestionTypeDto qdto = new QuestionTypeDto();
+
+		    qdto.setQuestionTypeId(questionTypeId);
+
+		    qdto.setQuestion(question);
+		    
+		    this.questionType = qdto;
+
+		    this.date = new Date();
 	}
 
 	private int messageId;

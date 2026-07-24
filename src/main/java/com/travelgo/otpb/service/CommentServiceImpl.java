@@ -37,14 +37,24 @@ public class CommentServiceImpl implements CommentService{
 	
 	@Transactional(readOnly=false)
 	public int updateComment(CommentDto dto) {
-		Comment comment = new Comment(dto);
-		
-		if (dto.getUserAccountDto() != null) {
-			comment.setCustomerId(dto.getUserAccountDto().getUserAccountId());
-		}
-		
-		commentDao.updateComment(comment);
-		return comment.getCommentId();
+		Comment comment =
+		        commentDao.findById(dto.getCommentId());
+
+
+		    if(comment == null){
+		        return 0;
+		    }
+
+
+		    comment.setMessage(
+		        dto.getMessage()
+		    );
+
+
+		    commentDao.updateComment(comment);
+
+
+		    return comment.getCommentId();
 	}
 	
 	@Transactional(readOnly=false)

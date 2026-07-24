@@ -16,10 +16,10 @@ public class RatingServiceImpl implements RatingService {
 
     @Transactional(readOnly = true)
     public List<RatingDto> getRating() {
-        List<Rating> list = ratingDao.getRating();
-        List<RatingDto> dtoList = new ArrayList<>();
-        for (Rating r : list) dtoList.add(new RatingDto(r));
-        return dtoList;
+//        List<Rating> list = ratingDao.getRating();
+//        List<RatingDto> dtoList = new ArrayList<>();
+//        for (Rating r : list) dtoList.add(new RatingDto(r));
+    	 return ratingDao.getRating();
     }
 
     @Transactional
