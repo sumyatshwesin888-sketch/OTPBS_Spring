@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.travelgo.otpb.controller.PackageCity;
 import com.travelgo.otpb.dto.CityTypeDto;
+import com.travelgo.otpb.dto.CommentDto;
 import com.travelgo.otpb.dto.ProductDetail;
 import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.RatingDto;
@@ -24,13 +25,15 @@ public interface PackageService {
 
 	PackageCity getPackageByCity();
 
-	int saveRatingComment(RatingDto dto);
+int saveRatingComment(RatingDto dto);
 
 	List<CityTypeDto> getPackageByLocationTypeCommCount(String locationType, int commentCount);
 
 	ProductDetail getPackageDetailById(int productId);
 	
 	List<CityTypeDto> getPackageByCityId(int cityId);
+
+	
 	
 
 

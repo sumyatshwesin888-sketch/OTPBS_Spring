@@ -16,9 +16,12 @@ public interface ProductService {
 
 	int deleteProduct(int productId);
 
+	ProductDto getProductById(int productId);
+	
 	int updateProductPhoto(int productId, MultipartFile file,int photoIndex);
 
 	List<ProductDto> getProduct();
+
 
 	
 

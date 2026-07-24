@@ -86,15 +86,11 @@ public class PackageController {
 	//package detail page
 	@PostMapping("package/ratingcomment")
 	public int saveRatingComment(@RequestBody RatingDto dto) {
+		 System.out.println("========== RATING API CALLED ==========");
+		    System.out.println(dto);
 		
-		try {
 			return packageService.saveRatingComment(dto);
-		}catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
 		
-		return 0;
 	}
 	
 	//packages page 
@@ -113,15 +109,16 @@ public class PackageController {
 	@GetMapping("package/detail/{productId}")
 	public ProductDetail getPackageDetailById(@PathVariable("productId")int productId ) { 
 		try {
-			return packageService.getPackageDetailById(productId);
+			return  packageService.getPackageDetailById(productId);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	@GetMapping("/package/city/{cityId}")
-	  public List<CityTypeDto> getPackageByCityId(@PathVariable int cityId){
+	  public List<CityTypeDto> getPackageByCityId(@PathVariable("cityId") int cityId){
 
 	      try {
 
@@ -136,4 +133,5 @@ public class PackageController {
 	      return null;
 
 	  }
+
 }

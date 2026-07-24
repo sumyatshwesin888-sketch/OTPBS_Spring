@@ -23,13 +23,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "sale")
 public class Sale {
 
+
+	
     public Sale(SaleDto dto) {
 		// TODO Auto-generated constructor stub
     	this.saleId = dto.getSaleId();//
     	this.userAccountId = dto.getUserAccountId();//
     	this.customerId = dto.getCustomerId();
     	this.productId = dto.getProductId();
-    	this.voucherCode = ConvertDate.createVoucherCode(date);//
+    	
     	this.qty = dto.getQty();
     	this.unitPrice = dto.getUnitPrice();
     	this.amount = this.qty*this.unitPrice;
@@ -37,13 +39,15 @@ public class Sale {
     	this.status  = "CONFIRM";
     	this.date = new Date();
     	this.modifiedDate = new Date();
+    	this.voucherCode = ConvertDate.createVoucherCode(this.date);//
 	}
+
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int saleId;
 
-    private int userAccountId;
+    private Integer userAccountId;
 
     private int customerId;
 
@@ -65,6 +69,28 @@ public class Sale {
 
     private Date modifiedDate;
 
+//<<<<<<< HEAD
+	
+
+//    public Sale(SaleDto dto) {
+//		// TODO Auto-generated constructor stub
+//    	
+//    	this.saleId = dto.getSaleId();//
+//    	this.userAccountId = dto.getUserAccountId();//
+//    	this.customerId = dto.getCustomerId();
+//    	this.productId = dto.getProduct().getProductId();
+//    	this.voucherCode = ConvertDate.createVoucherCode(new Date());//
+//    	this.qty = dto.getQty();
+//    	this.unitPrice = dto.getUnitPrice();
+//    	this.amount = this.qty*this.unitPrice;
+//    	this.paymentType = dto.getPaymentType();
+//    	this.status  = "CONFIRM";
+//    	this.date = new Date();
+//    	this.modifiedDate = new Date();
+//	}
+
+	
+//=======
 	public int getSaleId() {
 		return saleId;
 	}
@@ -73,11 +99,11 @@ public class Sale {
 		this.saleId = saleId;
 	}
 
-	public int getUserAccountId() {
+	public Integer getUserAccountId() {
 		return userAccountId;
 	}
 
-	public void setUserAccountId(int userAccountId) {
+	public void setUserAccountId(Integer userAccountId) {
 		this.userAccountId = userAccountId;
 	}
 
@@ -164,5 +190,6 @@ public class Sale {
 	
 
 	
+
     
 }

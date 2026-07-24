@@ -23,6 +23,7 @@ public class HotelDaoImpl implements HotelDao {
         Session session = sessionFactory.getCurrentSession();
         String sqlWhere = "WHERE h.status = 'ACTIVE' ";
         //String sqlWhere = "WHERE 1=1 ";
+
         if (search != null && !search.trim().equals("")) {
             sqlWhere += " AND h.hotelName LIKE '%" + search.trim() + "%'";
         } else {
@@ -30,7 +31,9 @@ public class HotelDaoImpl implements HotelDao {
                 sqlWhere += " AND c.cityName = '" + cityName + "'";
             }
         }
+
         String sql="SELECT h.hotelId, h.hotelName, c.cityId, c.cityName "+ " FROM hotel h LEFT JOIN city c ON c.cityId = h.cityId " 
+
                 + sqlWhere 
                 + " ORDER BY h.hotelName";
         List<Object[]> objList = session.createNativeQuery(sql).getResultList();
@@ -50,6 +53,7 @@ public class HotelDaoImpl implements HotelDao {
             city.setCityId(cId);
             city.setCityName(cName);
             dto.setCityDto(city);
+
             dtoList.add(dto);
         }
         
@@ -81,40 +85,9 @@ public class HotelDaoImpl implements HotelDao {
                             
         return result > 0; // Update အဆင်ပြေရင် true ပြန်ပေးမည်
     }
-//
-//	@Override
-//	public List<HotelDto> getHotel() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//@Override
-//public List<HotelDto> getHotel() {
-//	// TODO Auto-generated method stub
-//	return null;
-//}
-//
-//@Override
-//public void deleteHotel(Hotel hotel) {
-//	// TODO Auto-generated method stub
-//	
-//}
 
-//@Override
-//public boolean deleteHotel(Hotel hotel) {
-//	// TODO Auto-generated method stub
-//	return false;
-//}
 
-//@Override
-//public void deleteHotel(Hotel hotel) {
-//	// TODO Auto-generated method stub
-//	
-//}
 
-//	@Override
-//	public void deleteHotel(Hotel hotel) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+
+
 }

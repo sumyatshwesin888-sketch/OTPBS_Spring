@@ -23,6 +23,7 @@ public class CityServiceImpl implements CityService {
 		// TODO Auto-generated method stub
 		List<City> cityList = cityDao.getCity(cityName, search);
 		List<CityDto> dtoList = new ArrayList<CityDto>();
+
 		if (cityList != null) {
 			for (City city : cityList) {
 				CityDto dto = new CityDto(city);
@@ -73,36 +74,5 @@ public class CityServiceImpl implements CityService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-//	@Override
-//	public List<CityDto> getCity() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	@Override
-//	public List<CityDto> getCity() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	@Transactional(readOnly=true)
-//	@Override
-//	public List<CityDto> getProduct(String cityName, String search) {
-//		// TODO Auto-generated method stub
-//		return null;
-////	}
-//	@Transactional(readOnly=true)
-//	@Override
-//	public List<CityDto> getCity() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
-//	@Override
-//	public List<CityDto> getCity(String cityName, String search) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 }

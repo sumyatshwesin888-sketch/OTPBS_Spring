@@ -19,26 +19,12 @@ public class HotelServiceImpl implements HotelService {
 	@Autowired
 	HotelDao hotelDao;
 
-//	@Transactional(readOnly=true)
-//	@Override
-//	public List<HotelDto> getHotel() {
-//		// TODO Auto-generated method stub
-//		return hotelDao.getHotel();
-//		}
 	@Transactional(readOnly=true)
 	@Override
 	public List<HotelDto> getHotel(String hotelName, String cityName, String search) {
-//		List<HotelDto> hotelList = hotelDao.getHotel(hotelName,cityName, search);
-//		List<HotelDto> dtoList = new ArrayList<HotelDto>();
-//		if(hotelList != null) {
-//			for(HotelDto hotel:hotelList) {
-//				HotelDto dto = new HotelDto(hotel);
-//				dtoList.add(dto);
-//			}	
-//		}
-		
 		return hotelDao.getHotel(hotelName, cityName, search);
 		}
+
 	
 	@Transactional(readOnly=false)
 	@Override
@@ -74,11 +60,6 @@ public class HotelServiceImpl implements HotelService {
 		return null;
 	}
 
-//	@Override
-//	public List<HotelDto> getHotel() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 	
 
 	

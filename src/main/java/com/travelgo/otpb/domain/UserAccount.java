@@ -19,7 +19,7 @@ public class UserAccount {
     
     private String email;
     private String password;
-    private int status;//1 is active , 0 is inactive
+    private String status;//1 is active , 0 is inactive
 
     public UserAccount() {
         // Default constructor
@@ -33,28 +33,100 @@ public class UserAccount {
         this.userType = dto.getUserType();
         this.email = dto.getEmail();
         this.password = dto.getPassword();
-        this.status = 1;
+        this.status = dto.getStatus();
     }
 
+
+	public Integer getUserAccountId() {
+		return userAccountId;
+	}
+
+
+	public void setUserAccountId(Integer userAccountId) {
+		this.userAccountId = userAccountId;
+	}
+
+
+	public String getProfileName() {
+		return profileName;
+	}
+
+
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public String getUserType() {
+		return userType;
+	}
+
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
     // Getters and Setters
-    public Integer getUserAccountId() { return userAccountId; }
-    public void setUserAccountId(Integer userAccountId) { this.userAccountId = userAccountId; }
-
-    public String getProfileName() { return profileName; }
-    public void setProfileName(String profileName) { this.profileName = profileName; }
-
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
-
-    public String getUserType() { return userType; }
-    public void setUserType(String userType) { this.userType = userType; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-
-    public Integer getStatus() { return status; }
-    public void setStatus(Integer status) { this.status = status; }
+//    public Integer getUserAccountId() { return userAccountId; }
+//    public void setUserAccountId(Integer userAccountId) { this.userAccountId = userAccountId; }
+//
+//    public String getProfileName() { return profileName; }
+//    public void setProfileName(String profileName) { this.profileName = profileName; }
+//
+//    public String getPhone() { return phone; }
+//    public void setPhone(String phone) { this.phone = phone; }
+//
+//    public String getUserType() { return userType; }
+//    public void setUserType(String userType) { this.userType = userType; }
+//
+//    public String getEmail() { return email; }
+//    public void setEmail(String email) { this.email = email; }
+//
+//    public String getPassword() { return password; }
+//    public void setPassword(String password) { this.password = password; }
+//
+//    public String getStatus() { return status; }
+//    public void setStatus(String status) { this.status = status; }
+    
+    
 }

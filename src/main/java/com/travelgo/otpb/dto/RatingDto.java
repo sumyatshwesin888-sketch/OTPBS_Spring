@@ -21,7 +21,8 @@ public class RatingDto {
 	@JsonSerialize(using = DateTimeFormatSerializer.class)
 	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
     private Date date;
-    private String  comment;
+    private String message;
+    private ProductDto product;
     private UserAccountDto userAccountDto;
 
     public RatingDto(Rating rating) {
@@ -29,15 +30,23 @@ public class RatingDto {
         this.productId = rating.getProductId();
         this.rating = rating.getRating();
         this.date = rating.getDate();
-//        this.comment = rating.getComment();
+//       this.message = rating.getMessage();
 //        this.userAccountDto =rating.getUserAccountDto();
+        
+        if(rating.getProduct()!=null){
+            this.product = new ProductDto(rating.getProduct());
+        }
     }
+    public ProductDto getProduct(){
+        return product;
+    }
+
 
 	public RatingDto(String profileName, int rating, Date date, String message) {
 		// TODO Auto-generated constructor stub
 		this.userAccountDto = new UserAccountDto(profileName);
 		this.rating = rating;
 		this.date = date;
-		this.comment = message;
+		this.message = message;
 	}
 }

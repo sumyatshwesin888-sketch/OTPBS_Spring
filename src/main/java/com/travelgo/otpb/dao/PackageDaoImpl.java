@@ -381,100 +381,156 @@ public class PackageDaoImpl implements PackageDao {
 
 //for Destination Page
 	@Override
-	public PackageCity getPackageByCity() {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> objList = session.createNativeQuery("SELECT  "
-				+ " c.cityName,c.locationType,c.photo,c.detail,IFnull(p.amount,0)\r\n"
-				+ "FROM city c\r\n"
-				+ "LEFT JOIN hotel h ON h.cityId = c.cityId\r\n"
-				+ "LEFT JOIN product p ON p.hotelId = h.hotelId\r\n"
-				+ "ORDER BY c.locationType ASC  ").getResultList();
-		PackageCity pc = new PackageCity();
-		List<CityDto> domeList = new ArrayList<CityDto>();
-		List<CityDto> interList = new ArrayList<CityDto>();
-		for(Object[] obj:objList) {
-			String cityName = (String)obj[0];
-			String lt = (String)obj[1];
-			String photo = (String)obj[2];
-			String detail = (String)obj[3];
-			int amount  = Integer.parseInt(obj[4].toString());
-			CityDto dto = new CityDto(cityName,lt,photo,detail,amount);
-			if("DOMESTIC".equals(lt)) {
-				domeList.add(dto);
-			}else {
-				interList.add(dto);
-			}
-		}
-		pc.setDomestic(domeList);
-		pc.setInternational(interList);
-		return pc;
-	}
-	@Override
+	  public PackageCity getPackageByCity() {
+
+	      Session session = sessionFactory.getCurrentSession();
+	      List<Object[]> objList = session.createNativeQuery(
+	              "SELECT c.cityId,\r\n"
+	            + "       c.region,\r\n"
+	            + "       c.cityName,\r\n"
+	            + "       c.locationType,\r\n"
+	            + "       MIN(p.photo),\r\n"
+	            + "       c.website,\r\n"
+	            + "       c.detail,\r\n"
+	            + "       MIN(IFNULL(p.amount,0))\r\n"
+	            + "FROM city c\r\n"
+	            + "LEFT JOIN hotel h ON h.cityId = c.cityId\r\n"
+	            + "LEFT JOIN product p ON p.hotelId = h.hotelId\r\n"
+	            + "GROUP BY c.cityId,\r\n"
+	            + "         c.region,\r\n"
+	            + "         c.cityName,\r\n"
+	            + "         c.locationType,\r\n"
+	            + "         c.website,\r\n"
+	            + "         c.detail\r\n"
+	            + "ORDER BY c.locationType ASC\r\n"
+	      ).getResultList();
+
+	      PackageCity pc = new PackageCity();
+
+	      List<CityDto> domeList = new ArrayList<>();
+	      List<CityDto> interList = new ArrayList<>();
+
+	      for (Object[] obj : objList) {
+
+	          int cityId = Integer.parseInt(obj[0].toString());
+	          String region = (String) obj[1];
+	          String cityName = (String) obj[2];
+	          String locationType = (String) obj[3];
+	          String photo = (String) obj[4];
+	          String website = (String) obj[5];
+	          String detail = (String) obj[6];
+	          int amount = Integer.parseInt(obj[7].toString());
+
+	          CityDto dto = new CityDto();
+
+	          dto.setCityId(cityId);
+	          dto.setRegion(region);
+	          dto.setCityName(cityName);
+	          dto.setLocationType(locationType);
+	          dto.setPhoto(photo);
+	          dto.setWebsite(website);
+	          dto.setDetail(detail);
+	          dto.setProductDto(new ProductDto(amount));
+
+	          if ("DOMESTIC".equals(locationType)) {
+	              domeList.add(dto);
+	          } else {
+	              interList.add(dto);
+	          }
+
+	      }
+
+	      pc.setDomestic(domeList);
+	      pc.setInternational(interList);
+
+	      return pc;
+	  }
+
+	  
+	  @Override
+	  @SuppressWarnings("unchecked")
 	  public List<CityTypeDto> getPackageByCityId(int cityId) {
 
 	      Session session = sessionFactory.getCurrentSession();
 
 	      List<Object[]> objList = session.createNativeQuery(
-	              "SELECT c.cityId, c.cityName, c.region, c.website, c.detail,\r\n"
-	            + "p.productId, p.title, p.amount, p.day, p.night,\r\n"
-	            + "p.groupSize, p.type, p.photo\r\n"
+
+	              "SELECT\r\n"
+	            + "c.cityId,\r\n"
+	            + "c.cityName,\r\n"
+	            + "c.region,\r\n"
+	            + "c.website,\r\n"
+	            + "c.detail,\r\n"
+	            + "p.productId,\r\n"
+	            + "p.title,\r\n"
+	            + "p.amount,\r\n"
+	            + "p.day,\r\n"
+	            + "p.night,\r\n"
+	            + "p.groupSize,\r\n"
+	            + "p.type,\r\n"
+	            + "p.photo\r\n"
 	            + "FROM city c\r\n"
-	            + "INNER JOIN hotel h ON h.cityId = c.cityId\r\n"
-	            + "INNER JOIN product p ON p.hotelId = h.hotelId\r\n"
+	            + "LEFT JOIN hotel h ON h.cityId = c.cityId\r\n"
+	            + "LEFT JOIN product p ON p.hotelId = h.hotelId\r\n"
 	            + "WHERE c.cityId = :cityId\r\n"
-	            + "ORDER BY p.amount ASC")
-	            .setParameter("cityId", cityId)
-	            .getResultList();
+	            + "ORDER BY p.amount ASC"
+
+	      )
+	      .setParameter("cityId", cityId)
+	      .getResultList();
+
+	      List<CityTypeDto> cityDtoList = new ArrayList<>();
+
+	      if(objList.isEmpty()) {
+
+	          return cityDtoList;
+
+	      }
+
+	      CityTypeDto cityDto = new CityTypeDto();
+
+	      cityDto.setCityId(Integer.parseInt(objList.get(0)[0].toString()));
+	      cityDto.setCityName((String)objList.get(0)[1]);
+	      cityDto.setRegion((String)objList.get(0)[2]);
+	      cityDto.setWebsite((String)objList.get(0)[3]);
+	      cityDto.setDetail((String)objList.get(0)[4]);
 
 	      List<ProductDto> productList = new ArrayList<>();
 
-	      // ⭐️ ဒီစာကြောင်း ထည့်ပါ
-	      List<CityTypeDto> cityDtoList = new ArrayList<>();
+	      for(Object[] obj : objList){
 
-	      String cityName = "";
-	      String region = "";
-	      String website = "";
-	      String detail = "";
+	          if(obj[5] == null){
 
-	      for (Object[] obj : objList) {
+	              continue;
 
-	          cityName = (String) obj[1];
-	          region = (String) obj[2];
-	          website = (String) obj[3];
-	          detail = (String) obj[4];
+	          }
 
-	          ProductDto dto = new ProductDto(
-	                  Integer.parseInt(obj[5].toString()),
-	                  null,
-	                  (String) obj[12],
-	                  (String) obj[6],
-	                  Integer.parseInt(obj[8].toString()),
-	                  Integer.parseInt(obj[9].toString()),
-	                  (String) obj[10],
-	                  Integer.parseInt(obj[7].toString()),
-	                  cityName,
-	                  0,
-	                  0
-	          );
+	          ProductDto dto = new ProductDto();
 
-	          dto.setType((String) obj[11]);
+	          dto.setProductId(Integer.parseInt(obj[5].toString()));
+
+	          dto.setTitle((String)obj[6]);
+
+	          dto.setAmount(Integer.parseInt(obj[7].toString()));
+
+	          dto.setDay(Integer.parseInt(obj[8].toString()));
+
+	          dto.setNight(Integer.parseInt(obj[9].toString()));
+
+	          dto.setGroupSize((String)obj[10]);
+	          dto.setType((String)obj[11]);
+
+	          dto.setPhoto((String)obj[12]);
 
 	          productList.add(dto);
+
 	      }
 
-	      CityTypeDto city = new CityTypeDto();
+	      cityDto.setProductList(productList);
 
-	      city.setCityId(cityId);
-	      city.setCityName(cityName);
-	      city.setRegion(region);
-	      city.setWebsite(website);
-	      city.setDetail(detail);
-	      city.setProductList(productList);
+	      cityDtoList.add(cityDto);
 
-	      cityDtoList.add(city);
-
-	      // ⭐️ ဒါလည်း ထည့်ပါ
 	      return cityDtoList;
-	  }
-}
+
+	  }    
+	      }

@@ -35,6 +35,7 @@ public class ProductController {
     public List<ProductDto> getAboutStats() {
         return productService.getProduct(); 
     }
+
 	@PostMapping("product")
 	public int addProduct(@RequestBody ProductDto dto) {
 		
@@ -52,6 +53,13 @@ public class ProductController {
 			@PathVariable("productId")int productId) {
 		return productService.deleteProduct(productId);
 	}
+	
+	@GetMapping("product/{productId}")
+	public ProductDto getProductById(@PathVariable("productId")int productId) {
+		
+		return productService.getProductById(productId);
+	}
+
 	@PutMapping("product/photo/{productId}/{photoIndex}")
 	public int updateProductPhoto(@PathVariable("productId")int productId,@RequestParam(value = "file",required=false) MultipartFile file,
 			@PathVariable(name="photoIndex")int photoIndex) {
@@ -61,6 +69,7 @@ public class ProductController {
 				// TODO: handle exception
 				throw new RuntimeException("Update,Product File Error!", e);
 			}
+
 	}
 	
 }

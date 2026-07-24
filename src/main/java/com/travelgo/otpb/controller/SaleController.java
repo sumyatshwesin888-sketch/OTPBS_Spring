@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.travelgo.otpb.dto.PackageDashboardDto;
+import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.SaleDto;
 import com.travelgo.otpb.service.SaleService;
 
@@ -23,27 +26,51 @@ public class SaleController {
     SaleService saleService;
 
     @GetMapping("sale")
-    public List<SaleDto> getSale() {
+//<<<<<<< HEAD
+//
+//    public List<SaleDto> getSale(
+//    		@RequestParam(name="status",defaultValue = "All")String status) {
+//
+//    	 try {
+//             return saleService.getSale(status);
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//             throw new RuntimeException("Get Sale Error!", e);
+//         }
+//
+//    }
+//=======
 
-        return saleService.getSale();
-
+	public List<SaleDto> getSale(@RequestParam(name="status",defaultValue = "All")String status) {
+		try {
+			return saleService.getSale(status);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
+    
+    
+    //For AdminDashboard
+    
+    @GetMapping("/dashboard")
+    public PackageDashboardDto getPackageDashboard() {
+    	
+        return saleService.getPackageDashboard();
     }
 
+
+
+	
     @PostMapping("sale")
-    public SaleDto addSale(@RequestBody SaleDto dto) {
-
-        try {
-
-            return saleService.addSale(dto);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException("Add Sale Error!", e);
-
-        }
-
+    public SaleDto addSale(
+            @RequestBody SaleDto saleDto
+    ){
+    	 System.out.println("SALE DATA");
+    	    System.out.println(saleDto);
+        return saleService.addSale(saleDto);
     }
-
     @PutMapping("sale/{saleId}")
     public SaleDto updateSale(
             @PathVariable("saleId") int saleId,
@@ -80,3 +107,8 @@ public class SaleController {
     }
 
 }
+
+
+
+
+

@@ -189,7 +189,19 @@ public class ProductDaoImpl implements ProductDao {
 	        dtoList.add(dto);
 	    }
 	    return dtoList;
+	}  
+	    
+	@Override
+	public ProductDto getProductById(int productId) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Product p =  session.find(Product.class, productId);
+		ProductDto dto = new ProductDto(p);
+		return dto;
 	}
+
+
+	   
 
 	@Override
 	public List<ProductDto> getProductByProductId(int productId) {
@@ -237,9 +249,17 @@ public class ProductDaoImpl implements ProductDao {
 
 	}
 
+
+	@Override
+	public Integer getTotalProductsCount() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 //	@Override
 //	public List<ProductDto> getProductByProductId(int productId) {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+
 }

@@ -55,7 +55,8 @@ public class UserAccountServiceImpl implements UserAccountService {
 //    	}catch (Exception e) {
 //			// TODO: handle exception
     		UserAccount ua = userAccountDao.getUserAccountById(userAccountId);
-        	ua.setStatus(0);
+        	ua.setStatus("0");
+        	userAccountDao.updateUserAccount(ua);
 		//}
     	
         return userAccountId;
