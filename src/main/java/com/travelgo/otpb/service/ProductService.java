@@ -18,6 +18,8 @@ public interface ProductService {
 
 	int updateProductPhoto(int productId, MultipartFile file,int photoIndex);
 
+	List<ProductDto> getProduct();
+
 	
 
 }

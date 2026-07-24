@@ -29,14 +29,19 @@ public class CityDto {
 		this.cityId = cityId;
 		this.cityName = cityName;
 	}
-
-	public CityDto(String cityName, String lt, String photo, String detail, int amount) {
+    
+	public CityDto(String cityName, String lt,String photo, String detail, int amount) {
 		// TODO Auto-generated constructor stub
 		this.cityName = cityName;
 		this.locationType = lt;
 		this.photo = photo;
 		this.detail = detail;
 		this.productDto = new ProductDto(amount);
+	}
+
+	public CityDto(String cityName1) {
+		// TODO Auto-generate stub
+		this.cityName=cityName1;
 	}
 
 	private int cityId;

@@ -73,11 +73,11 @@ public class ProductServiceImpl implements ProductService {
 		productDao.deleteProduct(product);
 		return productId;
 	}
-//	@Transactional(readOnly=true)
-//	@Override
-//	public List<ProductDto> getProduct() {
-//	    return productDao.getProduct(); 
-//	}
+	@Transactional(readOnly=true)
+	@Override
+	public List<ProductDto> getProduct() {
+	    return productDao.getProduct(); 
+	}
 	@Transactional(readOnly=false)
 	@Override
 	public int updateProductPhoto(int productId, MultipartFile file,int photoIndex) {

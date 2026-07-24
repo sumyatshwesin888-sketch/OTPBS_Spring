@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.travelgo.otpb.dto.CityDto;
+import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.UserAccountDto;
 import com.travelgo.otpb.service.CityService;
 @RestController
@@ -24,10 +25,17 @@ public class CityController {
 	CityService cityService;
 	
 	@GetMapping("city")
-	public List<CityDto> getCity() {
-		
-		return cityService.getCity();
+	public List<CityDto> getCity(@RequestParam(name="cityName",defaultValue = "ALL")String cityName,
+    		@RequestParam(name="search",defaultValue = "")String search) {
+	
+		return cityService.getCity(cityName,search);
 	}
+	
+//	@GetMapping("city")
+//	public List<CityDto> getCity() {
+//		
+//		return cityService.getCity();
+//	}
 	
 	@PostMapping("city")
 	public int addCity(@RequestBody CityDto dto) {

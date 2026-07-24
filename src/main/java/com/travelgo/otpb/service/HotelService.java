@@ -14,6 +14,8 @@ public interface HotelService {
 
 	int deleteHotel(int hotelId);
 
+	List<HotelDto> getHotel(String hotelName,String locationType, String search);
+
 	
 
 

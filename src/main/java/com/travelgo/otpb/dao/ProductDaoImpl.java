@@ -171,13 +171,12 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<ProductDto> getProduct() {
 	    Session session = sessionFactory.getCurrentSession();
-	    List<Object[]> objList = session.createNativeQuery("SELECT "
-	            + " COUNT(DISTINCT p.useraccountId) AS traveler, "
-	            + " COUNT(p.productId) AS packages, "
-	            + " COUNT(DISTINCT c.cityId) AS cities "
-	            + " FROM product p "
-	            + " LEFT JOIN hotel h ON p.hotelId = h.hotelId "
-	            + " LEFT JOIN city c ON h.cityId = c.cityId").getResultList();
+	    	    List<Object[]> objList = session.createNativeQuery(
+	            "SELECT " +
+	            " (SELECT COUNT(DISTINCT useraccountId) FROM sale) AS traveler, " +  
+	            " (SELECT COUNT(productId) FROM product) AS packages, " +           
+	            " (SELECT COUNT(cityId) FROM city) AS cities"                       
+	    ).getResultList();
 
 	    List<ProductDto> dtoList = new ArrayList<ProductDto>();
 	    if (objList != null && !objList.isEmpty()) {
