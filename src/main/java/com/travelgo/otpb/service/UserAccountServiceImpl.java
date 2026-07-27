@@ -77,6 +77,12 @@ public class UserAccountServiceImpl implements UserAccountService {
 		return userAccountDao.getUserHome();
 	}
 
+    @Transactional(readOnly = true)
+  	@Override
+  	public UserAccountDto getUserCount() {
+  		// TODO Auto-generated method stub
+  		return userAccountDao.getUserCount();
+  	}
     @Transactional(readOnly = false)
     @Override
     public int updatePassword(UserAccountDto dto) {

@@ -20,4 +20,6 @@ public interface UserAccountService {
 
 	int updatePassword(UserAccountDto dto);
 
+	UserAccountDto getUserCount();
+
 }

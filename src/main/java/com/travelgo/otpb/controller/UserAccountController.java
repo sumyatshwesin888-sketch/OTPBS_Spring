@@ -62,4 +62,9 @@ public class UserAccountController {
         return userAccountService.getUserHome();
     }
     
+    @GetMapping("userAccount/count")
+    public UserAccountDto  getUserCount() {
+        return userAccountService.getUserCount();
+    }
+    
 }
