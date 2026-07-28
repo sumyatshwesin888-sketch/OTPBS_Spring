@@ -31,12 +31,22 @@ public class Sale {
     	this.userAccountId = dto.getUserAccountId();//
     	this.customerId = dto.getCustomerId();
     	this.productId = dto.getProductId();
+    	if(this.customerId==0) {
+    		this.customerId  = dto.getCustomer().getUserAccountId();    				
+    	}
+    	if(this.productId==0) {
+    		this.productId  = dto.getProduct().getProductId();    				
+    	}
     	
     	this.qty = dto.getQty();
     	this.unitPrice = dto.getUnitPrice();
     	this.amount = this.qty*this.unitPrice;
     	this.paymentType = dto.getPaymentType();
-    	this.status  = "CONFIRM";
+    	this.status = dto.getStatus();
+    	if(dto.getStatus()==null || dto.getStatus().equals("")) {
+    		this.status  = "CONFIRM";
+    	}
+    	
     	this.date = new Date();
     	this.modifiedDate = new Date();
     	this.voucherCode = ConvertDate.createVoucherCode(this.date);//

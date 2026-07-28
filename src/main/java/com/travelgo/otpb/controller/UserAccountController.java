@@ -31,7 +31,14 @@ public class UserAccountController {
 
     @PostMapping("userAccount")
     public int addUserAccount(@RequestBody UserAccountDto dto) {
-        return userAccountService.addUserAccount(dto);
+    	try {
+    		return userAccountService.addUserAccount(dto);
+    	} catch (Exception e) {
+
+            throw new RuntimeException("Email is already exist!", e);
+
+        }
+        
     }
 
     @PutMapping("userAccount/{userAccountId}")
