@@ -33,7 +33,7 @@ public class PackageDaoImpl implements PackageDao {
 			sql = "SELECT p.productId, c.locationType, p.photo, p.title,\r\n"
 					+ "p.`day`, p.night, p.groupSize, p.amount,\r\n"
 					+ "p.location,IFNULL(AVG(r.rating),0) AS ratingCount, COUNT( DISTINCT  cm.commentId) AS commmentCount, p.type,\r\n"
-					+ "p.ticket, COUNT(DISTINCT s.saleId) AS saleCount\r\n"
+					+ "p.ticket, SUM(s.qty) AS saleQty\r\n"
 					+ "FROM product p\r\n"
 					+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
 					+ "LEFT JOIN city c ON c.cityId = h.cityId\r\n"
@@ -63,11 +63,13 @@ public class PackageDaoImpl implements PackageDao {
 			int commentCount = Integer.parseInt(obj[10].toString());
 			String type = (String)obj[11];
 			int ticket = Integer.parseInt(obj[12].toString());
-			int saleCount = Integer.parseInt(obj[13].toString());
-			int leftTicket = ticket - saleCount;
+			int saleQty = obj[13] != null 
+			        ? Integer.parseInt(obj[13].toString()) 
+			        : 0;
+			int leftTicket = ticket - saleQty;
 			
 			ProductDto dto = new ProductDto(productId,locationType,
-					photo,title,day,night,groupSize,amount,location,ratingCount,commentCount,type,ticket,saleCount,leftTicket);
+					photo,title,day,night,groupSize,amount,location,ratingCount,commentCount,type,ticket,saleQty,leftTicket);
 			dto.setProductId(productId);
 			dto.setType(type);
 			dtoList.add(dto);
@@ -163,7 +165,7 @@ public class PackageDaoImpl implements PackageDao {
 				+ "p.location,IFNULL(AVG(r.rating),0) AS ratingCount\r\n"
 				+ " ,c.cityName,c.cityId\r\n"
 				+ ", COUNT( DISTINCT  cm.commentId) AS commmentCount, p.type,\r\n"
-				+ "p.ticket, COUNT(DISTINCT s.saleId) AS saleCount\r\n"
+				+ "p.ticket, SUM(s.qty) AS saleQty\r\n"
 				+ "FROM product p\r\n"
 				+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
 				+ "LEFT JOIN city c ON c.cityId = h.cityId\r\n"
@@ -197,8 +199,10 @@ public class PackageDaoImpl implements PackageDao {
 			int commentCount = Integer.parseInt(obj[12].toString());
 			String type = (String)obj[13];
 			int ticket = Integer.parseInt(obj[14].toString());
-			int saleCount = Integer.parseInt(obj[15].toString());
-			int leftTicket =  ticket - saleCount;
+			int saleQty = obj[15] != null 
+			        ? Integer.parseInt(obj[15].toString()) 
+			        : 0;
+			int leftTicket =  ticket - saleQty;
 			
 			
 			if(tempCityId==0) {//1
@@ -218,7 +222,7 @@ public class PackageDaoImpl implements PackageDao {
 			}
 			
 			ProductDto dto = new ProductDto(productId,locationType,
-					photo,title,day,night,groupSize,amount,location,ratingCount,commentCount, ticket,saleCount, leftTicket);
+					photo,title,day,night,groupSize,amount,location,ratingCount,commentCount, ticket,saleQty, leftTicket);
 //			System.out.println(photo);
 			dtoList.add(dto);//1,2//1
 			
@@ -240,8 +244,8 @@ public class PackageDaoImpl implements PackageDao {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> objList = session.createNativeQuery("SELECT p.productId,p.title, p.location, p.amount, p.`day`, p.night, p.travelDate, p.ticket, p.groupSize, p.meals,\r\n"
-				+ " AVG(r.rating) AS ratingCount, (DISTINCT cm.commentId) AS commentCount, p.photoone, p.photoTwo, p.photoThree, p.photoFour,\r\n"
-				+ " h.hotelId, h.hotelName, p.detail, it.dayNo,  it.title AS itTitle, it.detail AS itDetail, p.transport, COUNT(DISTINCT s.saleId ) AS saleCount\r\n"
+				+ " AVG(r.rating) AS ratingCount, COUNT(DISTINCT cm.commentId) AS commentCount, p.photoone, p.photoTwo, p.photoThree, p.photoFour,\r\n"
+				+ " h.hotelId, h.hotelName, p.detail, it.dayNo,  it.title AS itTitle, it.detail AS itDetail, p.transport, SUM(s.qty) AS saleQty\r\n"
 				+ "FROM product p\r\n"
 				+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"
 				+ "LEFT JOIN comment cm ON cm.productId = p.productId\r\n"
@@ -280,8 +284,10 @@ public class PackageDaoImpl implements PackageDao {
 			String itineraryTitle = (String)obj[20];
 			String itineraryDetail = (String)obj[21];
 			String transport = (String)obj[22];
-			int saleCount = Integer.parseInt(obj[23].toString());
-			int leftTicket = ticket - saleCount;
+			int saleQty = obj[23] != null 
+			        ? Integer.parseInt(obj[23].toString()) 
+			        : 0;
+			int leftTicket = ticket - saleQty;
 			
 			
 		
