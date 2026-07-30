@@ -27,16 +27,17 @@ public class Sale {
 	
     public Sale(SaleDto dto) {
 		// TODO Auto-generated constructor stub
-    	this.saleId = dto.getSaleId();//
+    	//this.saleId = dto.getSaleId();//
     	this.userAccountId = dto.getUserAccountId();//
     	this.customerId = dto.getCustomerId();
     	this.productId = dto.getProductId();
-    	if(this.customerId==0) {
-    		this.customerId  = dto.getCustomer().getUserAccountId();    				
-    	}
-    	if(this.productId==0) {
-    		this.productId  = dto.getProduct().getProductId();    				
-    	}
+    	 if(this.customerId == 0 && dto.getCustomer() != null) {
+    	        this.customerId = dto.getCustomer().getUserAccountId();
+    	    }
+    	 if(this.productId == 0 && dto.getProduct() != null) {
+    	        this.productId = dto.getProduct().getProductId();
+    	    }
+
     	
     	this.qty = dto.getQty();
     	this.unitPrice = dto.getUnitPrice();
@@ -45,7 +46,9 @@ public class Sale {
     	this.status = dto.getStatus();
     	if(dto.getStatus()==null || dto.getStatus().equals("")) {
     		this.status  = "CONFIRM";
-    	}
+    	} else {
+            this.status = dto.getStatus();
+        }
     	
     	this.date = new Date();
     	this.modifiedDate = new Date();
@@ -79,28 +82,7 @@ public class Sale {
 
     private Date modifiedDate;
 
-//<<<<<<< HEAD
-	
 
-//    public Sale(SaleDto dto) {
-//		// TODO Auto-generated constructor stub
-//    	
-//    	this.saleId = dto.getSaleId();//
-//    	this.userAccountId = dto.getUserAccountId();//
-//    	this.customerId = dto.getCustomerId();
-//    	this.productId = dto.getProduct().getProductId();
-//    	this.voucherCode = ConvertDate.createVoucherCode(new Date());//
-//    	this.qty = dto.getQty();
-//    	this.unitPrice = dto.getUnitPrice();
-//    	this.amount = this.qty*this.unitPrice;
-//    	this.paymentType = dto.getPaymentType();
-//    	this.status  = "CONFIRM";
-//    	this.date = new Date();
-//    	this.modifiedDate = new Date();
-//	}
-
-	
-//=======
 	public int getSaleId() {
 		return saleId;
 	}

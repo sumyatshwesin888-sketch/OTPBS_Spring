@@ -119,7 +119,8 @@ public class ProductDaoImpl implements ProductDao {
 				+ "AVG(r.rating) AS ratingCount, (cm.commentId) AS commentCount, p.photoone, p.photoTwo, p.photoThree,\r\n"
 				+ "p.photoFour,\r\n"
 				+ "h.hotelId, h.hotelName, p.detail, p.transport,\r\n"
-				+ "COUNT(distinct s.saleId ) AS saleCount,p.photo,c.locationType\r\n"
+				+ "\r\n"
+				+ "SUM(s.qty) AS saleQty,p.photo,c.locationType\r\n"
 				+ "FROM product p\r\n"
 				+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"
 				+ "LEFT JOIN comment cm ON cm.productId = p.productId\r\n"
@@ -155,14 +156,16 @@ public class ProductDaoImpl implements ProductDao {
 			String hotelName = (String)obj[17];
 			String detail = (String)obj[18];
 			String transport = (String)obj[19];
-			int saleCount = Integer.parseInt(obj[20].toString());
-			int leftTicket = ticket - saleCount;
+			int saleQty = obj[20] != null
+			        ? Integer.parseInt(obj[20].toString())
+			        : 0;
+			int leftTicket = ticket - saleQty;
 			String photo = (String)obj[21];
 			String locationType = (String)obj[22];
 			
 			dto = new ProductDto(productId,title,location,amount,day,night,travelDate,
 					ticket,groupSize,meals,ratingCount,commentCount,photoOne,photoTwo,
-					photoThree,photoFour,hotelId, hotelName,detail,transport,saleCount,leftTicket,photo,locationType);
+					photoThree,photoFour,hotelId, hotelName,detail,transport,saleQty,leftTicket,photo,locationType);
 		}
 		return dto;
 	}
@@ -282,5 +285,20 @@ public class ProductDaoImpl implements ProductDao {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+	
+	@Override
+	public void updateTicket(int productId, int qty) {
+		 Session session = sessionFactory.getCurrentSession();
+
+		    String sql =
+		        "UPDATE product " +
+		        "SET ticket = ticket - :qty " +
+		        "WHERE productId = :productId";
+
+		    session.createNativeQuery(sql)
+		           .setParameter("qty", qty)
+		           .setParameter("productId", productId)
+		           .executeUpdate();
+	}
 
 }

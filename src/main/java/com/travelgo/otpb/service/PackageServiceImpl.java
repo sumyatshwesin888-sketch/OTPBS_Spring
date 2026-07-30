@@ -128,7 +128,7 @@ public class PackageServiceImpl  implements PackageService {
 	    // Save Comment
 	    Comment c = new Comment();
 
-	   
+	    c.setRatingId(ra.getRatingId());  
 	    c.setProductId(dto.getProductId());
 	    c.setCustomerId(customerId);
 

@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.travelgo.otpb.domain.Product;
+import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dao.ProductDao;
 import com.travelgo.otpb.dao.SaleDao;
 import com.travelgo.otpb.dao.UserAccountDao;
@@ -51,6 +52,8 @@ public class SaleServiceImpl implements SaleService {
         Sale sale = new Sale(dto);
 
         saleDao.addSale(sale);
+        
+      productDao.updateTicket(dto.getProductId(), dto.getQty());
 
         return new SaleDto(sale);
 

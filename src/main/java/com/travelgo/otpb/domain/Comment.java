@@ -19,6 +19,7 @@ public class Comment {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int commentId;
+	private int ratingId;
 	private String message;
 	private Date date;
 	private int customerId;
@@ -34,7 +35,7 @@ public class Comment {
 
 	public Comment(CommentDto dto) {
 		this.commentId = dto.getCommentId();
-		
+		this.ratingId = dto.getRatingId();
 		this.productId = dto.getProductId();
 		this.message = dto.getMessage();
 		this.date = dto.getDate();
@@ -46,6 +47,14 @@ public class Comment {
 		// TODO Auto-generated constructor stub
 	}
 
+	public int getRatingId() {
+		return ratingId;
+	}
+
+	public void setRatingId(int ratingId) {
+		this.ratingId = ratingId;
+	}
+	
 	public int getCommentId() {
 		return commentId;
 	}

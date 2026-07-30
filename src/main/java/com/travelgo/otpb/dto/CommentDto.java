@@ -20,6 +20,7 @@ public class CommentDto {
 	public CommentDto(Comment comment) {
 		// TODO Auto-generated constructor stub
 		this.commentId = comment.getCommentId();
+		this.ratingId = comment.getRatingId();
 		this.customerId = comment.getCustomerId();
 		this.productId = comment.getProductId();
 		this.message = comment.getMessage();
@@ -36,6 +37,7 @@ public class CommentDto {
 
 
 	private int commentId;
+	private int ratingId;
 	private int customerId;
 	private int productId;
 	private UserAccountDto userAccountDto;
@@ -46,6 +48,8 @@ public class CommentDto {
 	@JsonSerialize(using = DateTimeFormatSerializer.class)
 	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
 	private Date date;
+
+	
 
 
 	

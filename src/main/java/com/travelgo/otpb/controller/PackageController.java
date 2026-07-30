@@ -54,7 +54,7 @@ public class PackageController {
 	}
 	@PutMapping("package/{packageId}")
 	public int updatePackage(
-			@PathVariable("package")int packageId,
+			@PathVariable("packageId")int packageId,
 			@RequestBody ProductDto dto) {
 		dto.setPackageId(packageId);
 		return packageService.updatePackage(dto);
@@ -86,10 +86,12 @@ public class PackageController {
 	//package detail page
 	@PostMapping("package/ratingcomment")
 	public int saveRatingComment(@RequestBody RatingDto dto) {
-		 System.out.println("========== RATING API CALLED ==========");
-		    System.out.println(dto);
+		try {
 		
 			return packageService.saveRatingComment(dto);
+		}catch(Exception e) {
+			throw new RuntimeException("You need to login first!",e);
+		}
 		
 	}
 	

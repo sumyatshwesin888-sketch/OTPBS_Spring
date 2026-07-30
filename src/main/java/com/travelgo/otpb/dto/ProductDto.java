@@ -115,11 +115,11 @@ public class ProductDto{
 	private ItineraryDto itineraryDto;
 	private int leftTicket;
 	private String transport;
-	private int saleCount;
+	private int saleQty;
 	private int photoCount;
 	public void setPackageId(int packageId) {
 		// TODO Auto-generated method stub
-		
+		this.productId = packageId;
 	}
 	public ProductDto(int product) {
 		// TODO Auto-generated constructor stub
@@ -134,7 +134,7 @@ public class ProductDto{
 	public ProductDto(int productId, String title, String location, int amount, int day, int night,
 			Date travelDate, int ticket, String groupSize, String meals, double ratingCount, int commentCount,
 			String photoOne, String photoTwo, String photoThree, String photoFour, int hotelId, String hotelName,
-			String detail, String transport, int saleCount, int leftTicket,String photo,String locationType) {
+			String detail, String transport, int saleQty, int leftTicket,String photo,String locationType) {
 		// TODO Auto-generated constructor stub
 		this.productId = productId;
 		this.title = title;
@@ -156,7 +156,7 @@ public class ProductDto{
 		this.hotelName = hotelName;
 		this.detail =detail;
 		this.transport = transport;
-		this.saleCount = saleCount;
+		this.saleQty = saleQty;
 		this.leftTicket = leftTicket;
 		this.photo = photo;
 		this.locationType = locationType;
@@ -194,7 +194,7 @@ public class ProductDto{
 	}
 	public ProductDto(int productId , String locationType , String photo , String title , int day , int night ,
 			String groupSize , int amount , String location , double ratingCount , int commentCount , String type ,
-			int ticket , int saleCount ,int leftTicket ) {
+			int ticket , int saleQty ,int leftTicket ) {
 		// TODO Auto-generated constructor stub
 		this.productId = productId;
 		this.locationType = locationType;
@@ -209,12 +209,14 @@ public class ProductDto{
 		this.commentCount = commentCount;
 		this.type = type;
 		this.ticket = ticket;
-		this.saleCount = saleCount;
+		this.saleQty = saleQty;
 		this.leftTicket = leftTicket;
 	}
 	public ProductDto(int productId , String locationType , String photo , String title , int day , int night ,
 			String groupSize , int amount , String location , double ratingCount , int commentCount , int ticket ,
-			int saleCount , int leftTicket) {
+
+			int saleQty , int leftTicket ) {
+
 		// TODO Auto-generated constructor stub
 		this.productId = productId;
 		this.locationType = locationType;
@@ -229,7 +231,7 @@ public class ProductDto{
 		this.commentCount = commentCount;
 //		this.type = type;
 		this.ticket = ticket;
-		this.saleCount = saleCount;
+		this.saleQty = saleQty;
 		this.leftTicket = leftTicket;
 		
 	}
