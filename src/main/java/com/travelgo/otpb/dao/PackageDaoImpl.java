@@ -153,7 +153,7 @@ public class PackageDaoImpl implements PackageDao {
 		return cityDtoList;
 	}
 
-	//For Domestic and Internation Package Page
+	//For Domestic and International Package Page
 	@Override
 	public List<CityTypeDto> getPackageByLocationType(String locationType) {
 		// TODO Auto-generated method stub

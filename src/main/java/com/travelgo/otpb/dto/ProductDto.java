@@ -29,12 +29,12 @@ public class ProductDto{
 		    this.amount = p.getAmount();
 		    this.photo = p.getPhoto();
 		    this.location = p.getLocation();}
-//=======
+
 	public ProductDto(int travelers, int packages, int cities) {
 		this.traveler = travelers;
 	    this.packages = packages;
 	    this.cities = cities;
-//>>>>>>> 88fa0d793f98df46a2f45473dc9d32297ede24b5
+
 	}
 	public ProductDto(int productId, String locationType, String photo, String title, int day, int night,
 			String groupSize, int amount, String location, double ratingCount, int commentCount) {
@@ -126,10 +126,10 @@ public class ProductDto{
 		this.amount = product;
 	}
 
-	
-	public void setType(String type) {
-		// TODO Auto-generated method stub
-	}
+//	
+//	public void setType(String type) {
+//		// TODO Auto-generated method stub
+//	}
 
 	public ProductDto(int productId, String title, String location, int amount, int day, int night,
 			Date travelDate, int ticket, String groupSize, String meals, double ratingCount, int commentCount,
@@ -214,7 +214,7 @@ public class ProductDto{
 	}
 	public ProductDto(int productId , String locationType , String photo , String title , int day , int night ,
 			String groupSize , int amount , String location , double ratingCount , int commentCount , int ticket ,
-			int saleCount , int leftTicket ) {
+			int saleCount , int leftTicket) {
 		// TODO Auto-generated constructor stub
 		this.productId = productId;
 		this.locationType = locationType;
@@ -231,6 +231,7 @@ public class ProductDto{
 		this.ticket = ticket;
 		this.saleCount = saleCount;
 		this.leftTicket = leftTicket;
+		
 	}
 
 	
