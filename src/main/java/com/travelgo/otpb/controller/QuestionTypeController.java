@@ -32,7 +32,6 @@ public class QuestionTypeController {
 	
 	@PostMapping("questionType")
 	public int addQuestionType(@RequestBody QuestionTypeDto dto) {
-		
 		return questionTypeService.addQuestionType(dto);
 	}
 	@PutMapping("questionType/{questionTypeId}")

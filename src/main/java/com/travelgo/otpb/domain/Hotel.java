@@ -17,7 +17,10 @@ public class Hotel {
     public Hotel(HotelDto dto) {
         this.hotelId = dto.getHotelId();
         this.hotelName = dto.getHotelName(); 
-        this.cityId  = dto.getCityDto().getCityId();
+        if(dto.getCityDto() !=null) {
+            this.cityId  = dto.getCityDto().getCityId();
+
+        }
     }
     public Integer getHotelId() { return hotelId; }
     public void setHotelId(Integer hotelId) { this.hotelId = hotelId; }

@@ -216,25 +216,47 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = sessionFactory.getCurrentSession();
 		Product p= session.find(Product.class, productId);
 		String pwd=new File("").getAbsolutePath();
-		if(p.getPhoto()!=null) {
-			File deleteFile=new File(pwd+"/productphoto/"+p.getPhoto());//+".png"
-			deleteFile.delete();
-		}
+		
 		String photoCode= ConvertDate.createVoucherCode(new Date());
 		if(photoIndex==0) {
-			p.setPhoto(photoCode+".png");
+			p.setPhoto(photoCode+"0.png");
+			photoCode = p.getPhoto();
+			if(p.getPhoto()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhoto());//+".png"
+				deleteFile.delete();
+			}
 		}else if(photoIndex==1) {
-			p.setPhotoOne(photoCode+".png");
+			p.setPhotoOne(photoCode+"1.png");
+			photoCode = p.getPhotoOne();
+			if(p.getPhotoOne()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhotoOne());//+".png"
+				deleteFile.delete();
+			}
 		}else if(photoIndex==2) {
-			p.setPhotoTwo(photoCode+".png");
+			p.setPhotoTwo(photoCode+"2.png");
+			photoCode = p.getPhotoTwo();
+			if(p.getPhotoTwo()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhotoTwo());//+".png"
+				deleteFile.delete();
+			}
 		}else if(photoIndex==3) {
-			p.setPhotoThree(photoCode+".png");
+			p.setPhotoThree(photoCode+"3.png");
+			photoCode = p.getPhotoThree();
+			if(p.getPhotoThree()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhotoThree());//+".png"
+				deleteFile.delete();
+			}
 		}else{
-			p.setPhotoFour(photoCode+".png");
+			p.setPhotoFour(photoCode+"4.png");
+			photoCode = p.getPhotoFour();
+			if(p.getPhotoFour()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhotoFour());//+".png"
+				deleteFile.delete();
+			}
 		}
 		//p.setPhoto(photoCode+".png");
 		File dir=new File(pwd+"/productphoto/");
-		String outPath=pwd+"/productphoto/"+photoCode+".png";
+		String outPath=pwd+"/productphoto/"+photoCode;
 		File dest=new File(outPath);
 		try {
 			if (!dir.exists()) {
@@ -246,7 +268,6 @@ public class ProductDaoImpl implements ProductDao {
 			e.printStackTrace();
 		}
 		return productId;
-
 	}
 
 

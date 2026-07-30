@@ -26,5 +26,7 @@ public interface UserAccountDao {
 
 	Integer getUserCountByStatus(String string);
 
+	UserAccountDto getUserCount();
+
 
 }

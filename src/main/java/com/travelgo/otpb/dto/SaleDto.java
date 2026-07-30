@@ -46,12 +46,12 @@ public class SaleDto {
     private String status;
     
     
-	@JsonSerialize(using = DateTimeFormatSerializer.class)
-	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
-    private Date date;
-	@JsonSerialize(using = DateTimeFormatSerializer.class)
-	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
-    private Date modifiedDate;
+//	@JsonSerialize(using = DateTimeFormatSerializer.class)
+//	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
+    private Date date = new Date();
+//	@JsonSerialize(using = DateTimeFormatSerializer.class)
+//	@JsonDeserialize(using = DateTimeFormatDeserializer.class)
+    private Date modifiedDate = new Date();
 
 
 	

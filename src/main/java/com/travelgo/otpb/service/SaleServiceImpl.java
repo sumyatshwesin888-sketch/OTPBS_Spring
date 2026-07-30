@@ -40,12 +40,12 @@ public class SaleServiceImpl implements SaleService {
     public SaleDto addSale(SaleDto dto) {
 
 		
-		System.out.println("===== SALE INSERT =====");
-	    System.out.println(dto.getCustomerId());
-	    System.out.println(dto.getProductId());
-	    System.out.println(dto.getQty());
-	    System.out.println(dto.getUnitPrice());
-	    System.out.println(dto.getPaymentType());
+//		System.out.println("===== SALE INSERT =====");
+//	    System.out.println(dto.getCustomerId());
+//	    System.out.println(dto.getProductId());
+//	    System.out.println(dto.getQty());
+//	    System.out.println(dto.getUnitPrice());
+//	    System.out.println(dto.getPaymentType());
 
 
         Sale sale = new Sale(dto);

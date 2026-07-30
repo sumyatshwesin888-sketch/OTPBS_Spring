@@ -18,7 +18,7 @@ public class CityDto {
 		this.cityId = city.getCityId();
 		this.cityName = city.getCityName();
 		this.locationType =city.getLocationType();
-		//this.photo = city.getPhoto();
+		this.photo = city.getPhoto();
 		this.region = city.getRegion();
 		this.website = city.getWebsite();
 		this.detail = city.getDetail();
