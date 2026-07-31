@@ -117,6 +117,7 @@ public class ProductDto{
 	private String transport;
 	private int saleQty;
 	private int photoCount;
+	private String status = "ACTIVE";
 	public void setPackageId(int packageId) {
 		// TODO Auto-generated method stub
 		this.productId = packageId;

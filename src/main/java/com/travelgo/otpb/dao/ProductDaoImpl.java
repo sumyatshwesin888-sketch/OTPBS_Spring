@@ -24,7 +24,7 @@ public class ProductDaoImpl implements ProductDao {
 
 
 	@Override
-	public List<ProductDto> getProduct(String productType, String locationType, String search) {
+	public List<ProductDto> getProduct(String productType, String locationType, String search,String status) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		String sqlWhere = " Where 1=1 ";
@@ -37,9 +37,12 @@ public class ProductDaoImpl implements ProductDao {
 		if(!"".equals(search)) {
 			sqlWhere += " AND p.title like '%"+search+"%'"; 
 		}
+		if(!"ALL".equals(status)) {
+			sqlWhere += " AND p.status= '"+status+"'";
+				}
 		List<Object[]> objList =  session.createNativeQuery(" SELECT p.title,p.type,c.locationType,p.location,p.day,p.night,p.groupSize,"
 				+ "p.meals,p.travelDate,p.ticket,p.transport,p.amount,\r\n"
-				+ "p.photo,p.photoone,p.photoTwo,p.photoThree,p.photoFour,p.productId\r\n"
+				+ "p.photo,p.photoone,p.photoTwo,p.photoThree,p.photoFour,p.productId,p.status\r\n"
 				+ "FROM product p\r\n"
 				+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
 				+ "LEFT JOIN city c ON c.cityId = h.cityId "+sqlWhere).getResultList();
@@ -77,11 +80,13 @@ public class ProductDaoImpl implements ProductDao {
 			if(photoFour!=null) {
 				photoCount+=1;
 			}
+			status = (String)obj[18];
 			ProductDto dto = new ProductDto(title,type,locationType,location,
 					day,night,groupSize,meals,travelDate,ticket,transport,amount,photo,photoOne,
 					photoTwo,photoThree,photoFour);
 			dto.setPhotoCount(photoCount);
 			dto.setProductId(productId);
+			dto.setStatus(status);
 			dtoList.add(dto);
 		}
 		return dtoList;

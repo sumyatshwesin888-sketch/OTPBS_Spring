@@ -28,9 +28,9 @@ public class SaleServiceImpl implements SaleService {
     
     @Transactional(readOnly=true)
 	@Override
-    public List<SaleDto> getSale(String status) {
+    public List<SaleDto> getSale(String status,String search) {
 
-        return saleDao.getSale(status);
+        return saleDao.getSale(status,search);
 
     }
     
@@ -106,5 +106,13 @@ public class SaleServiceImpl implements SaleService {
         return saleId;
 
     }
+
+
+	@Transactional(readOnly=true)
+	@Override
+	public PackageDashboardDto getPackageDashboardSale() {
+		// TODO Auto-generated method stub
+		return saleDao.getPackageDashboardSale();
+	}
 
 }

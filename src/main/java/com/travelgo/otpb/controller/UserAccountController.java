@@ -73,5 +73,15 @@ public class UserAccountController {
     public UserAccountDto  getUserCount() {
         return userAccountService.getUserCount();
     }
-    
+    @PutMapping("userAccount/email")
+    public int updatePasswordEmail(@RequestBody UserAccountDto dto) {
+    	try {
+    		  return userAccountService.updatePasswordEmail(dto); 
+    	}catch (Exception e) {
+
+            throw new RuntimeException("Update Password Fail!", e);
+
+        }
+      
+    }
 }
