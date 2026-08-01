@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.travelgo.otpb.domain.Sale;
 import com.travelgo.otpb.dto.MonthlyRevenueDto;
+import com.travelgo.otpb.dto.PackageDashboardDto;
 import com.travelgo.otpb.dto.SaleDto;
 import com.travelgo.otpb.dto.TopProductDto;
 
 public interface SaleDao {
 
-    List<SaleDto> getSale(String status);
+    List<SaleDto> getSale(String status,String search);
 
     void addSale(Sale sale);
 
@@ -36,6 +37,8 @@ public interface SaleDao {
 	List<MonthlyRevenueDto> getMonthlyRevenue();
 
 	List<Sale> getSaleByUserId(int userId);
+
+	PackageDashboardDto getPackageDashboardSale();
 
 	
 	

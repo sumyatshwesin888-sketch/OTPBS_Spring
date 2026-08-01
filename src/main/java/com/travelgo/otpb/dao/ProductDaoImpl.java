@@ -24,7 +24,7 @@ public class ProductDaoImpl implements ProductDao {
 
 
 	@Override
-	public List<ProductDto> getProduct(String productType, String locationType, String search) {
+	public List<ProductDto> getProduct(String productType, String locationType, String search,String status) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		String sqlWhere = " Where 1=1 ";
@@ -37,9 +37,12 @@ public class ProductDaoImpl implements ProductDao {
 		if(!"".equals(search)) {
 			sqlWhere += " AND p.title like '%"+search+"%'"; 
 		}
+		if(!"ALL".equals(status)) {
+			sqlWhere += " AND p.status= '"+status+"'";
+				}
 		List<Object[]> objList =  session.createNativeQuery(" SELECT p.title,p.type,c.locationType,p.location,p.day,p.night,p.groupSize,"
 				+ "p.meals,p.travelDate,p.ticket,p.transport,p.amount,\r\n"
-				+ "p.photo,p.photoone,p.photoTwo,p.photoThree,p.photoFour,p.productId\r\n"
+				+ "p.photo,p.photoone,p.photoTwo,p.photoThree,p.photoFour,p.productId,p.status\r\n"
 				+ "FROM product p\r\n"
 				+ "LEFT JOIN hotel h ON h.hotelId = p.hotelId\r\n"
 				+ "LEFT JOIN city c ON c.cityId = h.cityId "+sqlWhere).getResultList();
@@ -77,11 +80,13 @@ public class ProductDaoImpl implements ProductDao {
 			if(photoFour!=null) {
 				photoCount+=1;
 			}
+			status = (String)obj[18];
 			ProductDto dto = new ProductDto(title,type,locationType,location,
 					day,night,groupSize,meals,travelDate,ticket,transport,amount,photo,photoOne,
 					photoTwo,photoThree,photoFour);
 			dto.setPhotoCount(photoCount);
 			dto.setProductId(productId);
+			dto.setStatus(status);
 			dtoList.add(dto);
 		}
 		return dtoList;
@@ -102,12 +107,18 @@ public class ProductDaoImpl implements ProductDao {
 		session.update(product);
 	}
 
-	@Override
-	public void deleteProduct(Product product) {
-		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		session.delete(product);
-	}
+	  @Override
+	    public boolean deleteProduct(int productId) {
+	        Session session = sessionFactory.getCurrentSession();
+	        
+	        // DELETE Query အစား UPDATE Query ပြောင်းရေး
+	        String sql = "UPDATE product SET status = 'DELETE' WHERE productId = :pId";
+	        int result = session.createNativeQuery(sql)
+	                            .setParameter("pId", productId)
+	                            .executeUpdate();
+	                            
+	        return result > 0; // Update အဆင်ပြေရင် true ပြန်ပေးမည်
+	    }
 	
 	
 //	for product detail Page for real
@@ -119,7 +130,8 @@ public class ProductDaoImpl implements ProductDao {
 				+ "AVG(r.rating) AS ratingCount, (cm.commentId) AS commentCount, p.photoone, p.photoTwo, p.photoThree,\r\n"
 				+ "p.photoFour,\r\n"
 				+ "h.hotelId, h.hotelName, p.detail, p.transport,\r\n"
-				+ "COUNT(distinct s.saleId ) AS saleCount,p.photo,c.locationType\r\n"
+				+ "\r\n"
+				+ "SUM(s.qty) AS saleQty,p.photo,c.locationType\r\n"
 				+ "FROM product p\r\n"
 				+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"
 				+ "LEFT JOIN comment cm ON cm.productId = p.productId\r\n"
@@ -155,14 +167,16 @@ public class ProductDaoImpl implements ProductDao {
 			String hotelName = (String)obj[17];
 			String detail = (String)obj[18];
 			String transport = (String)obj[19];
-			int saleCount = Integer.parseInt(obj[20].toString());
-			int leftTicket = ticket - saleCount;
+			int saleQty = obj[20] != null
+			        ? Integer.parseInt(obj[20].toString())
+			        : 0;
+			int leftTicket = ticket - saleQty;
 			String photo = (String)obj[21];
 			String locationType = (String)obj[22];
 			
 			dto = new ProductDto(productId,title,location,amount,day,night,travelDate,
 					ticket,groupSize,meals,ratingCount,commentCount,photoOne,photoTwo,
-					photoThree,photoFour,hotelId, hotelName,detail,transport,saleCount,leftTicket,photo,locationType);
+					photoThree,photoFour,hotelId, hotelName,detail,transport,saleQty,leftTicket,photo,locationType);
 		}
 		return dto;
 	}
@@ -216,25 +230,47 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = sessionFactory.getCurrentSession();
 		Product p= session.find(Product.class, productId);
 		String pwd=new File("").getAbsolutePath();
-		if(p.getPhoto()!=null) {
-			File deleteFile=new File(pwd+"/productphoto/"+p.getPhoto());//+".png"
-			deleteFile.delete();
-		}
+		
 		String photoCode= ConvertDate.createVoucherCode(new Date());
 		if(photoIndex==0) {
-			p.setPhoto(photoCode+".png");
+			p.setPhoto(photoCode+"0.png");
+			photoCode = p.getPhoto();
+			if(p.getPhoto()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhoto());//+".png"
+				deleteFile.delete();
+			}
 		}else if(photoIndex==1) {
-			p.setPhotoOne(photoCode+".png");
+			p.setPhotoOne(photoCode+"1.png");
+			photoCode = p.getPhotoOne();
+			if(p.getPhotoOne()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhotoOne());//+".png"
+				deleteFile.delete();
+			}
 		}else if(photoIndex==2) {
-			p.setPhotoTwo(photoCode+".png");
+			p.setPhotoTwo(photoCode+"2.png");
+			photoCode = p.getPhotoTwo();
+			if(p.getPhotoTwo()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhotoTwo());//+".png"
+				deleteFile.delete();
+			}
 		}else if(photoIndex==3) {
-			p.setPhotoThree(photoCode+".png");
+			p.setPhotoThree(photoCode+"3.png");
+			photoCode = p.getPhotoThree();
+			if(p.getPhotoThree()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhotoThree());//+".png"
+				deleteFile.delete();
+			}
 		}else{
-			p.setPhotoFour(photoCode+".png");
+			p.setPhotoFour(photoCode+"4.png");
+			photoCode = p.getPhotoFour();
+			if(p.getPhotoFour()!=null) {
+				File deleteFile=new File(pwd+"/productphoto/"+p.getPhotoFour());//+".png"
+				deleteFile.delete();
+			}
 		}
 		//p.setPhoto(photoCode+".png");
 		File dir=new File(pwd+"/productphoto/");
-		String outPath=pwd+"/productphoto/"+photoCode+".png";
+		String outPath=pwd+"/productphoto/"+photoCode;
 		File dest=new File(outPath);
 		try {
 			if (!dir.exists()) {
@@ -246,7 +282,6 @@ public class ProductDaoImpl implements ProductDao {
 			e.printStackTrace();
 		}
 		return productId;
-
 	}
 
 
@@ -261,5 +296,20 @@ public class ProductDaoImpl implements ProductDao {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+	
+	@Override
+	public void updateTicket(int productId, int qty) {
+		 Session session = sessionFactory.getCurrentSession();
+
+		    String sql =
+		        "UPDATE product " +
+		        "SET ticket = ticket - :qty " +
+		        "WHERE productId = :productId";
+
+		    session.createNativeQuery(sql)
+		           .setParameter("qty", qty)
+		           .setParameter("productId", productId)
+		           .executeUpdate();
+	}
 
 }

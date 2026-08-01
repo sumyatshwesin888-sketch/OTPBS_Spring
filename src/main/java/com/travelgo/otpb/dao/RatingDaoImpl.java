@@ -94,11 +94,17 @@ public class RatingDaoImpl implements RatingDao {
 	public List<RatingDto> getRatingCommentByProductId(int productId) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		List<Object[]> objList = session.createNativeQuery("SELECT  ua.profileName,r.rating,r.date,c.message\r\n"
+		List<Object[]> objList = session.createNativeQuery("SELECT ua.profileName,\r\n"
+				+ "       r.rating,\r\n"
+				+ "       r.date,\r\n"
+				+ "       c.message\r\n"
 				+ "FROM rating r\r\n"
-				+ "LEFT JOIN `comment` c ON c.productId = r.productId\r\n"
-				+ "LEFT JOIN useraccount ua ON ua.userAccountId = r.customerId\r\n"
-				+ "WHERE r.productId = :productId order by r.ratingId DESC ").setParameter("productId", productId).getResultList();
+				+ "LEFT JOIN comment c\r\n"
+				+ "    ON c.ratingId = r.ratingId\r\n"
+				+ "LEFT JOIN useraccount ua\r\n"
+				+ "    ON ua.userAccountId = r.customerId\r\n"
+				+ "WHERE r.productId = :productId\r\n"
+				+ "ORDER BY r.ratingId DESC ").setParameter("productId", productId).getResultList();
 		List<RatingDto>  dtoList = new ArrayList<RatingDto>();
 		for(Object[] obj:objList) {
 			String profileName = (String)obj[0];

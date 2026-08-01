@@ -149,9 +149,11 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	}
 
 	@Override
-	public UserAccount findByEmail(String email) {
+	public UserAccount getUserAccountByEmail(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		return (UserAccount) session.createQuery("select ua from UserAccount ua where ua.email = :email")
+				.setParameter("email", email).getSingleResult();
 	}
 
 //	@Override

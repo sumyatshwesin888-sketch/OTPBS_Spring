@@ -31,7 +31,14 @@ public class UserAccountController {
 
     @PostMapping("userAccount")
     public int addUserAccount(@RequestBody UserAccountDto dto) {
-        return userAccountService.addUserAccount(dto);
+    	try {
+    		return userAccountService.addUserAccount(dto);
+    	} catch (Exception e) {
+
+            throw new RuntimeException("Email is already exist!", e);
+
+        }
+        
     }
 
     @PutMapping("userAccount/{userAccountId}")
@@ -66,5 +73,16 @@ public class UserAccountController {
     public UserAccountDto  getUserCount() {
         return userAccountService.getUserCount();
     }
-    
- }
+
+    @PutMapping("userAccount/email")
+    public int updatePasswordEmail(@RequestBody UserAccountDto dto) {
+    	try {
+    		  return userAccountService.updatePasswordEmail(dto); 
+    	}catch (Exception e) {
+
+            throw new RuntimeException("Update Password Fail!", e);
+
+        }
+      
+    }
+}

@@ -34,16 +34,29 @@ public class Sale {
 	
     public Sale(SaleDto dto) {
 		// TODO Auto-generated constructor stub
-    	this.saleId = dto.getSaleId();//
+    	//this.saleId = dto.getSaleId();//
     	this.userAccountId = dto.getUserAccountId();//
     	this.customerId = dto.getCustomerId();
     	this.productId = dto.getProductId();
+    	 if(this.customerId == 0 && dto.getCustomer() != null) {
+    	        this.customerId = dto.getCustomer().getUserAccountId();
+    	    }
+    	 if(this.productId == 0 && dto.getProduct() != null) {
+    	        this.productId = dto.getProduct().getProductId();
+    	    }
+
     	
     	this.qty = dto.getQty();
     	this.unitPrice = dto.getUnitPrice();
     	this.amount = this.qty*this.unitPrice;
     	this.paymentType = dto.getPaymentType();
-    	this.status  = "CONFIRM";
+    	this.status = dto.getStatus();
+    	if(dto.getStatus()==null || dto.getStatus().equals("")) {
+    		this.status  = "CONFIRM";
+    	} else {
+            this.status = dto.getStatus();
+        }
+    	
     	this.date = new Date();
     	this.modifiedDate = new Date();
     	this.voucherCode = ConvertDate.createVoucherCode(this.date);//
@@ -193,12 +206,6 @@ public class Sale {
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
-
-	
-
-	
-
-	
 
     
 }

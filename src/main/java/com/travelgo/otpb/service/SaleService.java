@@ -7,7 +7,7 @@ import com.travelgo.otpb.dto.SaleDto;
 
 public interface SaleService {
 
-	List<SaleDto> getSale(String status);
+	List<SaleDto> getSale(String status,String search);
 
 	SaleDto addSale(SaleDto dto);
 
@@ -17,6 +17,9 @@ public interface SaleService {
 
 	PackageDashboardDto getPackageDashboard();
 
+
 	List<SaleDto> getSaleByUserId(int userId);
+
+	PackageDashboardDto getPackageDashboardSale();
 
 }

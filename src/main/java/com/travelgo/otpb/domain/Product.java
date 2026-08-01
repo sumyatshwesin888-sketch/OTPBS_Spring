@@ -46,6 +46,7 @@ public class Product{
 		this.travelDate = ConvertDate.convertDateToStringYearMonthDay(dto.getTravelDate());
 		this.ticket = dto.getTicket();
 		this.transport = dto.getTransport();
+		this.status = dto.getStatus();
 		
 	}
 	public Product(int productId, String pTitle) {
@@ -76,6 +77,7 @@ public class Product{
 	private String travelDate;
 	private int ticket;
 	private String transport;
+	private String status;
 	
 }
 	

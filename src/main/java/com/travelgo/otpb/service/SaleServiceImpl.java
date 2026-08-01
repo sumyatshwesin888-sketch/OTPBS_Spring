@@ -4,7 +4,8 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.travelgo.otpb.domain.Product;
+import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dao.ProductDao;
 import com.travelgo.otpb.dao.SaleDao;
 import com.travelgo.otpb.dao.UserAccountDao;
@@ -27,9 +28,9 @@ public class SaleServiceImpl implements SaleService {
     
     @Transactional(readOnly=true)
 	@Override
-    public List<SaleDto> getSale(String status) {
+    public List<SaleDto> getSale(String status,String search) {
 
-        return saleDao.getSale(status);
+        return saleDao.getSale(status,search);
 
     }
     
@@ -40,17 +41,19 @@ public class SaleServiceImpl implements SaleService {
     public SaleDto addSale(SaleDto dto) {
 
 		
-		System.out.println("===== SALE INSERT =====");
-	    System.out.println(dto.getCustomerId());
-	    System.out.println(dto.getProductId());
-	    System.out.println(dto.getQty());
-	    System.out.println(dto.getUnitPrice());
-	    System.out.println(dto.getPaymentType());
+//		System.out.println("===== SALE INSERT =====");
+//	    System.out.println(dto.getCustomerId());
+//	    System.out.println(dto.getProductId());
+//	    System.out.println(dto.getQty());
+//	    System.out.println(dto.getUnitPrice());
+//	    System.out.println(dto.getPaymentType());
 
 
         Sale sale = new Sale(dto);
 
         saleDao.addSale(sale);
+        
+      productDao.updateTicket(dto.getProductId(), dto.getQty());
 
         return new SaleDto(sale);
 
@@ -121,6 +124,14 @@ public class SaleServiceImpl implements SaleService {
 	        }
 	    }
 	    return dtoList;
+	}
+
+
+	@Transactional(readOnly=true)
+	@Override
+	public PackageDashboardDto getPackageDashboardSale() {
+		// TODO Auto-generated method stub
+		return saleDao.getPackageDashboardSale();
 	}
 
 }
