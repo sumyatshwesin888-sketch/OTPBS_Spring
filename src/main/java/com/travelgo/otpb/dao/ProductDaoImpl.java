@@ -159,7 +159,8 @@ public class ProductDaoImpl implements ProductDao {
 			int saleQty = obj[20] != null
 			        ? Integer.parseInt(obj[20].toString())
 			        : 0;
-			int leftTicket = ticket - saleQty;
+//			int leftTicket = ticket - saleQty;
+			int leftTicket = ticket;
 			String photo = (String)obj[21];
 			String locationType = (String)obj[22];
 			
@@ -288,17 +289,22 @@ public class ProductDaoImpl implements ProductDao {
 	
 	@Override
 	public void updateTicket(int productId, int qty) {
-		 Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 
-		    String sql =
-		        "UPDATE product " +
-		        "SET ticket = ticket - :qty " +
-		        "WHERE productId = :productId";
+	    System.out.println("productId = " + productId);
+	    System.out.println("qty = " + qty);
 
-		    session.createNativeQuery(sql)
-		           .setParameter("qty", qty)
-		           .setParameter("productId", productId)
-		           .executeUpdate();
+	    String sql = "UPDATE product " +
+	                 "SET ticket = ticket - :qty " +
+	                 "WHERE productId = :productId";
+
+	    int row = session.createNativeQuery(sql)
+	            .setParameter("qty", qty)
+	            .setParameter("productId", productId)
+	            .executeUpdate();
+
+	    System.out.println("Updated Row = " + row);
+
 	}
 
 }

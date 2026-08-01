@@ -66,7 +66,7 @@ public class PackageDaoImpl implements PackageDao {
 			int saleQty = obj[13] != null 
 			        ? Integer.parseInt(obj[13].toString()) 
 			        : 0;
-			int leftTicket = ticket - saleQty;
+			int leftTicket = ticket; 
 			
 			ProductDto dto = new ProductDto(productId,locationType,
 					photo,title,day,night,groupSize,amount,location,ratingCount,commentCount,type,ticket,saleQty,leftTicket);
