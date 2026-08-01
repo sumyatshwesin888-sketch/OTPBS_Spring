@@ -1,5 +1,7 @@
 package com.travelgo.otpb.domain;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 
 import org.apache.xmlbeans.UserType;
@@ -20,7 +22,9 @@ public class UserAccount {
     private String email;
     private String password;
     private String status;//1 is active , 0 is inactive
-
+ // Forgot Password အတွက် ထည့်သွင်းသည့် Column များ
+    private String resetToken;
+    private LocalDateTime tokenExpiration;
     public UserAccount() {
         // Default constructor
     }
@@ -104,6 +108,22 @@ public class UserAccount {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+
+	public void setResetToken(String token) {
+		this.resetToken = token;		
+	}
+
+
+	public void setTokenExpiration(LocalDateTime plusMinutes) {
+		this.tokenExpiration = plusMinutes;
+	}
+
+
+	public LocalDateTime getTokenExpiration() {
+		// TODO Auto-generated method stub
+		return tokenExpiration;
 	}
 
     // Getters and Setters

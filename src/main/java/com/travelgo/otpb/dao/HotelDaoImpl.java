@@ -86,8 +86,4 @@ public class HotelDaoImpl implements HotelDao {
         return result > 0; // Update အဆင်ပြေရင် true ပြန်ပေးမည်
     }
 
-
-
-
-
 }

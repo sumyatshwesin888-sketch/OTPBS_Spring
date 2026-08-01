@@ -17,4 +17,6 @@ public interface SaleService {
 
 	PackageDashboardDto getPackageDashboard();
 
+	List<SaleDto> getSaleByUserId(int userId);
+
 }

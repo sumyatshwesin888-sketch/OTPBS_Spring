@@ -1,6 +1,5 @@
 package com.travelgo.otpb.service;
-
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +10,7 @@ import com.travelgo.otpb.dao.SaleDao;
 import com.travelgo.otpb.dao.UserAccountDao;
 import com.travelgo.otpb.domain.Sale;
 import com.travelgo.otpb.dto.PackageDashboardDto;
+import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.SaleDto;
 import com.travelgo.otpb.service.SaleService;
 
@@ -81,7 +81,6 @@ public class SaleServiceImpl implements SaleService {
     }
 
 	@Transactional(readOnly=false)
-
 	@Override
     public SaleDto updateSale(SaleDto dto) {
 
@@ -94,7 +93,6 @@ public class SaleServiceImpl implements SaleService {
     }
 
 	@Transactional(readOnly=false)
-
 	@Override
     public int deleteSale(int saleId) {
 
@@ -103,5 +101,26 @@ public class SaleServiceImpl implements SaleService {
         return saleId;
 
     }
+	@Transactional(readOnly = true)
+	@Override
+	public List<SaleDto> getSaleByUserId(int userId) {
+	    List<Sale> saleList = saleDao.getSaleByUserId(userId);
+	    List<SaleDto> dtoList = new ArrayList<>();
+	    if (saleList != null) {
+	        for (Sale sale : saleList) {
+	            SaleDto dto = new SaleDto(sale);
+	            if(sale.getProduct() != null) {
+	            	ProductDto productDto = new ProductDto(); 
+	                
+	                productDto.setProductId(sale.getProduct().getProductId());
+	                productDto.setTitle(sale.getProduct().getTitle());
+	                productDto.setPhoto(sale.getProduct().getPhoto());
+	         	    dto.setProduct(productDto);
+	            }
+	            dtoList.add(dto);
+	        }
+	    }
+	    return dtoList;
+	}
 
 }

@@ -173,7 +173,7 @@ public class ProductDaoImpl implements ProductDao {
 	    Session session = sessionFactory.getCurrentSession();
 	    	    List<Object[]> objList = session.createNativeQuery(
 	            "SELECT " +
-	            " (SELECT COUNT(DISTINCT useraccountId) FROM sale) AS traveler, " +  
+	            " (SELECT COUNT(DISTINCT customerId) FROM sale) AS traveler, " +  
 	            " (SELECT COUNT(productId) FROM product) AS packages, " +           
 	            " (SELECT COUNT(cityId) FROM city) AS cities"                       
 	    ).getResultList();

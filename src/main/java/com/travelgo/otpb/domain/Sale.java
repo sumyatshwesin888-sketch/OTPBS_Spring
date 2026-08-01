@@ -6,11 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.travelgo.otpb.dto.CommentDto;
 import com.travelgo.otpb.dto.ProductDto;
 import com.travelgo.otpb.dto.SaleDto;
+import com.travelgo.otpb.dto.UserAccountDto;
 import com.travelgo.otpb.util.ConvertDate;
+import com.travelgo.otpb.util.DateTimeFormatDeserializer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor 
 
+@Data
 @Entity
 @Table(name = "sale")
 public class Sale {
@@ -47,7 +54,7 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int saleId;
 
-    private Integer userAccountId;
+    private int userAccountId;
 
     private int customerId;
 
@@ -68,8 +75,10 @@ public class Sale {
     private Date date;
 
     private Date modifiedDate;
-
-//<<<<<<< HEAD
+    
+    @ManyToOne
+    @JoinColumn(name = "productId", insertable = false, updatable = false)
+    private Product product;
 	
 
 //    public Sale(SaleDto dto) {
@@ -89,8 +98,6 @@ public class Sale {
 //    	this.modifiedDate = new Date();
 //	}
 
-	
-//=======
 	public int getSaleId() {
 		return saleId;
 	}
@@ -186,6 +193,8 @@ public class Sale {
 	public void setModifiedDate(Date modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
+
+	
 
 	
 

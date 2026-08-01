@@ -220,7 +220,19 @@ public class SaleDaoImpl implements SaleDao {
 		return null;
 	}
 
-
+	@Override
+	public List<Sale> getSaleByUserId(int userId) {
+	    Session session = sessionFactory.getCurrentSession();
+	    String sql = "select distinct s from Sale s " +
+                "JOIN FETCH s.product p " + 
+                "where s.userAccountId = :userId order by s.saleId desc";
+                
+   List<Sale> saleList = session.createQuery(sql, Sale.class)
+                               .setParameter("userId", userId)
+                               .getResultList();
+	        
+	    return saleList;
+	}
 
 
 

@@ -148,6 +148,12 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		return dto;
 	}
 
+	@Override
+	public UserAccount findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 //	@Override
 //	public List<UserAccount> getUserAccount() {
 //		// TODO Auto-generated method stub

@@ -35,6 +35,8 @@ public interface SaleDao {
 
 	List<MonthlyRevenueDto> getMonthlyRevenue();
 
+	List<Sale> getSaleByUserId(int userId);
+
 	
 	
 
