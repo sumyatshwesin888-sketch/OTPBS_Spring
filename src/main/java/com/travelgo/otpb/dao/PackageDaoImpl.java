@@ -40,7 +40,7 @@ public class PackageDaoImpl implements PackageDao {
 					+ "LEFT JOIN rating r ON r.productId = p.productId\r\n"
 					+ "LEFT JOIN comment cm ON cm.productId = p.productId\r\n"
 					+ "LEFT JOIN sale s ON s.productId = p.productId\r\n"
-					+ "WHERE 1=1\r\n"
+					+ "WHERE p.status !='DELETE'\r\n"
 					+ "GROUP BY p.productId\r\n"
 					+ "ORDER BY p.productId";
 			
@@ -155,7 +155,7 @@ public class PackageDaoImpl implements PackageDao {
 		return cityDtoList;
 	}
 
-	//For Domestic and Internation Package Page
+	//For Domestic and International Package Page
 	@Override
 	public List<CityTypeDto> getPackageByLocationType(String locationType) {
 		// TODO Auto-generated method stub
@@ -478,7 +478,7 @@ public class PackageDaoImpl implements PackageDao {
 	            + "FROM city c\r\n"
 	            + "LEFT JOIN hotel h ON h.cityId = c.cityId\r\n"
 	            + "LEFT JOIN product p ON p.hotelId = h.hotelId\r\n"
-	            + "WHERE c.cityId = :cityId\r\n"
+	            + "WHERE c.cityId = :cityId AND p.status!='DELETE'\r\n"
 	            + "ORDER BY p.amount ASC"
 
 	      )

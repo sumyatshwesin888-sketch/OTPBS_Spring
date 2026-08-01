@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor 
 public class PackageDashboardDto {
     private Integer totalSales;
-    private Double totalRevenue;
+    private Double totalRevenue=0.0;
     private Integer totalProducts;
     private Integer activeUsers;
     private Integer inactiveUsers;
@@ -24,5 +24,8 @@ public class PackageDashboardDto {
     private List<TopProductDto> topProducts;
     private List<MonthlyRevenueDto> monthlyRevenues;
 
+    private int approved;
+    private int confirm;
+    private int cancel;
     
 }

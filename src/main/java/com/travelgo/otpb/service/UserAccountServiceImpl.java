@@ -32,7 +32,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     @Transactional(readOnly = false)
     @Override
     public int addUserAccount(UserAccountDto dto) {
-        UserAccount userAccount = new UserAccount(dto);
+    	UserAccount userAccount = new UserAccount(dto);
         userAccountDao.saveUserAccount(userAccount);
         return userAccount.getUserAccountId();
     }
@@ -89,5 +89,13 @@ public class UserAccountServiceImpl implements UserAccountService {
          userAccountDao.updatePassword(dto.getUserAccountId(), dto.getPassword());
          return dto.getUserAccountId();
     }
+    @Transactional(readOnly = false)
+	@Override
+	public int updatePasswordEmail(UserAccountDto dto) {
+		// TODO Auto-generated method stub
+		UserAccount ua = userAccountDao.getUserAccountByEmail(dto.getEmail());
+			ua.setPassword(dto.getPassword());
+		return 1;
+	}
 
 }

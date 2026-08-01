@@ -28,10 +28,12 @@ public class SaleDaoImpl implements SaleDao {
 
     @Override
 
-    public List<SaleDto> getSale(String status) {
+    public List<SaleDto> getSale(String status,String search) {
     	Session session = sessionFactory.getCurrentSession();
     	String sqlWhere = " WHERE 1=1 ";
-    	if(!"All".equals(status)) {
+    	if(!search.equals("")) {
+    		sqlWhere+= " AND ua.profileName like '%"+search+"%'";
+    	}else if(!"All".equals(status)) {
     		sqlWhere+= " AND s.status= '"+status+"'";
     	}
     	List<Object[]> objList = session.createNativeQuery("SELECT s.saleId,ua.userAccountId,"
@@ -218,6 +220,29 @@ public class SaleDaoImpl implements SaleDao {
 	public Integer getUserCountByStatus(String string) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public PackageDashboardDto getPackageDashboardSale() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List<Object[]> objList = session.createNativeQuery("SELECT \r\n"
+				+ "SUM(IF(s.status = 'APPROVED',1,0)) AS app,\r\n"
+				+ "SUM(IF(s.status = 'CONFIRM',1,0)) AS com,\r\n"
+				+ "SUM(IF(s.status = 'DELETE',1,0)) AS cancel\r\n"
+				+ "FROM sale s\r\n"
+				+ "").getResultList();
+		PackageDashboardDto dto = new PackageDashboardDto();
+		if(objList.size()>0) {
+			Object[] obj = objList.get(0);
+			int app = Integer.parseInt(obj[0].toString());
+			int com = Integer.parseInt(obj[1].toString());
+			int cancel = Integer.parseInt(obj[2].toString());
+			dto.setApproved(app);
+			dto.setConfirm(com);
+			dto.setCancel(cancel);
+		}
+		return dto;
 	}
 
 

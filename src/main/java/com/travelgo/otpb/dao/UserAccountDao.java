@@ -28,5 +28,7 @@ public interface UserAccountDao {
 
 	UserAccountDto getUserCount();
 
+	UserAccount getUserAccountByEmail(String email);
+
 
 }

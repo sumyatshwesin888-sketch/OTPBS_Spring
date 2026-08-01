@@ -22,4 +22,6 @@ public interface UserAccountService {
 
 	UserAccountDto getUserCount();
 
+	int updatePasswordEmail(UserAccountDto dto);
+
 }

@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional(readOnly=true)
 	@Override
-	public List<ProductDto> getProduct(String productType, String locationType, String search) {
-		return productDao.getProduct(productType,locationType,search);
+	public List<ProductDto> getProduct(String productType, String locationType, String search,String status) {
+		return productDao.getProduct(productType,locationType,search,status);
 
 	}
 	@Transactional(readOnly=true)

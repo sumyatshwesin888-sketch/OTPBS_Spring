@@ -26,9 +26,10 @@ public class ProductController {
 	@GetMapping("product")
 	public List<ProductDto> getProduct(@RequestParam(name="type",defaultValue = "ALL")String productType,
 			@RequestParam(name="locationType",defaultValue = "ALL")String locationType,
-    		@RequestParam(name="search",defaultValue = "")String search) {
+    		@RequestParam(name="search",defaultValue = "")String search,
+    		@RequestParam(name="status",defaultValue = "")String status) {
 		
-		return productService.getProduct(productType,locationType,search);
+		return productService.getProduct(productType,locationType,search,status);
 	}
 	
 	@GetMapping("product/stats")

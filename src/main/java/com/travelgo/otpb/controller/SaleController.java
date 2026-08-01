@@ -41,9 +41,10 @@ public class SaleController {
 //    }
 //=======
 
-	public List<SaleDto> getSale(@RequestParam(name="status",defaultValue = "All")String status) {
+	public List<SaleDto> getSale(@RequestParam(name="status",defaultValue = "All")String status,
+			@RequestParam(name="search",defaultValue = "")String search) {
 		try {
-			return saleService.getSale(status);
+			return saleService.getSale(status,search);
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -60,7 +61,11 @@ public class SaleController {
         return saleService.getPackageDashboard();
     }
 
-
+    @GetMapping("/sale/dashboard")
+    public PackageDashboardDto getPackageDashboardSale() {
+    	
+        return saleService.getPackageDashboardSale();
+    }
 
 	
     @PostMapping("sale")

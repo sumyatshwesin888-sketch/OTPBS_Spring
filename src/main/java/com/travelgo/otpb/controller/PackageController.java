@@ -54,7 +54,7 @@ public class PackageController {
 	}
 	@PutMapping("package/{packageId}")
 	public int updatePackage(
-			@PathVariable("package")int packageId,
+			@PathVariable("packageId")int packageId,
 			@RequestBody ProductDto dto) {
 		dto.setPackageId(packageId);
 		return packageService.updatePackage(dto);
