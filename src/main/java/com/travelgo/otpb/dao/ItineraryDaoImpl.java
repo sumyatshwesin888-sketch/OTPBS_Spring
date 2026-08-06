@@ -19,7 +19,7 @@ public class ItineraryDaoImpl implements ItineraryDao{
     SessionFactory sessionFactory;
 
 	@Override
-	public List<ItineraryDto> getItineray() {
+	public List<ItineraryDto> getItinerary() {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		List<Object[]> objList = session.createNativeQuery("SELECT it.itineraryId, it.productId, p.title AS pTitle, it.title AS itTitle, it.detail, it.dayNo\r\n"

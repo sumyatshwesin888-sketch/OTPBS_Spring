@@ -20,7 +20,7 @@ public class ItineraryServiceImpl implements ItineraryService{
 	@Override
 	public List<ItineraryDto> getItinerary() {
 		// TODO Auto-generated method stub
-		return iDao.getItineray();
+		return iDao.getItinerary();
 	}
 
 	@Transactional(readOnly=false)

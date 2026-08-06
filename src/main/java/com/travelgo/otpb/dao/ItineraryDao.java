@@ -7,7 +7,6 @@ import com.travelgo.otpb.dto.ItineraryDto;
 
 public interface ItineraryDao {
 
-	List<ItineraryDto> getItineray();
 
 	void addItinerary(Itinerary i);
 
@@ -16,6 +15,8 @@ public interface ItineraryDao {
 	void deleteItinerary(Itinerary i);
 
 	List<ItineraryDto> getItineraryByProductId(int productId);
+
+	List<ItineraryDto> getItinerary();
 
 	
 
